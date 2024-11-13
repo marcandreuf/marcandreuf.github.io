@@ -21,7 +21,9 @@ export const TAGS = [
   'coding',
   'estimations',
   'software quality',
-  'code quality'
+  'code quality',
+  'test automation',
+  'testing'
 ] as const;
 
 /** adjust this later */
