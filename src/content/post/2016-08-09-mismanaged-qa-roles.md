@@ -4,7 +4,7 @@ description: Good testers are those who become great experts of the actual behav
 publishDate: 2016-08-09
 updatedDate: 2016-08-09
 heroImage: '../../content/post/_images/2016-08-09-mismanaged-qa-roles/gmw-quote-the-name-of-things.jpg'
-heroAlt: todo
+heroAlt: 'Quote from Gerald M. Wienberg sayins'
 noHero: false
 tags:
   - coding

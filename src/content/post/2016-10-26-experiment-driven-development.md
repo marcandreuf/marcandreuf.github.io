@@ -4,7 +4,7 @@ description: After years of practising in the test automation ecosystem, an axio
 publishDate: 2016-10-26
 updatedDate: 2016-10-26
 heroImage: '../../content/post/_images/2016-10-26-experiment-driven-development/software-experiments.jpg'
-heroAlt: abstract water drop image
+heroAlt: 'abstract water drop image'
 noHero: false
 tags:
   - coding

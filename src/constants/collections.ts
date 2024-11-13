@@ -23,7 +23,11 @@ export const TAGS = [
   'software quality',
   'code quality',
   'test automation',
-  'testing'
+  'testing',
+  'best practices',
+  'QA management',
+  'QA roles',
+  'test framework'
 ] as const;
 
 /** adjust this later */
