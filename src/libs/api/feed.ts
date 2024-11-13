@@ -44,7 +44,7 @@ export const getFeed = async (): Promise<Feed> => {
     const { title, description, publishDate, heroImage, noHero } = data;
 
     const url = `${SITE_URL}${ROUTES.BLOG}${slug}/`;
-    const { code: content } = await renderMarkdown(body);
+    //const { code: content } = await renderMarkdown(body);
 
     const item: Item = {
       title,
@@ -55,7 +55,7 @@ export const getFeed = async (): Promise<Feed> => {
       published: publishDate,
       author: [author],
       copyright: copyright(publishDate),
-      content,
+      //content,
       ...(noHero ? { image: `${SITE_URL}${heroImage.src}` } : {}),
     };
 

@@ -18,6 +18,10 @@ export const TAGS = [
   'python',
   'devops',
   'self-hosting',
+  'coding',
+  'estimations',
+  'software quality',
+  'code quality'
 ] as const;
 
 /** adjust this later */
@@ -37,7 +41,7 @@ export const CATEGORIES = [
     icon: 'mdi:announcement-outline',
   },
   {
-    name: 'showcases',
+    name: 'Q.Assistance',
     icon: 'mdi:presentation',
   },
   {
