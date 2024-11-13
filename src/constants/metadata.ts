@@ -31,7 +31,7 @@ export const PAGE_METADATA = {
   'lists/blog': {
     title: 'Blog',
     description:
-      'Est aliquip reprehenderit eu esse duis laboris cillum adipisicing reprehenderitvoluptate ex aute voluptate.',
+      'Welcome to my blog, which includes the lessons I learned while working on cool projects, ideas about Software Quality Assistance and related topics.',
   },
   'lists/blog/tags': {
     title: 'Tags',
