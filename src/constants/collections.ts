@@ -31,7 +31,9 @@ export const TAGS = [
   'architecture',
   'distributed',
   'JAX London',
-  'Microservices'
+  'Microservices',
+  'JAVA',
+  'innovation'
 ] as const;
 
 /** adjust this later */

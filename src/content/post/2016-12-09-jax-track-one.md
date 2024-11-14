@@ -4,7 +4,7 @@ description: Last October I had the great chance to attend to JAX London Confere
 publishDate: 2016-12-09
 updatedDate: 2024-09-15
 heroImage: '../../content/post/_images/2016-12-09-jax-track-one/distributed-abstract.jpg'
-heroAlt: 'abstract water drop image'
+heroAlt: 'abstract squared 3d buttons on a white surface'
 noHero: false
 tags:
   - architecture
@@ -58,6 +58,7 @@ Using Micro-services architecture is not a free lunch. It is hard and all the dr
 -   There are powerful tools, PAAS, etc..Those require considerable learning curves. It may be required careful coordination across services for some features. And some other risks like high latency issues.
 
 That was all for this session.
+
 ------
 Many thanks for reading, please leave a comment if you have any quality hint.
 
