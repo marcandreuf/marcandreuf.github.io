@@ -33,7 +33,10 @@ export const TAGS = [
   'JAX London',
   'Microservices',
   'JAVA',
-  'innovation'
+  'innovation',
+  'cqrs',
+  'event sourcing',
+  'aggregates'
 ] as const;
 
 /** adjust this later */
