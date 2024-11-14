@@ -4,7 +4,7 @@ description: Quick notes from session 5 of JAX London 2016. Java Flight Recorder
 publishDate: 2016-12-23
 updatedDate: 2024-09-19
 heroImage: '../../content/post/_images/2016-12-23-jax-track-five/java-logo.jpg'
-heroAlt: 'abstract ...'
+heroAlt: 'A woman on the background holding a java logo on her fingers.'
 noHero: false
 tags:
   - JAVA
