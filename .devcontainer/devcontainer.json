@@ -28,7 +28,9 @@
 				"bradlc.vscode-tailwindcss",
 				"esbenp.prettier-vscode",
 				"fallenmax.mithril-emmet",
-				"unifiedjs.vscode-mdx"
+				"unifiedjs.vscode-mdx",
+				//"github.vscode-pull-request-github",
+				"github.vscode-github-actions"
 				//"wallabyjs.console-ninja" Not yet supported until 12/2024
 			]
 		}
