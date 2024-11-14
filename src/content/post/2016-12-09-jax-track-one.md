@@ -1,10 +1,10 @@
 ---
 title: 1 Side notes JAX London 2016
-description: Last October I had the great chance to attend to JAX London Conference 2016. I will publish a new series of schematic articles with all the notes taken during the sessions.
+description: Developing microservices Workshop JAX London 2016 presented by Chirs Richardson.
 publishDate: 2016-12-09
 updatedDate: 2024-09-15
 heroImage: '../../content/post/_images/2016-12-09-jax-track-one/distributed-abstract.jpg'
-heroAlt: 'abstract squared 3d buttons on a white surface'
+heroAlt: 'An abstract squared 3d buttons on a white surface'
 noHero: false
 tags:
   - architecture
@@ -27,7 +27,7 @@ First of all, I have to reference the [JaxCenter](https://jaxenter.com) as the m
 
 ## Notes for the 10th October 2016:
 
-### 09:00 -- 17:00 [Developing microservices  Chris Richardson, Chris Richardson Consulting, Inc](https://jaxlondon.com/session/developing-microservices/)
+### 09:00 -- 17:00 [Developing microservices Workshop by Chris Richardson, Chris Richardson Consulting, Inc](https://jaxlondon.com/session/developing-microservices/)
 
 -   Most of the content of the workshop comes from articles in the [Microservices.io,](http://microservices.io) the website with top content about Micro-service architecture patterns and best practices.
 -   The key concept to approach Micro-services architectures with success is to balance out "organization + process + architecture" in order to support distributed solutions philosophy. This idea is expanded in this [article](https://blog.eventuate.io/2016/06/02/successful-software-development-organization-process-architecture-gluecon/).

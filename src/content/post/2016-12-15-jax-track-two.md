@@ -1,10 +1,10 @@
 ---
 title: 2 Side notes JAX London 2016
-description: Quick notes from session 2 of JAX London 2016, preseneted by James Governor from RedMonk.
+description: Quick notes from session 2 of JAX London 2016, Java for Cloud Natives preseneted by James Governor from RedMonk.
 publishDate: 2016-12-15
 updatedDate: 2024-09-16
 heroImage: '../../content/post/_images/2016-12-15-jax-track-two/java-dev.jpg'
-heroAlt: 'a person with a laptop siting on a sofa with java and design books on his left side, the image taken from above the person.'
+heroAlt: 'A person with a laptop siting on a sofa with java and design books on his left side, the image taken from above the person.'
 noHero: false
 tags:
   - innovation
