@@ -2,14 +2,14 @@
 title: Experiment-driven development
 description: After years of practising in the test automation ecosystem, an axiom crystallized in my mind.
 publishDate: 2016-10-26
-updatedDate: 2016-10-26
+updatedDate: 2024-09-14
 heroImage: '../../content/post/_images/2016-10-26-experiment-driven-development/software-experiments.jpg'
-heroAlt: 'abstract water drop image'
+heroAlt: 'Abstract water drop image.'
 noHero: false
 tags:
-  - coding
-  - estimations
-  - code quality
+- coding
+- estimations
+- code quality
 category: Q.Assistance
 toc: true
 ---

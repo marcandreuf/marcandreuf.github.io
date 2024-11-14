@@ -27,7 +27,11 @@ export const TAGS = [
   'best practices',
   'QA management',
   'QA roles',
-  'test framework'
+  'test framework',
+  'architecture',
+  'distributed',
+  'JAX London',
+  'Microservices'
 ] as const;
 
 /** adjust this later */
