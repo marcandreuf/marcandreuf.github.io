@@ -39,7 +39,10 @@ export const TAGS = [
   'aggregates',
   'resilience',
   'culture',
-  'events'
+  'events',
+  'developers',
+  'happines',
+  'goals'
 ] as const;
 
 /** adjust this later */
