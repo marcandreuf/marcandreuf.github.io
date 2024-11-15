@@ -1,6 +1,6 @@
 ---
 title: 7 Side notes JAX London 2016
-description: Quick notes from session 7 of JAX London 2016.Euphoria despite the Despair (Re)discovering the joy of being a software engineer preseneted by Holly Cummins & Holly Cummins.
+description: Quick notes from session 7 of JAX London 2016. Euphoria despite the Despair (Re)discovering the joy of being a software engineer preseneted by Holly Cummins & Holly Cummins.
 publishDate: 2016-12-28
 updatedDate: 2024-09-21
 heroImage: '../../content/post/_images/2016-12-28-jax-track-seven/happy-dev.jpg'

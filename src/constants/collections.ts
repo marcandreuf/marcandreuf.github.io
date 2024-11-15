@@ -44,7 +44,8 @@ export const TAGS = [
   'happines',
   'goals',
   'complexity',
-  'cynefin'
+  'cynefin',
+  'streaming'
 ] as const;
 
 /** adjust this later */
