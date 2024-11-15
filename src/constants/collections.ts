@@ -57,7 +57,9 @@ export const TAGS = [
   'software',
   'cybersecuity',
   'CIA triad',
-  'information security'
+  'information security',
+  'vpn',
+  'proxmox'
 ] as const;
 
 /** adjust this later */
