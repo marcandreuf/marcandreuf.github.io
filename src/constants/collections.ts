@@ -48,7 +48,8 @@ export const TAGS = [
   'streaming',
   'dsl',
   'junit',
-  'infrastructure'
+  'infrastructure',
+  'principles'
 ] as const;
 
 /** adjust this later */

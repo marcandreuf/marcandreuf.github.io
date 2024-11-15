@@ -3,8 +3,8 @@ title: 10 Side notes JAX London 2016
 description: Quick notes from session 10 of JAX London 2016. Making Sense of Microservices preseneted by Russ Miles & Junit session by Nicolai Parlog.
 publishDate: 2017-01-02
 updatedDate: 2024-09-24
-heroImage: '../../content/post/_images/2016-12-30-jax-track-nine/distributrd-system.jpg'
-heroAlt: 'A woman sitting on the floor with her laptop and with books around her and a library shelf behind.'
+heroImage: '../../content/post/_images/2017-01-02-jax-track-ten/software-dev.jpg'
+heroAlt: 'A software developer working with two monitors on a wooden desk.'
 noHero: false
 tags:
   - JAVA

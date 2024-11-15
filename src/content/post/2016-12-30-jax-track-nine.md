@@ -4,7 +4,7 @@ description: Quick notes from session 9 of JAX London 2016. Four Distributed Sys
 publishDate: 2016-12-30
 updatedDate: 2024-09-23
 heroImage: '../../content/post/_images/2016-12-30-jax-track-nine/distributrd-system.jpg'
-heroAlt: 'A woman sitting on the floor with her laptop and with books around her and a library shelf behind.'
+heroAlt: 'Abastract squared tiles with colored shapes on top of each tile.'
 noHero: false
 tags:
   - JAVA

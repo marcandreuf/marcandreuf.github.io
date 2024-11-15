@@ -4,7 +4,7 @@ description: Quick notes from session 8 of JAX London 2016. Cynefin for Develope
 publishDate: 2016-12-29
 updatedDate: 2024-09-22
 heroImage: '../../content/post/_images/2016-12-29-jax-track-eight/complex-head.jpg'
-heroAlt: 'A woman on the background holding a java logo on her fingers.'
+heroAlt: 'An abstract human head made of thick strings of various colors. The strings spand to the right in strainght lines from within the head like shape.'
 noHero: false
 tags:
   - JAVA
