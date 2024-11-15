@@ -54,7 +54,10 @@ export const TAGS = [
   'strategy',
   'efficiency',
   'recruitment',
-  'software'
+  'software',
+  'cybersecuity',
+  'CIA triad',
+  'information security'
 ] as const;
 
 /** adjust this later */
@@ -78,8 +81,8 @@ export const CATEGORIES = [
     icon: 'mdi:presentation',
   },
   {
-    name: 'video',
-    icon: 'mdi:video-outline',
+    name: 'AppSec',
+    icon: 'mdi:security',
   },
   {
     name: 'tools',
