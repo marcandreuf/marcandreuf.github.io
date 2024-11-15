@@ -4,7 +4,7 @@ description: Soon after, when the project is engaged and there is no room for di
 publishDate: 2017-01-30
 updatedDate: 2024-09-27
 heroImage: '../../content/post/_images/2017-01-31-software-qa-strategy/strategy.jpg'
-heroAlt: '...'
+heroAlt: 'Two persons discussing about some content on a book.'
 noHero: false
 tags:
   - test automation
