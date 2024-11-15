@@ -4,7 +4,7 @@ description: Quick notes from session 7 of JAX London 2016.Euphoria despite the 
 publishDate: 2016-12-28
 updatedDate: 2024-09-21
 heroImage: '../../content/post/_images/2016-12-28-jax-track-seven/happy-dev.jpg'
-heroAlt: 'A woman on the background holding a java logo on her fingers.'
+heroAlt: 'A woman sitting on the floor with her laptop and with books around her and a library shelf behind.'
 noHero: false
 tags:
   - JAVA
