@@ -52,7 +52,9 @@ export const TAGS = [
   'principles',
   'failure',
   'strategy',
-  'efficiency'
+  'efficiency',
+  'recruitment',
+  'software'
 ] as const;
 
 /** adjust this later */
