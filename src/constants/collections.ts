@@ -49,7 +49,9 @@ export const TAGS = [
   'dsl',
   'junit',
   'infrastructure',
-  'principles'
+  'principles',
+  'failure',
+  'strategy'
 ] as const;
 
 /** adjust this later */

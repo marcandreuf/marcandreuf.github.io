@@ -4,7 +4,7 @@ description: Quick notes from session 10 of JAX London 2016. Applying DDD at pac
 publishDate: 2017-01-11
 updatedDate: 2024-09-25
 heroImage: '../../content/post/_images/2017-01-11-jax-track-eleven/software-workshop.jpg'
-heroAlt: 'A woman sitting on the floor with her laptop and with books around her and a library shelf behind.'
+heroAlt: 'A photo taken from above showing a meeting table with people woriking with their laptops.'
 noHero: false
 tags:
   - JAVA
