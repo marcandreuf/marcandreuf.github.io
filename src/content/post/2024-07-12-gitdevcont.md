@@ -4,7 +4,7 @@ description: How to configure a devcontainer with the host Git credentials. We d
 publishDate: 2024-07-12
 updatedDate: 2024-11-07
 heroImage: '../../content/post/_images/2024-07-12-gitdevcont/containers-jump.jpg'
-heroAlt: '...'
+heroAlt: 'A photo of a big ship container with a person jumping on top.'
 noHero: false
 tags:
   - infrastructure
@@ -12,7 +12,7 @@ tags:
   - best practices
   - devcontainers
   - automation
-category: Q.Assistance
+category: Tutorials
 toc: true
 ---
 

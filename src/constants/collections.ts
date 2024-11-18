@@ -64,7 +64,9 @@ export const TAGS = [
   'proxmox',
   'virtual',
   'safe box',
-  'web development'
+  'web development',
+  'android',
+  'expo'
 ] as const;
 
 /** adjust this later */
@@ -72,7 +74,7 @@ export const CATEGORIES = [
   // add color here
   // extract find function
   {
-    name: 'tutorials',
+    name: 'Tutorials',
     icon: 'mdi:teach',
   },
   {

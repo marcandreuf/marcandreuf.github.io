@@ -4,7 +4,7 @@ description: Optimal node js dev environment to speed up npm dependency manageme
 publishDate: 2024-07-16
 updatedDate: 2024-11-08
 heroImage: '../../content/post/_images/2024-07-16-devcontainer-pnpm/optimal-containers.jpg'
-heroAlt: '...'
+heroAlt: 'A photo taken from the right side of a big container ship.'
 noHero: false
 tags:
   - infrastructure
@@ -13,7 +13,7 @@ tags:
   - devcontainers
   - automation
   - node.js
-category: Q.Assistance
+category: Tutorials
 toc: true
 ---
 
