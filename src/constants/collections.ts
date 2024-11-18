@@ -61,7 +61,8 @@ export const TAGS = [
   'vpn',
   'proxmox',
   'virtual',
-  'safe box'
+  'safe box',
+  'web development'
 ] as const;
 
 /** adjust this later */
