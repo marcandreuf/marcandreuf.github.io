@@ -17,6 +17,8 @@ export const TAGS = [
   'css',
   'python',
   'devops',
+  'devcontainers',
+  'automation',
   'self-hosting',
   'coding',
   'estimations',

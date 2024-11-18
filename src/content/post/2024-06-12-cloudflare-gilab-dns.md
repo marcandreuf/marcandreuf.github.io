@@ -4,7 +4,7 @@ description: Setting up a custom domain for a GitLab Pages site using Cloudflare
 publishDate: 2022-06-12
 updatedDate: 2024-11-06
 heroImage: '../../content/post/_images/2024-06-12-cloudflare-gilab-dns/cloudflare-gitlab-dns.png'
-heroAlt: '...'
+heroAlt: 'An abstract image of a handshake with cloud icons on the background'
 noHero: false
 tags:
   - infrastructure
