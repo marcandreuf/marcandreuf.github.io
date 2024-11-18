@@ -66,7 +66,8 @@ export const TAGS = [
   'safe box',
   'web development',
   'android',
-  'expo'
+  'expo',
+  'error handling'
 ] as const;
 
 /** adjust this later */
@@ -78,7 +79,7 @@ export const CATEGORIES = [
     icon: 'mdi:teach',
   },
   {
-    name: 'tips-and-tricks',
+    name: 'Tips&Tricks',
     icon: 'mdi:lightbulb-outline',
   },
   {
@@ -98,7 +99,7 @@ export const CATEGORIES = [
     icon: 'mdi:tools',
   },
   {
-    name: 'resources',
+    name: 'Resources',
     icon: 'mdi:book-open-variant-outline',
   },
 ] as const;

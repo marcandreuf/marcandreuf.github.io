@@ -13,7 +13,7 @@ tags:
   - devcontainers
   - automation
   - node.js
-category: Tutorials
+category: Tips&Tricks
 toc: true
 ---
 

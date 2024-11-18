@@ -11,7 +11,7 @@ tags:
   - expo
   - android
   - react
-category: Tutorials
+category: Resources
 toc: true
 ---
 

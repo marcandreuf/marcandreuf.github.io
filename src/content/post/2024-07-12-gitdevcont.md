@@ -12,7 +12,7 @@ tags:
   - best practices
   - devcontainers
   - automation
-category: Tutorials
+category: Tips&Tricks
 toc: true
 ---
 
