@@ -4,7 +4,7 @@ description: This post explores how to manage errors in node js and bubble up th
 publishDate: 2024-09-21
 updatedDate: 2024-11-10
 heroImage: '../../content/post/_images/2024-08-21-bubbling-up-error-details/bubble.jpg'
-heroAlt: 'Ai generated. A person sitting in an office setup and working with computers on a desk.'
+heroAlt: 'A photo of a soap bubble on a green like forest background.'
 noHero: false
 tags:
   - node.js

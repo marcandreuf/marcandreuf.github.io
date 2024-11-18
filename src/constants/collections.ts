@@ -63,11 +63,13 @@ export const TAGS = [
   'vpn',
   'proxmox',
   'virtual',
+  'virtualization',
   'safe box',
   'web development',
   'android',
   'expo',
-  'error handling'
+  'error handling',
+  'local environment'
 ] as const;
 
 /** adjust this later */
