@@ -69,7 +69,8 @@ export const TAGS = [
   'android',
   'expo',
   'error handling',
-  'local environment'
+  'local environment',
+  'google-sheets'
 ] as const;
 
 /** adjust this later */
