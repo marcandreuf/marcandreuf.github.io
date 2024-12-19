@@ -2,4 +2,6 @@
 
 
 # Credits
-* This project is a frok from the developer blog [marcandreuf.com](https://marcandreuf.com)
+* This project is a frok from the developer blog nemanjam/nemanjam.github.io
+
+
