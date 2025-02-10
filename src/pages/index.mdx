@@ -10,8 +10,9 @@ import { Image } from 'astro:assets';
 import { IMAGE_SIZES } from '../constants/image';
 import profile from '../assets/images/index/profile2023.png';
 import heroImg from '../assets/images/index/dev-hero.jpg';
-import itqualabHomePage from '../assets/images/index/itql-screenshot.png';
-import taaHomePage from '../assets/images/index/taa-home-page-update.png';
+import itqualabHomePage from '../assets/images/index/itql-screenshot-small-screen.png';
+import taaHomePage from '../assets/images/index/taa-home-page-ss.png';
+import gmHomePage from '../assets/images/index/gm-home-page.png';
 
 
 <section class="flex flex-col w-full items-center justify-center">
@@ -41,10 +42,10 @@ Marc is a freelance and full-stack developer in South Korea who is passionate ab
 ### Bio:
 
 * **2004** Completed Bachelor's degree in the UAB (Barcelona).
-* **2010** Worked at Electronic Arts! London
-* **2017** Worked at Ocado Technology. Barcelona
-* **2021** to present Working as a freelancer. ItQuaLab
-* **2024** Co-founder or Test Automation Agency. TAA
+* **2010** Worked at Electronic Arts, London.
+* **2017** Worked at Ocado Technology, Barcelona.
+* **2021** To present Working as a freelancer at ItQuaLab, South Korea.
+* **2024** Co-founder of Test Automation Agency (TAA).
 
 
 
@@ -66,21 +67,48 @@ Marc is a freelance and full-stack developer in South Korea who is passionate ab
     </button>
 </a>
 
-<div class="grid sm:grid-cols-2 gap-4 mt-5">
-    <div class="">
+### Portfolio:
+<div class="grid md:grid-cols-3 gap-2 mt-4 justify-center items-center">    
+    <div class="hidden md:flex justify-center items-center">
+        <a href="https://www.gestio-mozart.com" target="_blank" 
+        class="hover:no-underline hover:text-inherit no-underline text-sm ">
+            <p class="my-1">Finques Mozart</p>
+        </a>
+    </div>
+    <div class="hidden md:flex justify-center items-center">
         <a href="https://www.itqualab.com" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline ">
-            <p class="my-2">It Quality Lab</p>
-            <Image class="rounded-md m-0 w-full object-contain" src={itqualabHomePage} 
-            alt="ItQuaLab home page screenshot" width="500" height="400" />
+        class="hover:no-underline hover:text-inherit no-underline text-sm ">
+            <p class="my-1">It Quality Lab</p>           
+        </a>
+    </div>
+    <div class="hidden md:flex justify-center items-center">
+        <a href="https://testautomationagency.com/" target="_blank" 
+        class="hover:no-underline hover:text-inherit no-underline text-sm">
+            <p class="my-1">Test Automation Agency</p>                    
+        </a>
+    </div>
+    <div class="flex">
+        <a href="https://www.gestio-mozart.com" target="_blank" 
+        class="hover:no-underline hover:text-inherit no-underline ">            
+            <Image class="rounded-md m-0 w-full object-contain" src={gmHomePage} 
+            alt="Finques Mozart home page screenshot" width="300" height="200" />
+            <span class="flex md:hidden my-1 text-xs justify-center">Finques Mozart</span>
         </a>    
     </div>
-    <div class="">
-    <a href="https://testautomationagency.com/" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline ">
-            <p class="my-2">Test Automation Agency</p>
+    <div class="flex">
+        <a href="https://www.itqualab.com" target="_blank" 
+        class="hover:no-underline hover:text-inherit no-underline ">            
+            <Image class="rounded-md m-0 w-full object-contain" src={itqualabHomePage} 
+            alt="ItQuaLab home page screenshot" width="300" height="200" />
+            <span class="flex md:hidden my-1 text-xs justify-center">It Quality Lab</span>
+        </a>    
+    </div>
+    <div class="flex">
+        <a href="https://testautomationagency.com/" target="_blank" 
+        class="hover:no-underline hover:text-inherit no-underline ">            
             <Image class="rounded-md m-0 w-full object-contain " src={taaHomePage} 
-            alt="ItQuaLab home page screenshot" width="500" height="400" />           
+            alt="Test Automation Agency home page screenshot" width="300" height="200" />
+            <span class="flex md:hidden my-1 text-xs justify-center">Test Automation Agency</span>           
         </a>
     </div>
 </div>
