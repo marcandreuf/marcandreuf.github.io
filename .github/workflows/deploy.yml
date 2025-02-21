@@ -32,8 +32,10 @@ jobs:
     steps:
       - name: Create temp dir and execute commands
         run: |
-          sudo mkdir -p $GITHUB_WORKSPACE/temp # Create temp dir under workspace
-          echo "Temporary data" > $GITHUB_WORKSPACE/temp/temp.txt # Write to it     
+          id
+          sudo mkdir -p /__w/_temp
+          sudo chmod 777 /__w/_temp
+          echo "Temporary data" > /__w/_temp/temp.txt # Write to it     
           
       - name: Checkout your repository using git
         uses: actions/checkout@v4
@@ -48,7 +50,7 @@ jobs:
           # Optional cleanup step if needed (e.g., at end of job)
       - name: Clean up temp dir (if needed)
         run: |
-          sudo rm -rf $GITHUB_WORKSPACE/temp # Remove temp dir after use (optional)
+          sudo rm -rf /__w/_temp # Remove temp dir after use (optional)
 
   deploy:
     needs: build
