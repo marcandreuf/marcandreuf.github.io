@@ -70,7 +70,9 @@ export const TAGS = [
   'expo',
   'error handling',
   'local environment',
-  'google-sheets'
+  'google-sheets',
+  'framework',
+  'CMS'
 ] as const;
 
 /** adjust this later */

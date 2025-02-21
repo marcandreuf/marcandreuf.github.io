@@ -13,6 +13,7 @@ import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import { envSchema, PROCESS_ENV } from './src/config/process-env';
 import { expressiveCodeIntegration } from './src/libs/integrations/expressive-code';
 import { sitemapIntegration } from './src/libs/integrations/sitemap';
+import rehypeMermaid from 'rehype-mermaid';
 
 const { SITE_URL } = PROCESS_ENV;
 const remarkPlugins = [remarkReadingTime];
@@ -40,7 +41,10 @@ export default defineConfig({
       config: { forward: ['dataLayer.push'] },
     }),
   ],
-  markdown: { remarkPlugins },
+  markdown: { 
+    remarkPlugins,
+    rehypePlugins: [rehypeMermaid],
+  },
   vite: {
     build: {
       sourcemap: false,
