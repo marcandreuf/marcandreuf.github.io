@@ -35,7 +35,8 @@ jobs:
           id
           sudo mkdir -p /__w/_temp
           sudo chmod 777 /__w/_temp
-          echo "Temporary data" > /__w/_temp/temp.txt # Write to it     
+          echo "Temporary data" > /__w/_temp/temp.txt
+          ls -la /__w/_temp
           
       - name: Checkout your repository using git
         uses: actions/checkout@v4
