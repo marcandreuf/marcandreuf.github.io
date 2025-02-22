@@ -44,9 +44,9 @@ jobs:
   build:
     needs: checkout-code
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-web-dev:main
-      options: --user node
+    # container:
+    #   image: ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-web-dev:main
+    #   options: --user node
     steps:
       - name: Prebuild
         run: |
