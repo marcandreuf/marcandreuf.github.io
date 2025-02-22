@@ -29,7 +29,7 @@ jobs:
       issues: write
     container:
       image: ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-web-dev:main
-      options: --user node
+      options: --user root
     steps:
       - name: Create temp dir and execute commands
         run: |
