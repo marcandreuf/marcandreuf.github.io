@@ -35,7 +35,7 @@ jobs:
 
       - name: build within a container
         run: |
-          docker run --rm -t -v .:/home/node/workspace ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-web-dev:main /bin/bash -c "id && pnpm install && pnpm build"
+          docker run --rm -t -v .:/home/node/workspace ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-web-dev:main /bin/bash -c "id && ls -la && pnpm install && pnpm build"
 
       - name: check after
         run: |
