@@ -35,12 +35,11 @@ jobs:
           pwd
           ls -la
 
-
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: code-archive
-      #     path: $GITHUB_WORKSPACE/main
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-archive
+          path: main
 
   # build:
   #   needs: checkout-code
