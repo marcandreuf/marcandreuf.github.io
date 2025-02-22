@@ -32,11 +32,10 @@ jobs:
     steps:
       - name: Create temp dir and execute commands
         run: |
-          id
-          sudo mkdir -p /__w/_temp
-          sudo chmod 777 /__w/_temp
-          echo "Temporary data" > /__w/_temp/temp.txt
-          ls -la /__w/_temp
+          id          
+          sudo chmod 777 /__w/
+          echo "Temporary data" > /__w/temp.txt
+          ls -la /__w
           
       - name: Checkout your repository using git
         uses: actions/checkout@v4
@@ -51,7 +50,7 @@ jobs:
           # Optional cleanup step if needed (e.g., at end of job)
       - name: Clean up temp dir (if needed)
         run: |
-          sudo rm -rf /__w/_temp # Remove temp dir after use (optional)
+          sudo rm -rf /__w # Remove temp dir after use (optional)
 
   deploy:
     needs: build
