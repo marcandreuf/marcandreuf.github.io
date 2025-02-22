@@ -58,7 +58,9 @@ jobs:
           name: code-archive
 
       - name: Display structure of downloaded files
-        run: ls -R
+        run: |
+          pwd
+          ls -la
           
       # - name: Install, build, and upload your site
       #   uses: withastro/action@v3
