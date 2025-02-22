@@ -35,11 +35,11 @@ jobs:
           pwd
           ls -la
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: codeArchive
-          path: main
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: codeArchive
+      #     path: main
 
   build:
     needs: checkout-code
@@ -53,9 +53,9 @@ jobs:
           id          
           # pnpx playwright-core install chromium
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: codeArchive
+      # - uses: actions/download-artifact@v4
+      #   with:
+      #     name: codeArchive
 
       - name: Display structure of downloaded files
         run: |
