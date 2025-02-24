@@ -38,11 +38,11 @@ jobs:
       - name: build within a container
         run: |          
           docker run --rm -t -v .:/home/runner/workspace \
-          -e SITE_URL \
-          -e PLAUSIBLE_SCRIPT_URL \
-          -e PLAUSIBLE_DOMAIN \
-          ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-build:main\
-          /bin/bash -c "id && ls -la && ls -la / && ls -la /tmp && pnpm install && pnpm build"          
+            -e SITE_URL \
+            -e PLAUSIBLE_SCRIPT_URL \
+            -e PLAUSIBLE_DOMAIN \
+            ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-build:main\
+            /bin/bash -c "id && ls -la && ls -la / && ls -la /tmp && pnpm install && pnpm build"
 
       - name: check after
         run: |
