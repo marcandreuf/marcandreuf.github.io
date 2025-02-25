@@ -84,11 +84,9 @@ const ScrollToTop: React.FC<Props> = ({ children }) => {
     event.preventDefault();
 
     const anchorElement = document.querySelector(SCROLL_TO_TOP_SELECTOR);
-    if (!anchorElement){
-      console.log('Top selector not found');
+    if (!anchorElement)
       return;
-    }
-    console.log('Top selector found ', anchorElement);
+    
     anchorElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
 
