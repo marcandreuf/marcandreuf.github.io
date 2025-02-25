@@ -20,20 +20,23 @@ import { Image } from 'astro:assets';
 import cloudflarePipelineImg from './_images/2025-02-21-webgsheets/pipeline-cf.png';
 
 
-
+<section id="main-title">
 # WebGSheet
+</section>
+
 ## A Modern Approach to Static Websites with Google Sheets as CMS
 
-As a software engineer with decades of experience, I've seen countless approaches to content management systems (CMS) and website architectures. I'm excited to share a novel solution I've developed called WebGSheet—a powerful combination of static website generation and Google Sheets as a CMS. **This approach offers minimal cost, exceptional performance, easy maintenance, and a massive potential for AI data processing and systems integration.**
+As a software engineer with decades of experience, I've seen countless approaches to content management systems (CMS) and website architectures. I'm excited to share a novel solution I've developed called WebGSheet — a powerful combination of static website generation and Google Sheets as a CMS. **This approach offers minimal cost, exceptional performance, easy maintenance, and a massive potential for AI data processing and systems integration.**
 
 ## The Genesis of WebGSheet
 
-The challenge was clear: create a maintainable, high-performance website that non-technical users could easily update while keeping infrastructure costs low. The solution emerged from combining several modern technologies into a cohesive system that I've successfully implemented for [Finques Mozart](https://gestio-mozart.com).
+The challenge was clear: create a maintainable, high-performance website that non-technical users could easily update while keeping infrastructure costs low. The solution emerged from combining several modern technologies into a cohesive system that I've successfully implemented for <a href="https://gestio-mozart.com" target='_blank'>Finques Mozart</a>.
 
 ## Core Architecture: Building on Modern Foundations
 
-At the heart of WebGSheet lies a cost-effective architecture combining three powerful technologies, each chosen to create a seamless experience for developers and end-users.
+At the heart of WebGSheet lies a cost-effective architecture combining three powerful technologies, each chosen to create a seamless experience for developers and end-users: the Astro Web framework, Google Sheets, and Cloudflare Workers.
 
+The image below is the core architecture diagram that we will discuss in this article:
 ```mermaid
 
 flowchart TD
@@ -67,9 +70,9 @@ flowchart TD
    S -->|Deploy to| CF 
 ```
 
-The foundation of our solution is the **Astro web framework**, a modern approach to building websites that is gaining tremendous popularity in the development community. Astro creates lightning-fast websites that don't require complex backend servers by generating static pre-rendered pages at build time. It keeps the simplicity of a quasi-bare-bones framework with the power to add additional tools and UI frameworks to solve every business problem. 
+The foundation of this solution is the **Astro web framework**, a modern approach to building websites that is gaining tremendous popularity in the development community. Astro creates lightning-fast websites that don't require complex backend servers by generating static pre-rendered pages at build time. It keeps the simplicity of a quasi-bare-bones framework with the power to add additional tools and UI components to solve every business problem. 
 
-When managing content, I took an unconventional yet practical approach. Instead of building or deploying a traditional CMS, I turned to a tool that most people already know and love: **Google Sheets**. Think about it – how many hours have we spent teaching clients to use complex content management systems when they're already experts at spreadsheets? With Google Sheets as the CMS, content editors can work in a familiar environment, collaborate in real-time, and never worry about losing their changes, thanks to built-in version control. Better yet, they can leverage the full power of Google Workspace, connecting their website content to their existing business workflows without any additional hosting costs.
+When managing content, I took an unconventional yet practical approach. Instead of building or deploying a traditional CMS, I turned to a tool that most people already know and love: **Google Sheets**. Think about it - how many hours have we spent teaching clients to use complex content management systems when they're already experts at spreadsheets? With Google Sheets as the CMS, content editors can work in a familiar environment, collaborate in real-time, and never worry about losing their changes, thanks to built-in version control. Better yet, they can leverage the full power of Google Workspace, connecting their website content to their existing business workflows without any additional hosting costs.
 
 But what about dynamic features like form submissions? This is where **Cloudflare Workers** enter the picture, acting as clever intermediaries between your static site and any necessary backend processes. Like efficient postal workers, they ensure that form submissions are correctly handled, validated, and delivered to their destination while maintaining a static website's performance benefits.
 
@@ -102,19 +105,19 @@ flowchart TD
 
 ```
 
-The journey begins right at the front end with Cloudflare Turnstile standing guard. Unlike traditional CAPTCHAs that make you squint at blurry text or hunt for traffic lights in grainy images, Turnstile works quietly in the background. It's like having a friendly bouncer who can spot troublemakers without hassling genuine guests. As a developer, I found it refreshingly simple to implement – just a few lines of code, and my forms were protected from bots and malicious submissions.
+The journey begins right at the front end with Cloudflare Turnstile standing guard. Unlike traditional CAPTCHAs that make you squint at blurry text or hunt for traffic lights in grainy images, Turnstile works quietly in the background. It's like having a friendly bouncer who can spot troublemakers without hassling genuine guests. As a developer, I found it refreshingly simple to implement - just a few lines of code, and the forms were protected from bots and malicious submissions.
 
 Once the form passes this first checkpoint, the real magic happens. The submitted data embarks on a carefully plotted journey through our serverless architecture. Cloudflare Workers catch the submission first, like skilled handlers in a relay race. They perform preliminary data checks and CSRF validation to ensure the data submission is valid and safe to be processed. 
 
-At this point, I ran into an interesting challenge. While Cloudflare Workers are powerful, they have limitations – particularly when using specific Node.js packages. The Google API packages I needed weren't directly supported in this environment. I could have tried some complex workarounds, but as any seasoned developer knows, sometimes the simplest solution is the most maintainable. So, I added one more leg to my relay race: a lightweight API endpoint on my VPS that receives the data from the Workers and handles the final communication with Google Sheets.
+At this point, I ran into an interesting challenge. While Cloudflare Workers are powerful, they have limitations - particularly when using specific Node.js packages. The Google API packages I needed weren't directly supported in this environment. I could have tried some complex workarounds, but as any seasoned developer knows, sometimes the simplest solution is the most maintainable. So, I added one more leg to my relay race: a lightweight API endpoint on my VPS that receives the data from the Workers and handles the final communication with Google Sheets.
 
 ### Real-World Implementation
 
-To see this architecture in action, look no further than Finques Mozart at https://gestio-mozart.com. The site features two different forms, each with its validation requirements:
+To see this architecture in action, look no further than Finques Mozart at <a href="https://gestio-mozart.com" target='_blank'>gestio-mozart.com</a>. The site features two different forms, each with its validation requirements:
 
-First, a straightforward contact form collects basic business information—the kind most websites need. It's simple but essential, like the foundation of a building.
+* First, a straightforward contact form collects basic business information—the kind most websites need. It's simple but essential, like the foundation of a building.
 
-Then, a more complex property management budget request form gathers detailed information about real estate properties, such as the number of residential units, commercial spaces, parking spots, and more. This form demonstrates how our approach can handle complex data collection needs without breaking a sweat.
+* Then, a more complex property management budget request form gathers detailed information about real estate properties, such as the number of residential units, commercial spaces, parking spots, and more. This form demonstrates how our approach can handle complex data collection needs without breaking a sweat.
 
 Behind the scenes, both forms benefit from robust validation and sanitisation. While I will bore you with the actual code below, for now, imagine the typical validation rules that ensure email addresses look like email addresses, phone numbers contain only digits and proper formatting characters, and all inputs are thoroughly sanitised to prevent security issues. The sanitised Nodejs package does the heavy lifting, stripping out any potentially dangerous HTML while preserving legitimate content.
 
@@ -239,13 +242,13 @@ For the Finques Mozart case, I used the pipeline integrated into the Cloudflare 
 <Image class="rounded-md m-0 w-full object-contain" src={cloudflarePipelineImg} 
             alt="Cloudflare configuration pipeline screenshot" format="avif" />
 
-The result? A website that's always up-to-date yet serves pages with the speed and efficiency of a static site. It's like having a restaurant that prepares everything in advance but still serves food that tastes fresh made daily – the best of both worlds.
+The result? A website that's always up-to-date yet serves pages with the speed and efficiency of a static site. It's like having a restaurant that prepares everything in advance but still serves food that tastes fresh - the best of both worlds.
 
 ## Advanced Features and Integration: Where Automation Meets Real Business Needs
 
-Let me share a story that perfectly illustrates the power of WebGSheet's advanced features. At Finques Mozart, property management isn't just about collecting form submissions – it's about transforming those submissions into actionable business processes. This step is where the magic of Google Sheets integration shines.
+Let me share a story that perfectly illustrates the power of WebGSheet's advanced features. At Finques Mozart, property management isn't just about collecting form submissions - it's about transforming those submissions into actionable business processes. This step is where the magic of Google Sheets integration shines.
 
-Picture this: A potential client fills out a detailed budget request form on the website. The data lands neatly in a Google Sheet, but that's the beginning. The property managers at Finques Mozart don't want to copy and paste this information manually into their standard forms. Instead, they open a custom menu I built into their Google Sheets – think of it as their personal command centre. They select the relevant budget request with a few clicks, and voilà! A professionally formatted PDF appears in their Google Drive, ready for printing and processing.
+Picture this: A potential client fills out a detailed budget request form on the website. The data lands neatly in a Google Sheet, but that's the beginning. The property managers at Finques Mozart don't want to copy and paste this information manually into their standard forms. Instead, they open a custom menu I built into their Google Sheets - think of it as their personal command centre. They select the relevant budget request with a few clicks, and voilà! A professionally formatted PDF appears in their Google Drive, ready for printing and processing.
 
 This automation might seem simple, but it's transformative for daily operations. The beauty of this approach is that we're just scratching the surface. The same principles could be applied to automatically:
 - Generate budget request drafts
@@ -290,7 +293,7 @@ function exportRowToPDF(rowNumber) {
   const budget = dataRowObject(budgetSheet, rowNumber);
 
   ss.toast('Creating budget request card ', APP_TITLE, 1);
-  cleanFitxa(budgetCardTemplate);
+  cleanCard(budgetCardTemplate);
   budgetCardTemplate.getRange('B3').setValue(budget.data);
   budgetCardTemplate.getRange('B4').setValue(budget.nom);
   budgetCardTemplate.getRange('B5').setValue(budget.email);
@@ -305,12 +308,12 @@ function exportRowToPDF(rowNumber) {
 
   SpreadsheetApp.flush();
   Utilities.sleep(500); // Using to offset any potential latency in creating .pdf
-  const pdf = createPDF(ss.getId(), budgetCardTemplate, `Fitxa ${rowNumber} - ${budget.nom}`);
-  cleanFitxa(budgetCardTemplate);
+  const pdf = createPDF(ss.getId(), budgetCardTemplate, `Card ${rowNumber} - ${budget.nom}`);
+  cleanCard(budgetCardTemplate);
   ss.toast('Card budget'+rowNumber+ ' created at '+pdf.getName(), APP_TITLE, 5);
 }
 
-function cleanFitxa(budgetCardTemplate){
+function cleanCard(budgetCardTemplate){
   budgetCardTemplate.getRange(3, 2, 11, 1).clearContent();
 }
 ...
