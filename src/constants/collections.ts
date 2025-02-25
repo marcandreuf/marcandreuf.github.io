@@ -104,7 +104,7 @@ export const CATEGORIES = [
     icon: 'mdi:tools',
   },
   {
-    name: 'Resources',
+    name: 'Article',
     icon: 'mdi:book-open-variant-outline',
   },
 ] as const;

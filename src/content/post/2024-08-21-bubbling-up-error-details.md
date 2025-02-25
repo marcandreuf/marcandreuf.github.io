@@ -9,7 +9,7 @@ noHero: false
 tags:
   - node.js
   - error handling
-category: Resources
+category: Article
 toc: true
 ---
 
