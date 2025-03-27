@@ -35,7 +35,7 @@ jobs:
             -e PLAUSIBLE_SCRIPT_URL \
             -e PLAUSIBLE_DOMAIN \
             ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-build:main\
-            /bin/bash -c "pnpm install && pnpm build"
+            /bin/bash -c "pnpm install && pnpm exec playwright install && pnpm build"
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
