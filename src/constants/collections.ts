@@ -11,7 +11,7 @@ export const COLLECTIONS = {
 export const TAGS = [
   'next.js',
   'react',
-  'astro',
+  'Astro',
   'node.js',
   'javascript',
   'css',
@@ -72,7 +72,11 @@ export const TAGS = [
   'local environment',
   'google-sheets',
   'framework',
-  'CMS'
+  'CMS',
+  'Mermaid Diagrams',
+  'MDX',
+  'Docker',
+  'Static Site Generation'
 ] as const;
 
 /** adjust this later */

@@ -7,7 +7,7 @@ heroImage: '../../content/post/_images/2024-11-29-astro-google-sheets/documents-
 heroAlt: 'A photo of a person classifing documents into a paper documents folder.'
 noHero: false
 tags:
-  - astro
+  - Astro
   - devops
   - automation
   - google-sheets
