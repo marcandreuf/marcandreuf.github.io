@@ -23,12 +23,13 @@ toc: true
 - Implement a simple form that stores submissions in a Google Sheet
 - Set up Google Cloud credentials and service accounts securely
 - Use TypeScript for type-safe Google Sheets operations
+- Github repo: https://github.com/marcandreuf/astro-google-sheet
 
 ## Overview
-Storing form submissions or user data often requires setting up a complete backend database when building web applications. However, using Google Sheets as a lightweight database for more straightforward use cases or prototypes can be an elegant solution. This repository demonstrates integrating an Astro-based web application with Google Sheets API, allowing you to store and retrieve data directly from a spreadsheet.
+Storing form submissions or user data often requires setting up a complete backend database when building web applications. However, using Google Sheets as a lightweight database for more straightforward use cases or prototypes can be an elegant solution. [This repository](https://github.com/marcandreuf/astro-google-sheet) demonstrates integrating an Astro-based web application with Google Sheets API, allowing you to store and retrieve data directly from a spreadsheet.
 
 ## Understanding the Core Solution
-The repository provides a streamlined implementation for connecting Astro with Google Sheets, focusing on two primary operations: appending new data and reading existing entries. Let's break down the key components and how they work together.
+[The repository](https://github.com/marcandreuf/astro-google-sheet) provides a streamlined implementation for connecting Astro with Google Sheets, focusing on two primary operations: appending new data and reading existing entries. Let's break down the key components and how they work together.
 
 ### Authentication Setup
 The first crucial piece is the authentication mechanism. The code uses Google's service account credentials to authenticate requests:

@@ -20,10 +20,13 @@ import { Image } from 'astro:assets';
 import cloudflarePipelineImg from './_images/2025-02-21-webgsheets/pipeline-cf.png';
 
 
-
 ## A Modern Approach to Static Websites with Google Sheets as CMS
 
-As a software engineer with decades of experience, I've seen countless approaches to content management systems (CMS) and website architectures. I'm excited to share a novel solution I've developed called WebGSheet — a powerful combination of static website generation and Google Sheets as a CMS. **This approach offers minimal cost, exceptional performance, easy maintenance, and a massive potential for AI data processing and systems integration.**
+This post is the follow up of my initial exploration to connect Astro with Google Sheets as a content management system (CMS) on my previous blog post [Integrating Google Sheets with Astro](/blog/2024-11-29-astro-google-sheets).
+
+As a software engineer with decades of experience, I've seen countless approaches to content management systems (CMS) and website architectures. I'm excited to share a novel solution I've developed called WebGSheet , a powerful combination of static website generation and Google Sheets as a CMS. **This approach offers minimal cost, exceptional performance, easy maintenance, and a massive potential for AI data processing and systems integration.**
+
+
 
 ## The Genesis of WebGSheet
 
@@ -112,7 +115,7 @@ At this point, I ran into an interesting challenge. While Cloudflare Workers are
 
 To see this architecture in action, look no further than Finques Mozart at <a href="https://gestio-mozart.com" target='_blank'>gestio-mozart.com</a>. The site features two different forms, each with its validation requirements:
 
-* First, a straightforward contact form collects basic business information—the kind most websites need. It's simple but essential, like the foundation of a building.
+* First, a straightforward contact form collects basic business information,the kind most websites need. It's simple but essential, like the foundation of a building.
 
 * Then, a more complex property management budget request form gathers detailed information about real estate properties, such as the number of residential units, commercial spaces, parking spots, and more. This form demonstrates how our approach can handle complex data collection needs without breaking a sweat.
 
@@ -181,7 +184,7 @@ export { filter_key_data, sanitizeJsonData,
 ```
 
 ## Build and Deployment Process: Where the Magic Happens
-Imagine your website as a gourmet meal prepared in advance and served instantly when guests arrive. That's essentially what happens during our build and deployment process—a carefully orchestrated series of steps that turns raw content into a polished, high-performance website.
+Imagine your website as a gourmet meal prepared in advance and served instantly when guests arrive. That's essentially what happens during our build and deployment process,a carefully orchestrated series of steps that turns raw content into a polished, high-performance website.
 
 The process begins with what I like to call the "gathering of ingredients." Before Astro can work magic, we must collect everything from Google's digital pantry. A pre-build script acts as our chef's assistant, fetching all the necessary data from the cloud and organising it neatly in a temporary assets folder. It pulls content from Google Sheets, downloads images and other media from Google Drive, and transforms spreadsheet data into JSON files that Astro can easily digest. In the case of Finques Mozart, I needed to fetch and prepare all the images and data related to the real state page with the list of properties; this part is still under review before I can publish the whole side.
 
@@ -230,7 +233,7 @@ async function runPrebuild() {
 runPrebuild();
 
 ```
-Once the pre-build assistance assembles all our ingredients locally, Astro steps in as the master chef. It doesn't care where the data originated—it just sees local files ready to be transformed. Astro processes these files, mixes them with templates, and "cooks" them into pre-rendered performant HTML pages. The beauty of this approach is that Astro can work at maximum efficiency without waiting for network requests or API responses to build the static website.
+Once the pre-build assistance assembles all our ingredients locally, Astro steps in as the master chef. It doesn't care where the data originated,it just sees local files ready to be transformed. Astro processes these files, mixes them with templates, and "cooks" them into pre-rendered performant HTML pages. The beauty of this approach is that Astro can work at maximum efficiency without waiting for network requests or API responses to build the static website.
 
 But who delivers this gourmet meal to your users? That's where our CI/CD pipeline comes in - think of it as our dedicated delivery service. Whether triggered by a content update in Google Sheets or a code change in the repository, the pipeline springs into action automatically. It handles all the tedious work - installing dependencies, running the build process, and deploying the freshly generated files to the production server. Like a well-trained staff, it ensures that everything happens smoothly, without manual intervention.
 
@@ -441,19 +444,19 @@ export { preparePropertyImages };
 
 ```
 
-The real power here isn't just in what we've built—it's in what's possible. Every Google Sheet can become a command center for business automation, and every Drive folder can be a perfectly organised media library. The potential for integration with other systems is limited only by our imagination.
+The real power here isn't just in what we've built,it's in what's possible. Every Google Sheet can become a command center for business automation, and every Drive folder can be a perfectly organised media library. The potential for integration with other systems is limited only by our imagination.
 
 ## The Road Less Traveled: WebGSheet's Boundaries
 
-As with any pioneering solution, my journey with WebGSheet hasn't been without its challenges. I remember deploying a WebGSheet solution for a marketing team last year and watching them marvel at its simplicity—until we hit our first roadblock.
+As with any pioneering solution, my journey with WebGSheet hasn't been without its challenges. I remember deploying a WebGSheet solution for a marketing team last year and watching them marvel at its simplicity,until we hit our first roadblock.
 
 "Why is it taking so long to update?" their lead asked as we waited for a build with dozens of high-resolution product images. That day taught us an important lesson: patience becomes necessary when building times that stretch into minutes rather than seconds.
 
-Another revealing moment came during a client presentation when a stakeholder asked, "Can we use this for our live event dashboard?" I had to explain that WebGSheet shines brightest as a static solution—asking it to handle real-time updates is like asking a librarian to announce breaking news.
+Another revealing moment came during a client presentation when a stakeholder asked, "Can we use this for our live event dashboard?" I had to explain that WebGSheet shines brightest as a static solution,asking it to handle real-time updates is like asking a librarian to announce breaking news.
 
 The financial landscape will also require careful navigation. A startup might discover this challenge when their enthusiastic development team implements frequent daily updates, only to receive an unexpected cloud services bill at month's end. Their CI/CD pipeline could quietly accumulate costs with each build, turning what seemed like an economical solution into a more expensive proposition than initially anticipated. Even though we might add many changes and other optimisations to the build process, this solution would not be a good fit for a website that requires constant daily updates by the minute. 
 
-Despite these boundaries, WebGSheet remains a hidden gem for organisations with modest requirements and limited technical resources. It's like finding a secret shortcut that bypasses the usual tollways of web development—perfect for the journey, provided you're not in a desperate hurry and don't need to make frequent stops along the way.
+Despite these boundaries, WebGSheet remains a hidden gem for organisations with modest requirements and limited technical resources. It's like finding a secret shortcut that bypasses the usual tollways of web development,perfect for the journey, provided you're not in a desperate hurry and don't need to make frequent stops along the way.
 
 This approach may not yet be charted on the mainstream technology roadmap, and we're still collecting traveller reviews. But for adventurous teams willing to explore new territory without venturing too far from safety, the risk-to-reward ratio makes this path particularly enticing.
 
@@ -475,7 +478,7 @@ Future AI implementation could leverage:
 - Image recognition services that automatically tag and optimise visuals
 - Sentiment analysis for form responses to prioritise urgent customer needs
 
-The automation horizon appears equally promising. Picture a system so intuitive that it detects when you've made significant changes to your spreadsheet and asks the user to launch a new build automatically—minimum manual triggers required. Content validation could evolve beyond simple formatting checks to ensure brand consistency and accessibility compliance across your site. 
+The automation horizon appears equally promising. Picture a system so intuitive that it detects when you've made significant changes to your spreadsheet and asks the user to launch a new build automatically,minimum manual triggers required. Content validation could evolve beyond simple formatting checks to ensure brand consistency and accessibility compliance across your site. 
 
 Imagine seamlessly feeding your spreadsheet data into your favourite business intelligence dashboards, creating a continuous flow of insights without complex integration work.
 
@@ -485,7 +488,7 @@ Potential automation triggers could include:
 - Data connectors that transform spreadsheet data into formats compatible with BI tools
 - Leveraging the AI model Gemini in your Google Sheets.
 
-This vision isn't just about adding features—it's about transforming a simple tool into an intelligent platform that anticipates needs and solves problems before they arise. While today's WebGSheet might be your web presence's quiet, reliable workhorse, tomorrow's version could become the strategic partner that helps your content truly connect with your audience.
+This vision isn't just about adding features,it's about transforming a simple tool into an intelligent platform that anticipates needs and solves problems before they arise. While today's WebGSheet might be your web presence's quiet, reliable workhorse, tomorrow's version could become the strategic partner that helps your content truly connect with your audience.
 
 The journey from spreadsheet to sophisticated automated AI experience is just beginning, and these unexplored pathways represent not just technological advancements but also new ways to examine web interfaces for teams of all sizes and technical capabilities.
 
@@ -503,7 +506,7 @@ The success of Finques Mozart demonstrates that this approach is not just theore
 
 As we continue to explore this architecture's possibilities, the potential for AI integration and automation promises even more exciting developments in the future. The combination of accessibility, performance, and scalability makes this approach particularly valuable for organisations with limited technical resources but ambitious web presence goals.
 
-The next step for Finques Mozart will be implementing all the real-estate management systems using this WebGSheets approach. This will be a challenging and fun adventure, further proving how this novel architecture can solve real-world problems with an effective maintenance cost. The planned expansion will include property listing management, client relationship tracking, and automated reporting systems—all managed through familiar spreadsheet interfaces and Google Drive capabilities.
+The next step for Finques Mozart will be implementing all the real-estate management systems using this WebGSheets approach. This will be a challenging and fun adventure, further proving how this novel architecture can solve real-world problems with an effective maintenance cost. The planned expansion will include property listing management, client relationship tracking, and automated reporting systems,all managed through familiar spreadsheet interfaces and Google Drive capabilities.
 
 Would you like to try WebGSheet for your next project? The source code will soon be available on GitHub under an open-source license, allowing you to adapt and extend it for your specific needs. Meanwhile you can also ask me directly for more code samples or implementation guidance. I welcome constructive feedback and contributions from the community as I continue to refine and expand this innovative approach to web development.
 
