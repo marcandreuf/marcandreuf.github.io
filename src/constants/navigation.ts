@@ -27,10 +27,6 @@ export const NAVIGATION_ITEMS = [
     path: ROUTES.ABOUT,
   },
   // {
-  //   title: 'Gallery',
-  //   path: ROUTES.GALLERY,
-  // },
-  // {
   //   title: 'Links',
   //   path: ROUTES.LINKS,
   // },
