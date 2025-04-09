@@ -3,7 +3,7 @@ title: Autonomous vs Automation testing
 description: To perform any kind of effective testing activity it is required to have testing context awareness, healthy running environments, good sample data and a clear understanding of the business rules.
 publishDate: 2017-11-07
 updatedDate: 2024-11-02
-heroImage: '../../content/post/_images/2017-11-07-autonomous-vs-automation-testing/automonous-robot.jpg'
+heroImage: '@/content/post/_images/2017-11-07-autonomous-vs-automation-testing/automonous-robot.jpg'
 heroAlt: 'A humanoid robot next to a shelf with astonished face.'
 noHero: false
 tags:

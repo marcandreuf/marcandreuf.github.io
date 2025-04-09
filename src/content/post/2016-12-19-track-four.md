@@ -3,7 +3,7 @@ title: 4 Side notes JAX London 2016
 description: Quick notes from session 4 of JAX London 2016. Architectural Resiliency preseneted by Jeremy Deane.
 publishDate: 2016-12-19
 updatedDate: 2024-09-18
-heroImage: '../../content/post/_images/2016-12-19-track-four/architecture-resilience.jpg'
+heroImage: '@/content/post/_images/2016-12-19-track-four/architecture-resilience.jpg'
 heroAlt: 'abstract architecture of curbed columns'
 noHero: false
 tags:

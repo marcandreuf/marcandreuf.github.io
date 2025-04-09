@@ -3,7 +3,7 @@ title: Remove Expo Router from Expo App
 description: Solution to the incompatibility of the Coursera React Native Specialisation capstone project with the latest versions of the Expo framework.
 publishDate: 2024-08-06
 updatedDate: 2024-11-09
-heroImage: '../../content/post/_images/2024-08-06-remove-expo-router/remove-expo-rotuer-post.png'
+heroImage: '@/content/post/_images/2024-08-06-remove-expo-router/remove-expo-rotuer-post.png'
 heroAlt: 'Ai generated. A person sitting in an office setup and working with computers on a desk.'
 noHero: false
 tags:

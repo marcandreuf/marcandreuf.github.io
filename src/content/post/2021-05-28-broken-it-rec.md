@@ -3,7 +3,7 @@ title: Why IT recruitment is broken
 description: What follows is my point of view about the I.T. recruitment system. After many years of being on both sides of the game, I would like to share some ideas about this subject and hopefully making life easier for everyone working in this field.
 publishDate: 2021-05-28
 updatedDate: 2024-11-08
-heroImage: '../../content/post/_images/2021-05-28-broken-it-rec/hr.jpg'
+heroImage: '@/content/post/_images/2021-05-28-broken-it-rec/hr.jpg'
 heroAlt: 'Job interview of a manger taking notes while sitting ona table taking coffee with the candidate.'
 noHero: false
 tags:

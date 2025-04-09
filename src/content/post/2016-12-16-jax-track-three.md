@@ -3,7 +3,7 @@ title: 3 Side notes JAX London 2016
 description: Quick notes from session 3 of JAX London 2016. Developing microservices with aggregates, talk preseneted by Chirs Richardson.
 publishDate: 2016-12-16
 updatedDate: 2024-09-17
-heroImage: '../../content/post/_images/2016-12-16-jax-track-three/cube-aggregates.jpg'
+heroImage: '@/content/post/_images/2016-12-16-jax-track-three/cube-aggregates.jpg'
 heroAlt: 'An abstract structure of cubes falling and aggregating from the top into a squared column.'
 noHero: false
 tags:

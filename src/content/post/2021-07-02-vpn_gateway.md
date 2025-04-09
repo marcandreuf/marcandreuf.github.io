@@ -3,7 +3,7 @@ title: Mullvad OpenVPN Gateway
 description: I am building a cybersecurity home lab. However, I do not like my ISP having all logs of my home lab activity. I do not know why but this feels threatening even if I am not planning to be a black hat.
 publishDate: 2021-07-02
 updatedDate: 2024-11-03
-heroImage: '../../content/post/_images/2021-07-02-vpn_gateway/vpn-connection.jpg'
+heroImage: '@/content/post/_images/2021-07-02-vpn_gateway/vpn-connection.jpg'
 heroAlt: 'A person using a laptop and connecting to a vpn service.'
 noHero: false
 tags:

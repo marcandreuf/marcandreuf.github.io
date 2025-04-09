@@ -3,7 +3,7 @@ title: DevContainer pnpm dev environment setup
 description: Optimal node js dev environment to speed up npm dependency management and optimise the node_modules disk space. 
 publishDate: 2024-07-16
 updatedDate: 2024-11-08
-heroImage: '../../content/post/_images/2024-07-16-devcontainer-pnpm/optimal-containers.jpg'
+heroImage: '@/content/post/_images/2024-07-16-devcontainer-pnpm/optimal-containers.jpg'
 heroAlt: 'A photo taken from the right side of a big container ship.'
 noHero: false
 tags:

@@ -3,7 +3,7 @@ title: "The three QA amigos: SDTs, AEs and the VBEs"
 description: A usual misunderstanding among many teams is to regard testing as one team without any specialization. Moreover, the biggest mistake that I have seen is to give the same job title to all "testers" regardless their skills and contributions.
 publishDate: 2016-07-03
 updatedDate: 2024-09-11
-heroImage: '../../content/post/_images/2016-07-03-three-amigos/twoSets.png'
+heroImage: '@/content/post/_images/2016-07-03-three-amigos/twoSets.png'
 heroAlt: 'A diagram of two intersecting sets with SDETs on the left, business experts on the right and Test Automation in the intersecting area.'
 noHero: false
 tags:

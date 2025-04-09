@@ -3,7 +3,7 @@ title: DevContainer with host Git credentials
 description: How to configure a devcontainer with the host Git credentials. We developers should work in isolated environments to maintain consistency across different machines and team members. 
 publishDate: 2024-07-12
 updatedDate: 2024-11-07
-heroImage: '../../content/post/_images/2024-07-12-gitdevcont/containers-jump.jpg'
+heroImage: '@/content/post/_images/2024-07-12-gitdevcont/containers-jump.jpg'
 heroAlt: 'A photo of a big ship container with a person jumping on top.'
 noHero: false
 tags:

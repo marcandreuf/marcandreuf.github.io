@@ -3,7 +3,7 @@ title: Devs environment disorder?
 description: Do developers prefer to work in chaotic environments? Let's face it, we need someone to blame when things do not work as expected.
 publishDate: 2017-10-19
 updatedDate: 2024-09-29
-heroImage: '../../content/post/_images/2017-10-19-devs-environment-disorder/softw-dev.jpg'
+heroImage: '@/content/post/_images/2017-10-19-devs-environment-disorder/softw-dev.jpg'
 heroAlt: 'Software dev coding with confused face.'
 noHero: false
 tags:

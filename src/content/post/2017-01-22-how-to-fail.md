@@ -3,7 +3,7 @@ title: How to FAIL in Test Automation
 description: I started writing down some real-life notes about how to set up things for a miserably "failing" test automation strategy.
 publishDate: 2017-01-22
 updatedDate: 2024-09-26
-heroImage: '../../content/post/_images/2017-01-22-how-to-fail/failure.jpg'
+heroImage: '@/content/post/_images/2017-01-22-how-to-fail/failure.jpg'
 heroAlt: 'Scrabble game with failure word on a table.'
 noHero: false
 tags:

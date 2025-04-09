@@ -3,7 +3,7 @@ title: Mismanaged QA roles
 description: Good testers are those who become great experts of the actual behaviour of the solution under test.
 publishDate: 2016-08-09
 updatedDate: 2024-09-13
-heroImage: '../../content/post/_images/2016-08-09-mismanaged-qa-roles/gmw-quote-the-name-of-things.jpg'
+heroImage: '@/content/post/_images/2016-08-09-mismanaged-qa-roles/gmw-quote-the-name-of-things.jpg'
 heroAlt: 'Quote from Gerald M. Wienberg saying the name of a thing is not the thing.'
 noHero: false
 tags:

@@ -3,7 +3,7 @@ title: Integrating Google Sheets with Astro
 description: A Simple Form Data Solution to learn and practice how to use Google Sheets as the backend for Astro web applications. For example to store simple forms data like contact forms or Call To Actions. 
 publishDate: 2024-11-29
 updatedDate: 2024-11-29
-heroImage: '../../content/post/_images/2024-11-29-astro-google-sheets/documents-folder.jpg'
+heroImage: '@/content/post/_images/2024-11-29-astro-google-sheets/documents-folder.jpg'
 heroAlt: 'A photo of a person classifing documents into a paper documents folder.'
 noHero: false
 tags:

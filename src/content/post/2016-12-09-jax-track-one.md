@@ -3,7 +3,7 @@ title: 1 Side notes JAX London 2016
 description: Quick notes from session 1 of Developing microservices Workshop JAX London 2016 presented by Chirs Richardson.
 publishDate: 2016-12-09
 updatedDate: 2024-09-15
-heroImage: '../../content/post/_images/2016-12-09-jax-track-one/distributed-abstract.jpg'
+heroImage: '@/content/post/_images/2016-12-09-jax-track-one/distributed-abstract.jpg'
 heroAlt: 'An abstract squared 3d buttons on a white surface'
 noHero: false
 tags:

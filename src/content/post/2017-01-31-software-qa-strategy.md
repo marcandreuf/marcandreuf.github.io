@@ -3,7 +3,7 @@ title: Software QA Strategy?
 description: Soon after, when the project is engaged and there is no room for discussions, we realise that what they understood for "strategy" is some kind of Apes plan proper of the mythical film Rise of the Planet of the Apes.
 publishDate: 2017-01-30
 updatedDate: 2024-09-27
-heroImage: '../../content/post/_images/2017-01-31-software-qa-strategy/strategy.jpg'
+heroImage: '@/content/post/_images/2017-01-31-software-qa-strategy/strategy.jpg'
 heroAlt: 'Two persons discussing about some content on a book.'
 noHero: false
 tags:

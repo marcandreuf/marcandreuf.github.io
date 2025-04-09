@@ -3,7 +3,7 @@ title: The fearless style
 description: For those struggling to understand what is holding their teams to perform better. This post is a quick philosophical exercise that helps us understand the fundamental impediment that blocks improvement in software development.
 publishDate: 2017-06-17
 updatedDate: 2024-09-28
-heroImage: '../../content/post/_images/2017-06-17-the-fearless-style/fearless-jump.jpg'
+heroImage: '@/content/post/_images/2017-06-17-the-fearless-style/fearless-jump.jpg'
 heroAlt: 'A person jumping at the top of a mountain on a sunset landscape.'
 noHero: false
 tags:

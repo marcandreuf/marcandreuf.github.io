@@ -3,7 +3,7 @@ title: 6 Side notes JAX London 2016
 description: Quick notes from session 6 of JAX London 2016. Event-driven Microservices preseneted by Jeremy Deane.
 publishDate: 2016-12-27
 updatedDate: 2024-09-20
-heroImage: '../../content/post/_images/2016-12-27-jax-track-six/software-events.jpg'
+heroImage: '@/content/post/_images/2016-12-27-jax-track-six/software-events.jpg'
 heroAlt: 'abstract ...'
 noHero: false
 tags:

@@ -3,7 +3,7 @@ title: Handling error details in Node.js
 description: This post explores how to manage errors in node js and bubble up the important error detials necessary for higher layers of abstraction.
 publishDate: 2024-09-21
 updatedDate: 2024-11-10
-heroImage: '../../content/post/_images/2024-08-21-bubbling-up-error-details/bubble.jpg'
+heroImage: '@/content/post/_images/2024-08-21-bubbling-up-error-details/bubble.jpg'
 heroAlt: 'A photo of a soap bubble on a green like forest background.'
 noHero: false
 tags:

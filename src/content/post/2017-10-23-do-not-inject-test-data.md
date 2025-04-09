@@ -3,7 +3,7 @@ title: Automating bugs
 description: Executing a set of SQL updates in order to prepare test data can be harmful. Legacy systems can be hard to maintain, improve, and expand because there is a general lack of understanding of the system.
 publishDate: 2017-10-23
 updatedDate: 2024-10-01
-heroImage: '../../content/post/_images/2017-10-23-do-not-inject-test-data/bugs.jpg'
+heroImage: '@/content/post/_images/2017-10-23-do-not-inject-test-data/bugs.jpg'
 heroAlt: 'Two lady bugs on a green leaf '
 noHero: false
 tags:

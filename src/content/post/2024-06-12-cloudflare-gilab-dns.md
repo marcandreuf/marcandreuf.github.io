@@ -3,7 +3,7 @@ title: How to configure Cloudflare DNS for a GitLab page (Solved)
 description: Setting up a custom domain for a GitLab Pages site using Cloudflare can be challenging due to unclear or outdated documentation. This blog post clarifies the process by providing a step-by-step guide.
 publishDate: 2022-06-12
 updatedDate: 2024-11-06
-heroImage: '../../content/post/_images/2024-06-12-cloudflare-gilab-dns/cloudflare-gitlab-dns.png'
+heroImage: '@/content/post/_images/2024-06-12-cloudflare-gilab-dns/cloudflare-gitlab-dns.png'
 heroAlt: 'An abstract image of a handshake with cloud icons on the background'
 noHero: false
 tags:

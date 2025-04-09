@@ -3,7 +3,7 @@ title: 11 Side notes JAX London 2016
 description: Quick notes from session 10 of JAX London 2016. Applying DDD at pace for Effective Microservices workshop preseneted by Russ Miles.
 publishDate: 2017-01-11
 updatedDate: 2024-09-25
-heroImage: '../../content/post/_images/2017-01-11-jax-track-eleven/software-workshop.jpg'
+heroImage: '@/content/post/_images/2017-01-11-jax-track-eleven/software-workshop.jpg'
 heroAlt: 'A photo taken from above showing a meeting table with people woriking with their laptops.'
 noHero: false
 tags:

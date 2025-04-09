@@ -3,7 +3,7 @@ title: 8 Side notes JAX London 2016
 description: Quick notes from session 8 of JAX London 2016. Cynefin for Developers preseneted by Liz Keogh.
 publishDate: 2016-12-29
 updatedDate: 2024-09-22
-heroImage: '../../content/post/_images/2016-12-29-jax-track-eight/complex-head.jpg'
+heroImage: '@/content/post/_images/2016-12-29-jax-track-eight/complex-head.jpg'
 heroAlt: 'An abstract human head made of thick strings of various colors. The strings spand to the right in strainght lines from within the head like shape.'
 noHero: false
 tags:

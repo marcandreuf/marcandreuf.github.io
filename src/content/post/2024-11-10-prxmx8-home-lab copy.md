@@ -3,7 +3,7 @@ title: My notes on setting up a Proxmox 8.2 home lab server
 description: Setting up a home lab is an excellent way to learn enterprise-grade virtualization technologies. Proxmox Virtual Environment (VE) 8.2 offers a robust platform that brings data centre features to your home lab setup.
 publishDate: 2024-10-21
 updatedDate: 2024-11-11
-heroImage: '../../content/post/_images/2024-11-10-prxmx8-home-lab/home-lab.jpg'
+heroImage: '@/content/post/_images/2024-11-10-prxmx8-home-lab/home-lab.jpg'
 heroAlt: 'A photo of there desktop computers in a data center rack shelf.'
 noHero: false
 tags:

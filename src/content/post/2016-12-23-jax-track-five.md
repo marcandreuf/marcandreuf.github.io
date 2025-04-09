@@ -3,7 +3,7 @@ title: 5 Side notes JAX London 2016
 description: Quick notes from session 5 of JAX London 2016. Java Flight Recorder preseneted by Ola Westin from Oracle.
 publishDate: 2016-12-23
 updatedDate: 2024-09-19
-heroImage: '../../content/post/_images/2016-12-23-jax-track-five/java-logo.jpg'
+heroImage: '@/content/post/_images/2016-12-23-jax-track-five/java-logo.jpg'
 heroAlt: 'A woman on the background holding a java logo on her fingers.'
 noHero: false
 tags:
