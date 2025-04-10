@@ -29,6 +29,8 @@
 				"esbenp.prettier-vscode",
 				"fallenmax.mithril-emmet",
 				"unifiedjs.vscode-mdx",
+				"fabiospampinato.vscode-todo-plus",
+				"fabiospampinato.vscode-highlight",
 				//"github.vscode-pull-request-github",
 				"github.vscode-github-actions"
 				//"wallabyjs.console-ninja" Not yet supported until 12/2024
