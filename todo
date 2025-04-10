@@ -1,0 +1,6 @@
+☐ Update to Tailwind 4. Use PR https://github.com/nemanjam/nemanjam.github.io/pull/17
+☐ Implement target blank anchor component. 
+    - https://github.com/rehypejs/rehype-external-links
+    - https://cosmicthemes.com/blog/astro-mdx-external-link/
+
+
