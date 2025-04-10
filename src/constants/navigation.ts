@@ -18,10 +18,6 @@ export const NAVIGATION_ITEMS = [
   //   title: 'Categories',
   //   path: ROUTES.CATEGORIES,
   // },
-  // {
-  //   title: 'Projects',
-  //   path: ROUTES.PROJECTS,
-  // },
   {
     title: 'About',
     path: ROUTES.ABOUT,

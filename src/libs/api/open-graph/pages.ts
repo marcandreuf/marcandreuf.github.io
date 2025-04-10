@@ -1,5 +1,4 @@
 import { getAllPosts } from '@/modules/post/common';
-import { getAllProjects } from '@/modules/project';
 import { DEFAULT_METADATA, OG_IMAGE_PREFIXES, PAGE_METADATA } from '@/constants/metadata';
 
 export const getPages = async () => {
@@ -45,12 +44,9 @@ export const getPages = async () => {
     allPosts.map((post) => [`${OG_IMAGE_PREFIXES.OG_BLOG}/${post.slug}`, post.data])
   );
 
-  const allProjects = await getAllProjects();
-  const projects = Object.fromEntries(
-    allProjects.map((project) => [`${OG_IMAGE_PREFIXES.OG_PROJECTS}/${project.slug}`, project.data])
-  );
 
-  const pages = { ...posts, ...projects, ...mdxPages, ...listPages };
+
+  const pages = { ...posts, ...mdxPages, ...listPages };
 
   return pages;
 };

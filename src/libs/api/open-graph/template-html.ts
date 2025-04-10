@@ -3,12 +3,7 @@ import { html } from 'satori-html';
 import { getRandomGradient } from '@/utils/gradients';
 import { limitString } from '@/utils/strings';
 
-export interface TemplateProps {
-  title: string;
-  heroImageUrl: string;
-  avatarImageUrl: string;
-  siteUrl: string;
-}
+import type { TemplateProps } from '@/types/open-graph';
 
 const templateHtml = ({ title, heroImageUrl, avatarImageUrl, siteUrl }: TemplateProps) => {
   // 2 rows - max 30 chars
@@ -31,7 +26,7 @@ const templateHtml = ({ title, heroImageUrl, avatarImageUrl, siteUrl }: Template
           <!-- avatar and site -->
           <div class="flex items-center ${isLongSiteUrl ? 'flex-col justify-end items-start' : ''}">
             <img
-              src=${avatarImageUrl}
+              src="${avatarImageUrl}"
               width="120"
               height="120"
               class="rounded-full mr-8 border-2 border-gray-300"
@@ -44,7 +39,10 @@ const templateHtml = ({ title, heroImageUrl, avatarImageUrl, siteUrl }: Template
 
         <!-- right column -->
         <div class="w-[550px] flex items-center">
-          <img src="${heroImageUrl}" class="h-full w-full rounded-md" style="object-fit: cover" />
+          <img src="${heroImageUrl}" 
+            width="120"
+            height="120" 
+            class="h-full w-full rounded-md" style="object-fit: cover" />
         </div>
       </div>
     </div>

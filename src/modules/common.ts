@@ -15,7 +15,7 @@ export interface GetAllEntriesOptions {
  * Sorts by publishDate desc by default. Newest on top.
  * Omits drafts by default - set by PREVIEW_MODE env var.
  *
- * ONLY place to filter draft posts and projects.
+ * ONLY place to filter draft posts
  */
 export const getAllEntries = async <T extends CollectionKey>(
   collectionName: T,
