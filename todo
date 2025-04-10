@@ -1,5 +1,6 @@
 ☐ Update to Tailwind 4. Use PR https://github.com/nemanjam/nemanjam.github.io/pull/17
 ☐ Implement target blank anchor component. Implement PR for the forked repo. Later add it to my own repo.
+    - Follow Nemanja's comments in Linkedin chat.
     - https://github.com/rehypejs/rehype-external-links
     - https://cosmicthemes.com/blog/astro-mdx-external-link/
 
