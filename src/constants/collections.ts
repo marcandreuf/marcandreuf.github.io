@@ -81,7 +81,14 @@ export const TAGS = [
   'Mermaid Diagrams',
   'MDX',
   'Docker',
-  'Static Site Generation'
+  'Static Site Generation',
+  'Proxmox',
+  'Home Lab',
+  'Ai',
+  'Raspberry Pi',
+  'Wake-on-LAN',
+  'Zerotier',
+  'VNC',
 ] as const;
 
 /** adjust this later */
