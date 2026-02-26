@@ -6,6 +6,10 @@ export const NAVIGATION_ITEMS = [
     title: 'Blog',
     path: ROUTES.BLOG,
   },
+  {
+    title: 'Portfolio',
+    path: ROUTES.PORTFOLIO,
+  },
   // {
   //   title: 'Explore',
   //   path: ROUTES.EXPLORE,

@@ -8,12 +8,9 @@ import { Icon } from 'astro-icon/components';
 import Button from '@/components/Button.astro';
 import Alert from '@/components/Alert.astro';
 import { Image } from 'astro:assets';
-import { IMAGE_SIZES } from '../constants/image';
 import profile from '../assets/images/index/profile2023.png';
 import heroImg from '../assets/images/index/park-hero-2.jpg';
-import itqualabHomePage from '../assets/images/index/itql-screenshot-small-screen.png';
-import gmHomePage from '../assets/images/index/gm-home-page.png';
-import usenemiHomePage from '../assets/images/index/usenemi-home-page.png';
+import pickupeeHomePage from '../assets/images/index/pickupee-home-page.png';
 
 
 
@@ -39,6 +36,27 @@ import usenemiHomePage from '../assets/images/index/usenemi-home-page.png';
 
 </section>     
 
+### Projects / Creations:
+
+#### Latest project: Pickupee
+
+<a href="https://pickupee.com/en/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+    <Image class="rounded-md m-0 w-full object-contain" src={pickupeeHomePage} alt="Pickupee home page screenshot" />
+</a>
+
+- **What it is:** Local pickup and delivery platform experience.
+- **Tech:** Astro, TypeScript, frontend implementation, integrations.
+- **Outcome:** Delivered a production-ready marketing site and user flow aligned with business operations.
+
+<div class="mt-3">
+    <Button href="/portfolio/" iconName="mdi:briefcase-outline">See full portfolio</Button>
+</div>
+
+### Services:
+
+- Building custom SaaS prototypes, AI automations, integrations, and web apps.
+- Designing scalable backend/API architectures and full-stack delivery pipelines.
+- Adding software quality engineering and automated testing to support reliable growth.
 
 ### Work:
 Marc is an independent full-stack software engineer, currently based in South Korea, with over 25 years of experience building digital products and automation systems for business growth.
@@ -51,73 +69,37 @@ He has a knack for shipping quickly—from product planning and architecture to 
 
 
 
-### Bio:
-
-* **2024** Co-founder of Test Automation Agency (TAA).
-* **2021** To present Working as a freelancer at ItQuaLab, South Korea.
-* **2017** Worked at Ocado Technology, Barcelona.
-* **2010** Worked at Electronic Arts, London.
-* **2004** Completed Bachelor's degree in the UAB (Barcelona).
-
-
-
-### On the web: 
-
-<a href="https://github.com/marcandreuf" target="_blank" class="no-underline hover:no-underline visited:text-inherit">
-    <button class="flex flex-row items-center justify-center mt-2 gap-2 text-teal-600 hover:bg-teal-50 dark:text-teal-200 dark:hover:bg-links-hoverGreen p-2 rounded-lg">
-        <Icon name="mdi:github" size={32} /><span class="font-bold text-lg ">@marcandreuf</span>
-    </button>
-</a>
-<a href="https://www.linkedin.com/in/marcandreuf/" target="_blank" class="no-underline hover:no-underline visited:text-inherit">
-    <button class="flex flex-row items-center justify-center mt-2 gap-2 text-teal-600 hover:bg-teal-50 dark:text-teal-200 dark:hover:bg-links-hoverGreen p-2 rounded-lg">
-        <Icon name="mdi:linkedin" size={32} /><span class="font-bold text-lg ">@marcandreuf</span>
-    </button>
-</a>
-<a href="https://x.com/marcandreuf" target="_blank" class="no-underline hover:no-underline visited:text-inherit">
-    <button class="flex flex-row items-center justify-center mt-2 gap-2 text-teal-600 hover:bg-teal-50 dark:text-teal-200 dark:hover:bg-links-hoverGreen p-2 rounded-lg">
-        <Icon name="mdi:twitter" size={32} /><span class="font-bold text-lg ">@marcandreuf</span>
-    </button>
-</a>
-
-### Services:
-
-- Building custom SaaS prototypes, AI automations, integrations, and web apps.
-- Designing scalable backend/API architectures and full-stack delivery pipelines.
-- Adding software quality engineering and automated testing to support reliable growth.
-
-### Projects / Creations:
-
-#### Money SAAS for builders
-
-<a href="https://usenemi.com/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
-    <Image class="rounded-md m-0 w-full object-contain" src={usenemiHomePage} alt="Money SAAS for builders screenshot" />
-</a>
-
-- **What it is:** Creator-focused SaaS for money and business clarity.
-- **Tech:** Astro, TypeScript, API integrations, automation workflows.
-- **Outcome:** Built and shipped as a productized platform, reducing manual tracking and reporting work through automation.
-
-#### Other selected work
-
-<div class="grid md:grid-cols-2 gap-3 mt-2 justify-center items-start">
-    <div class="flex flex-col">
-        <a href="https://www.gestio-mozart.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
-            <Image class="rounded-md m-0 w-full object-contain" src={gmHomePage} alt="Finques Mozart home page screenshot" />
-        </a>
-        <p class="my-2 text-sm font-semibold">Finques Mozart</p>
-        <p class="my-1 text-sm">Property management web platform.</p>
-        <p class="my-1 text-sm"><strong>Tech:</strong> Web app architecture, integrations, custom business workflows.</p>
-        <p class="my-1 text-sm"><strong>Outcome:</strong> Streamlined day-to-day operations with digital process automation.</p>
-    </div>
-    <div class="flex flex-col">
-        <a href="https://www.itqualab.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
-            <Image class="rounded-md m-0 w-full object-contain" src={itqualabHomePage} alt="ItQuaLab home page screenshot" />
-        </a>
-        <p class="my-2 text-sm font-semibold">It Quality Lab</p>
-        <p class="my-1 text-sm">Software quality and engineering services platform.</p>
-        <p class="my-1 text-sm"><strong>Tech:</strong> Full-stack web development, automation frameworks, testing systems.</p>
-        <p class="my-1 text-sm"><strong>Outcome:</strong> Enabled teams to improve release confidence with practical quality automation.</p>
-    </div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-start">
+    <section class="md:col-span-2">
+        <h3 class="mt-0">Bio:</h3>
+        <ul class="text-sm leading-6 pl-5 m-0">
+            <li><strong>2024</strong> Co-founder of Test Automation Agency (TAA).</li>
+            <li><strong>2021</strong> To present Working as a freelancer at ItQuaLab, South Korea.</li>
+            <li><strong>2017</strong> Worked at Ocado Technology, Barcelona.</li>
+            <li><strong>2010</strong> Worked at Electronic Arts, London.</li>
+            <li><strong>2004</strong> Completed Bachelor's degree in the UAB (Barcelona).</li>
+        </ul>
+    </section>
+    <section class="md:col-span-1">
+        <h3 class="mt-0">On the web:</h3>
+        <div class="text-sm">
+            <a href="https://github.com/marcandreuf" target="_blank" class="no-underline hover:no-underline visited:text-inherit">
+                <button class="w-full flex flex-row items-center justify-center mt-2 gap-2 text-teal-600 hover:bg-teal-50 dark:text-teal-200 dark:hover:bg-links-hoverGreen p-2 rounded-lg">
+                    <Icon name="mdi:github" size={28} /><span class="font-bold">@marcandreuf</span>
+                </button>
+            </a>
+            <a href="https://www.linkedin.com/in/marcandreuf/" target="_blank" class="no-underline hover:no-underline visited:text-inherit">
+                <button class="w-full flex flex-row items-center justify-center mt-2 gap-2 text-teal-600 hover:bg-teal-50 dark:text-teal-200 dark:hover:bg-links-hoverGreen p-2 rounded-lg">
+                    <Icon name="mdi:linkedin" size={28} /><span class="font-bold">@marcandreuf</span>
+                </button>
+            </a>
+            <a href="https://x.com/marcandreuf" target="_blank" class="no-underline hover:no-underline visited:text-inherit">
+                <button class="w-full flex flex-row items-center justify-center mt-2 gap-2 text-teal-600 hover:bg-teal-50 dark:text-teal-200 dark:hover:bg-links-hoverGreen p-2 rounded-lg">
+                    <Icon name="mdi:twitter" size={28} /><span class="font-bold">@marcandreuf</span>
+                </button>
+            </a>
+        </div>
+    </section>
 </div>
 
 ### I ♥

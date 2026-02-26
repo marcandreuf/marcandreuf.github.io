@@ -1,0 +1,55 @@
+---
+layout: '../layouts/Page.astro'
+title: 'Portfolio'
+description: 'Selected SaaS, web, and automation projects.'
+---
+import { Image } from 'astro:assets';
+
+import usenemiHomePage from '../assets/images/index/usenemi-home-page.png';
+import gmHomePage from '../assets/images/index/gm-home-page.png';
+import itqualabHomePage from '../assets/images/index/itql-screenshot-small-screen.png';
+import pickupeeHomePage from '../assets/images/index/pickupee-home-page.png';
+
+### Projects / Creations
+
+#### Money SAAS for builders
+
+<a href="https://usenemi.com/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+    <Image class="rounded-md m-0 w-full object-contain" src={usenemiHomePage} alt="Money SAAS for builders screenshot" />
+</a>
+
+- **What it is:** Creator-focused SaaS for money and business clarity.
+- **Tech:** Astro, TypeScript, API integrations, automation workflows.
+- **Outcome:** Built and shipped as a productized platform, reducing manual tracking and reporting work through automation.
+
+#### Other selected work
+
+<div class="grid md:grid-cols-2 gap-3 mt-2 justify-center items-start">
+    <div class="flex flex-col">
+        <a href="https://www.gestio-mozart.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={gmHomePage} alt="Finques Mozart home page screenshot" />
+        </a>
+        <p class="my-2 text-sm font-semibold">Finques Mozart</p>
+        <p class="my-1 text-sm">Property management web platform.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Web app architecture, integrations, custom business workflows.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Streamlined day-to-day operations with digital process automation.</p>
+    </div>
+    <div class="flex flex-col">
+        <a href="https://www.itqualab.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={itqualabHomePage} alt="ItQuaLab home page screenshot" />
+        </a>
+        <p class="my-2 text-sm font-semibold">It Quality Lab</p>
+        <p class="my-1 text-sm">Software quality and engineering services platform.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Full-stack web development, automation frameworks, testing systems.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Enabled teams to improve release confidence with practical quality automation.</p>
+    </div>
+    <div class="flex flex-col md:col-span-2">
+        <a href="https://pickupee.com/en/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={pickupeeHomePage} alt="Pickupee home page screenshot" />
+        </a>
+        <p class="my-2 text-sm font-semibold">Pickupee</p>
+        <p class="my-1 text-sm">Pickup and delivery service platform.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Astro, TypeScript, frontend implementation, integrations.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Delivered a production-ready solution aligned with real business logistics workflows.</p>
+    </div>
+</div>
