@@ -1,7 +1,8 @@
-☐ Update to Tailwind 4. Use PR https://github.com/nemanjam/nemanjam.github.io/pull/17
-☐ Implement target blank anchor component. Implement PR for the forked repo. Later add it to my own repo.
+☑ Update to Tailwind 4. Use PR https://github.com/nemanjam/nemanjam.github.io/pull/17
+☑ Implement target blank anchor component. Implement PR for the forked repo. Later add it to my own repo.
     - Follow Nemanja's comments: i fixed external links, you can pull latest, this guy helped me to resolve it https://github.com/expressive-code/expressive-code/issues/330#event-17403825279
     - https://github.com/rehypejs/rehype-external-links
     - https://cosmicthemes.com/blog/astro-mdx-external-link/
+    - Implemented in this repo via `rehype-external-links` in `astro.config.ts` and updated `src/components/astro-remote/Anchor.astro`
 
 

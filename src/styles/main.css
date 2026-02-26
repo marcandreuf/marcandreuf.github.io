@@ -1,9 +1,15 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* first, so base, components, utilities can use it */
+/* tailwind */
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* first, so config, base, components, utilities can use it */
 @import './theme/index.css';
+
+/* tailwind token bridge */
+@import './tailwind-config.css';
 
 @import './base/index.css';
 @import './components/index.css';

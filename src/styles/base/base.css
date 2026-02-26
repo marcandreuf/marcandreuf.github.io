@@ -9,4 +9,12 @@
     /* code blocks responsive font size */
     @apply [--expressive-code-font-size:0.875rem] md:[--expressive-code-font-size:1rem];
   }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
 }

@@ -14,7 +14,10 @@
     @apply prose-h1:font-bold;
 
     /* a */
-    @apply prose-a:link;
+    @apply prose-a:text-links prose-a:no-underline;
+    @apply prose-a:hover:text-links-hover prose-a:hover:underline;
+    @apply prose-a:focus:text-links-hover prose-a:focus:underline;
+    @apply prose-a:active:text-links-hover prose-a:active:underline;
 
     /* image */
     @apply prose-img:rounded-button;
@@ -25,7 +28,7 @@
     .toc,
     .expressive-code,
     .alert {
-      @apply b-p-my;
+      @apply my-5 md:my-6;
     }
   }
 }

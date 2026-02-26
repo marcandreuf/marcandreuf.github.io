@@ -6,10 +6,11 @@ description: 'Welcome to marcandreuf.com'
 ---
 import { Icon } from 'astro-icon/components';
 import Button from '@/components/Button.astro';
+import Alert from '@/components/Alert.astro';
 import { Image } from 'astro:assets';
 import { IMAGE_SIZES } from '../constants/image';
 import profile from '../assets/images/index/profile2023.png';
-import heroImg from '../assets/images/index/dev-hero.jpg';
+import heroImg from '../assets/images/index/park-hero-2.jpg';
 import itqualabHomePage from '../assets/images/index/itql-screenshot-small-screen.png';
 import gmHomePage from '../assets/images/index/gm-home-page.png';
 import usenemiHomePage from '../assets/images/index/usenemi-home-page.png';
@@ -21,29 +22,32 @@ import usenemiHomePage from '../assets/images/index/usenemi-home-page.png';
         <div class="flex flex-col gap-1 items-center">
             <Image class="rounded-3xl border-2 border-white" src={heroImg} alt="Dev on a desktop" height="400" />
         </div>
-        <div  class="text-md text-center bg-lightBeig py-2 px-auto rounded-md dark:bg-zinc-700">I'm a full stack developer based in South Korea.</div>
-        <div class="flex flex-row justify-between sm:mt-5 md:mt-8 items-center gap-1">
-            <div>
+        <div  class="text-md text-center bg-lightBeig py-2 px-auto rounded-md dark:bg-zinc-700">I build SaaS solutions, AI automations, and integrations.</div>
+        <div class="flex flex-col items-center text-center sm:flex-row sm:justify-between sm:items-center sm:text-left sm:mt-5 md:mt-8 gap-2 sm:gap-1">
+            <div class="flex flex-col items-center sm:items-start">
                 <h1 class="text-4xl font-bold m-0">Marc Andreu</h1>
-                <p class="m-0 font-semibold text-md ">Senior Web & Automation Engineer</p>
+                <p class="m-0 font-semibold text-md ">Full-Stack SaaS Developer & AI Automation Builder</p>
             </div>
             <div>
                 <Image class="rounded-full border-2 m-0 border-white" src={profile} alt="Foto profile" width="100" />
             </div>
         </div>
+        <Alert class="mt-4 text-sm rounded-3xl px-6 py-3" variant="note" title="Remote collaboration">
+            I work remotely with worldwide clients to ship reliable products faster, with measurable business impact.
+        </Alert>
     </div>
 
 </section>     
 
 
-### Work: 
-Marc is an independent full-stack software engineer based in South Korea with over 20 years of work experience. He is passionate about building Web and Automated solutions to solve business problems. Marc specialises in finding the best cost-effective automated solutions leveraging AI and Web frameworks while also providing impactful Software Quality consulting for entire development teams. 
+### Work:
+Marc is an independent full-stack software engineer, currently based in South Korea, with over 25 years of experience building digital products and automation systems for business growth.
 
-He has a knack for launching solutions, from planning and designing to crafting business needs with code. When he is not online, Marc loves hanging out with his family, playing football, and reading. 
+He focuses on building custom SaaS prototypes, AI automations, integrations, and web apps that solve real workflow bottlenecks and create measurable efficiency gains.
 
-Currently, he lives off his development services, which include building complex AI automation, Systems integrations, APIs, progressive web/web apps, and testing automated frameworks. 
+Software quality and test automation remain part of his toolkit, now integrated as a scaling layer after product delivery to ensure reliability and long-term maintainability.
 
-He publishes blog posts to share everything he learns so others can reuse the code and solve problems faster. 
+He has a knack for shipping quickly—from product planning and architecture to production delivery—and shares practical learnings through blog posts so others can build faster.
 
 
 
@@ -75,49 +79,44 @@ He publishes blog posts to share everything he learns so others can reuse the co
     </button>
 </a>
 
-### Portfolio:
-<div class="grid md:grid-cols-3 gap-2 mt-4 justify-center items-center">    
-    <div class="hidden md:flex justify-center items-center">
-        <a href="https://www.gestio-mozart.com" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline text-sm ">
-            <p class="my-1">Finques Mozart</p>
+### Services:
+
+- Building custom SaaS prototypes, AI automations, integrations, and web apps.
+- Designing scalable backend/API architectures and full-stack delivery pipelines.
+- Adding software quality engineering and automated testing to support reliable growth.
+
+### Projects / Creations:
+
+#### Money SAAS for builders
+
+<a href="https://usenemi.com/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+    <Image class="rounded-md m-0 w-full object-contain" src={usenemiHomePage} alt="Money SAAS for builders screenshot" />
+</a>
+
+- **What it is:** Creator-focused SaaS for money and business clarity.
+- **Tech:** Astro, TypeScript, API integrations, automation workflows.
+- **Outcome:** Built and shipped as a productized platform, reducing manual tracking and reporting work through automation.
+
+#### Other selected work
+
+<div class="grid md:grid-cols-2 gap-3 mt-2 justify-center items-start">
+    <div class="flex flex-col">
+        <a href="https://www.gestio-mozart.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={gmHomePage} alt="Finques Mozart home page screenshot" />
         </a>
+        <p class="my-2 text-sm font-semibold">Finques Mozart</p>
+        <p class="my-1 text-sm">Property management web platform.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Web app architecture, integrations, custom business workflows.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Streamlined day-to-day operations with digital process automation.</p>
     </div>
-    <div class="hidden md:flex justify-center items-center">
-        <a href="https://www.itqualab.com" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline text-sm ">
-            <p class="my-1">It Quality Lab</p>           
+    <div class="flex flex-col">
+        <a href="https://www.itqualab.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={itqualabHomePage} alt="ItQuaLab home page screenshot" />
         </a>
-    </div>
-    <div class="hidden md:flex justify-center items-center">
-        <a href="https://usenemi.com/" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline text-sm">
-            <p class="my-1">Money SAAS for builders</p>                    
-        </a>
-    </div>
-    <div class="flex">
-        <a href="https://www.gestio-mozart.com" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline ">            
-            <Image class="rounded-md m-0 w-full object-contain" src={gmHomePage} 
-            alt="Finques Mozart home page screenshot"  />
-            <span class="flex md:hidden my-1 text-xs justify-center">Finques Mozart</span>
-        </a>    
-    </div>
-    <div class="flex">
-        <a href="https://www.itqualab.com" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline ">            
-            <Image class="rounded-md m-0 w-full object-contain" src={itqualabHomePage} 
-            alt="ItQuaLab home page screenshot"  />
-            <span class="flex md:hidden my-1 text-xs justify-center">It Quality Lab</span>
-        </a>    
-    </div>
-    <div class="flex">
-        <a href="https://usenemi.com/" target="_blank" 
-        class="hover:no-underline hover:text-inherit no-underline ">            
-            <Image class="rounded-md m-0 w-full object-contain " src={usenemiHomePage} 
-            alt="Nemi home page screenshot"  />
-            <span class="flex md:hidden my-1 text-xs justify-center">Money SAAS for builders</span>           
-        </a>
+        <p class="my-2 text-sm font-semibold">It Quality Lab</p>
+        <p class="my-1 text-sm">Software quality and engineering services platform.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Full-stack web development, automation frameworks, testing systems.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Enabled teams to improve release confidence with practical quality automation.</p>
     </div>
 </div>
 

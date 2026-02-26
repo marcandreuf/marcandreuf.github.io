@@ -12,7 +12,9 @@
   }
 
   .link-no-underline {
-    @apply link !no-underline;
+    @apply hover:text-links-hover no-underline!;
+    @apply focus:text-links-hover focus:no-underline!;
+    @apply active:text-links-hover active:no-underline!;
   }
 
   .link-heading {

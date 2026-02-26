@@ -42,11 +42,21 @@ const { title: titleProp, class: className, variant: variantProp, ...props } = A
 // defailts
 const variant = variantProp ?? 'note';
 const title = titleProp ?? capitalizeFirstLetter(variant);
+
+const alertIcons = {
+  note: 'mdi:information-outline',
+  info: 'mdi:information',
+  tip: 'mdi:lightbulb-on-outline',
+  warning: 'mdi:alert-outline',
+  danger: 'mdi:alert-circle-outline',
+} as const;
+
+const iconName = alertIcons[variant];
 ---
 
 <aside class={alertVariants({ variant, className })} aria-label={title} {...props}>
   <h4 aria-hidden="true" class={cn('b-h4', alertTitleVariants({ variant }))}>
-    <Icon name={variant} class="inline h-6 w-6" />
+    <Icon name={iconName} class="inline h-6 w-6" />
     {title}
   </h4>
 

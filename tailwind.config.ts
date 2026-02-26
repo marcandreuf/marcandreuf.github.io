@@ -2,12 +2,11 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
 import type { Config } from 'tailwindcss';
-import type { PluginUtils } from 'tailwindcss/types/config';
 
 const config: Config = {
   content: ['src/**/*.{astro,md,mdx,tsx,ts}', 'astro.config.mjs'],
   // activates only dark: modifier, not color theme
-  darkMode: ['selector'],
+  darkMode: ['selector', '.dark'],
   plugins: [
     require('@tailwindcss/typography'),
     plugin(({ addVariant }) => {
@@ -29,8 +28,8 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        sans: ['Segoe','Inter Variable', 'Inter', ...defaultTheme.fontFamily.sans],
-        
+        sans: ['Segoe', 'Inter Variable', 'Inter', ...defaultTheme.fontFamily.sans],
+
       },
       colors: {
         // background
@@ -47,7 +46,7 @@ const config: Config = {
         links: {
           DEFAULT: 'var(--th-links)',
           hover: 'var(--th-links-hover)',
-          hoverGreen : '#81E6D91E',
+          hoverGreen: '#81E6D91E',
           visited: 'var(--th-links-visited)',
         },
         // brand
@@ -74,7 +73,7 @@ const config: Config = {
         button: 'var(--th-rounded-button)',
         tag: 'var(--th-rounded-tag)',
       },
-      typography: ({ theme }: PluginUtils) => ({
+      typography: ({ theme }) => ({
         DEFAULT: {
           css: {
             'code::before': { content: '""' },

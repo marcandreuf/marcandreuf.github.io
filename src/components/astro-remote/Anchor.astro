@@ -1,11 +1,14 @@
 ---
 const { href } = Astro.props;
 
-// exists and external
-const isExternalLink = Boolean(href) && !href.startsWith('#');
+const EXTERNAL_PROTOCOLS = ['http://', 'https://', '//', 'mailto:', 'tel:'];
+const hasHref = typeof href === 'string' && href.length > 0;
+const isHash = hasHref && href.startsWith('#');
+const isExternalLink =
+  hasHref && !isHash && EXTERNAL_PROTOCOLS.some((prefix) => href.startsWith(prefix));
 
 const linkProps = {
-  ...(isExternalLink ? { target: '_blank' } : {}),
+  ...(isExternalLink ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
 };
 ---
 

@@ -14,12 +14,12 @@ const { title, description } = metadata;
 ---
 
 <Centered {metadata}>
-  <article class="flex flex-col">
+  <article class="flex flex-col md:pt-10">
     <slot name="heading">
       <h1 class="b-h1">{title}</h1>
       {description && <p class="b-p mb-5">{description}</p>}
     </slot>
-    <section class="flex-grow flex flex-col">
+    <section class="grow flex flex-col">
       <slot />
       <div class="mt-auto">
         {paginationProps && <Pagination {...paginationProps} class="mt-6" />}
