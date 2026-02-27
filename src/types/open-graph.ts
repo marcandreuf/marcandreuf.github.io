@@ -5,8 +5,13 @@ export interface TemplateProps {
   siteUrl: string;
 }
 
+export interface FrontmatterHeroImage {
+  src?: string;
+  fsPath?: string;
+}
+
 export interface FrontmatterProps {
   title: string;
-  heroImage: any; // todo: find frontmatter import prop type
-  pageId: string;
+  heroImage?: FrontmatterHeroImage;
+  pageId?: string;
 }

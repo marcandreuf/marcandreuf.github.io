@@ -5,7 +5,7 @@
     /* from prose-slate */
     /* background */
     --var-color-white: var(--color-white);
-    --var-color-neutral: #f0e7db;
+    --var-color-neutral: var(--color-slate-50);
     --var-color-slate-100: var(--color-slate-100);
     --var-color-slate-300: var(--color-slate-300);
     --var-color-slate-400: var(--color-slate-400);
@@ -43,11 +43,9 @@
     --var-color-green-800: var(--color-green-800);
     --var-color-green-900: var(--color-green-900);
 
-    /* todo: fix unique colors */
-
     /* dark */
     /* background */
-    --var-color-dark-default: #202023;
+    --var-color-dark-default: var(--color-zinc-900);
     --var-color-dark-slate-800: var(--color-slate-800);
     --var-color-dark-slate-900: var(--color-slate-900);
     --var-color-dark-slate-950: var(--color-slate-950);

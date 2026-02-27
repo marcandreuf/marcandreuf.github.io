@@ -7,10 +7,8 @@ import type { ValueUnion } from '@/types/utils';
 
 const { SITE_URL, SITE_DESCRIPTION, SITE_TITLE } = CONFIG_CLIENT;
 
-// todo: make default og image with png logo
-
 /** Must be url from public folder. */
-export const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`;
+export const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image-library.jpg`;
 
 export const titleSeparator = '-';
 

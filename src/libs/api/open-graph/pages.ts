@@ -25,7 +25,6 @@ export const getPages = async () => {
     Object.entries(mdxPagesObject).map(([path, page]) => {
       // '/src/pages/about.mdx' -> 'pages/about'
       let pagePath = path.replace(/^\/src\/|\.mdx?$/g, '');
-      // fix index.mdx pages here
       // pages/index.mdx -> pages.png
       // pages/design/index.mdx -> pages/design.png
       pagePath = pagePath.replace(/\/index$/g, '');

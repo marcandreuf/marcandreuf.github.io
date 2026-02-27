@@ -15,7 +15,6 @@ import image404 from '@/assets/images/pages/image404.jpg';
 const { SITE_URL } = CONFIG_CLIENT;
 const { AVATAR, OG_FOLDER, IMAGE_404 } = FILE_PATHS;
 
-// todo: no urls at build time
 // ! must use absolute file paths
 export const getTemplatePropsUrl = (frontmatterProps: FrontmatterProps): TemplateProps => {
   const { title, heroImage, pageId } = frontmatterProps;
@@ -28,8 +27,8 @@ export const getTemplatePropsUrl = (frontmatterProps: FrontmatterProps): Templat
 
   switch (true) {
     // from mdx frontmatter
-    case Boolean(heroImage.src):
-      heroImageUrl = `${SITE_URL}${heroImage.src}`; // todo: fix this, path from mdx frontmatter
+    case Boolean(heroImage?.src):
+      heroImageUrl = `${SITE_URL}${heroImage?.src}`;
       break;
     // hardcoded in 404.mdx frontmatter
     case pageId === 'page404':
@@ -73,8 +72,8 @@ export const getTemplatePropsBase64 = async (
   let heroImagePath: string;
 
   switch (true) {
-    case Boolean(heroImage?.fsPath):
-      heroImagePath = heroImage?.fsPath;
+    case typeof heroImage?.fsPath === 'string':
+      heroImagePath = heroImage.fsPath;
       break;
     // hardcoded in 404.mdx frontmatter
     case pageId === 'page404':

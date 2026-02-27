@@ -37,7 +37,10 @@ const buttons = [
 
 const props = { ...defaultProps, ...shareProps };
 
-// todo: change package
+// todo: consider replacing astro-social-share
+// - style slot integration is unreliable (see note below)
+// - current setup depends on global CSS overrides/workarounds
+// - evaluate a package with better Astro compatibility or a small custom share component
 ---
 
 <div class={cn('inline-flex items-center gap-2', className)}>
@@ -45,7 +48,7 @@ const props = { ...defaultProps, ...shareProps };
   <SocialShare {...props} {buttons} />
 </div>
 
-{/* his slot is broken */}
+{/* this slot is broken */}
 <style is:global slot="astro-social-share-css">
   @reference "../styles/main.css";
 
@@ -54,7 +57,7 @@ const props = { ...defaultProps, ...shareProps };
   }
 
   .social-share-btn {
-    @apply inline-block w-6 h-6 !mr-4;
+    @apply inline-block w-6 h-6 mr-4!;
     svg {
       @apply w-full h-full fill-captions;
     }
