@@ -29,10 +29,11 @@ export const postSchema = ({ image }: SchemaContext) =>
     category: z.string().default(CATEGORY),
     tags: z
       .array(
-        z.string().refine(
-          (tag) => TAGS.includes(tag as (typeof TAGS)[number]),
-          (tag) => ({ message: `Invalid tag: ${tag} in the markdown.` })
-        )
+        // zod 4 (bundled with Astro 6) dropped the function form of refine's
+        // second argument, the dynamic message moves to `error`.
+        z.string().refine((tag) => TAGS.includes(tag as (typeof TAGS)[number]), {
+          error: (issue) => `Invalid tag: ${issue.input} in the markdown.`,
+        })
       )
       .nonempty()
       .transform(removeDuplicatesAndToLowerCase),
