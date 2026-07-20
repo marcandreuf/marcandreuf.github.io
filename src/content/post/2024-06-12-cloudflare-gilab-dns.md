@@ -24,13 +24,13 @@ Setting up a custom domain for a GitLab Pages site using Cloudflare can be chall
 - **Cloudflare**: [Connect Your Domain](https://developers.cloudflare.com/fundamentals/setup/manage-domains/connect-your-domain/)
 - **GitLab**: [Set Up a Custom Domain](https://docs.gitlab.com/ee/user/project/pages/custom_domains_ssl_tls_certification/index.html#set-up-a-custom-domain)
 
-# The Problem
+## The Problem
 Cloudflare and GitLab provide documentation on configuring custom domains and SSL certificates, but those docs need to be more explicit, complete and current. For quite a long time, I have faced many issues with the integration due to the following:
 - Ambiguous instructions and incomplete examples.
 - Long wait times for DNS propagation, making trial and error frustrating.
 - Challenges in getting the apex domain (example.com) and www subdomain (www.example.com) to work correctly with SSL certificates.
 
-# The Solution
+## The Solution
 After much experimentation, I've identified several key steps not explicitly mentioned in the official guides but crucial for a successful setup. Here's a detailed breakdown:
 
 ## Step 1: Generate an SSL Certificate in Cloudflare, not on the Gitlab domain setup.
@@ -104,7 +104,7 @@ The first part is the name, the second is the type, and the third is the actual 
 2. **Visit your domain in a browser** to check if it correctly points to your GitLab Pages site and that the SSL certificate is valid. 
 3. **Test the apex domain** (example.com) and the www subdomain (www.example.com) to ensure they resolve correctly.
 
-# Conclusion
+## Conclusion
 
 Following these steps, you can effectively configure your Cloudflare domain to work with GitLab Pages, complete with SSL certification. This guide aims to bridge the gaps left by the official documentation, helping you set up your static website with minimal frustration. If you encounter any issues or have additional tips, please [DM me on LinkedIn](https://www.linkedin.com/in/marcandreuf)
 

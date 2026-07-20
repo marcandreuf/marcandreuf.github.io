@@ -16,8 +16,6 @@ category: Tutorials
 toc: true
 ---
 
-# Integrating Google Sheets with Astro: A Simple Form Data Solution
-
 ## TLDR
 - Learn how to connect Astro applications with Google Sheets API
 - Implement a simple form that stores submissions in a Google Sheet
