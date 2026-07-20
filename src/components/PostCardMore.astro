@@ -13,7 +13,7 @@ export interface Props {
 }
 
 const { post } = Astro.props;
-const { data, slug } = post;
+const { data, id: slug } = post;
 const { title, heroImage, heroAlt, description, draft } = data;
 ---
 

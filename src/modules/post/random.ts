@@ -19,7 +19,7 @@ export const getRandomPosts = ({
 }: RandomPostsArgs): Post[] => {
   if (!(posts.length > 0)) return [];
 
-  const filteredPosts = posts.filter((post) => post.slug !== excludeSlug);
+  const filteredPosts = posts.filter((post) => post.id !== excludeSlug);
 
   if (!(filteredPosts.length > 0)) return [];
 

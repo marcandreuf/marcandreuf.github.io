@@ -19,7 +19,7 @@ export interface Props extends HTMLAttributes<'article'> {
 }
 
 const { post, class: className } = Astro.props;
-const { data, slug } = post;
+const { data, id: slug } = post;
 const { title, heroImage, heroAlt, description, publishDate, updatedDate, draft } = data;
 
 const { lastAccessDate, isUpdatedDate } = getPublishedOrUpdatedDate({

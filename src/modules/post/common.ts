@@ -1,3 +1,5 @@
+import { render } from 'astro:content';
+
 import { getAllEntries } from '@/modules/common';
 import { COLLECTIONS } from '@/constants/collections';
 
@@ -10,7 +12,7 @@ export const getPostsWithReadingTimeFromPosts = async (
   posts: PostCollection[]
 ): Promise<Post[]> => {
   const readingTimePromises = posts.map(async (post) => {
-    const { remarkPluginFrontmatter } = await post.render();
+    const { remarkPluginFrontmatter } = await render(post);
     const { readingTime } = remarkPluginFrontmatter;
     return { readingTime };
   });

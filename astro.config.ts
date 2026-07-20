@@ -24,9 +24,6 @@ export default defineConfig({
   //experimental: { env: envSchema },
   trailingSlash: 'ignore',
   env: envSchema,
-  legacy: {
-    collections: true,
-  },
   // default
   compressHTML: true,
   server: {

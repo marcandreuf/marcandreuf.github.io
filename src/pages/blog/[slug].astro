@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { render } from 'astro:content';
 
 import { getAllPostsWithReadingTime } from '@/modules/post/common';
 import { getRandomPosts } from '@/modules/post/random';
@@ -27,19 +28,21 @@ export async function getStaticPaths() {
   const posts: Post[] = await getAllPostsWithReadingTime();
 
   const paths = posts.map((post) => {
-    const { slug } = post;
+    const { id: slug } = post;
     const randomPosts = getRandomPosts({ posts, excludeSlug: slug });
 
     return {
       params: { slug },
-      props: { ...post, randomPosts },
+      props: { post, randomPosts },
     };
   });
 
   return paths;
 }
 
-const { data, render, readingTime, randomPosts } = Astro.props;
+// `render` is no longer a method on the entry under the content layer
+const { post, randomPosts } = Astro.props;
+const { data, readingTime } = post;
 const {
   draft,
   title,
@@ -57,7 +60,7 @@ const {
 const { slug } = Astro.params;
 const { pathname } = Astro.url;
 
-const { Content, headings: postHeadings } = await render();
+const { Content, headings: postHeadings } = await render(post);
 const headings = getHeadingsForTableOfContents(postHeadings);
 
 const postMetaProps = {

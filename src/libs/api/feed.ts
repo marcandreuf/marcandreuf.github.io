@@ -39,7 +39,7 @@ export const getFeed = async (): Promise<Feed> => {
   const sortedPosts = await getAllPosts();
 
   const itemPromises = sortedPosts.map(async (post) => {
-    const { data, slug } = post;
+    const { data, id: slug } = post;
     const { title, description, publishDate, heroImage, noHero } = data;
 
     const url = `${SITE_URL}${ROUTES.BLOG}${slug}/`;
