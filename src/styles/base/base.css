@@ -6,8 +6,8 @@
   }
 
   :root {
-    /* code blocks responsive font size */
-    @apply [--expressive-code-font-size:0.875rem] md:[--expressive-code-font-size:1rem];
+    /* code blocks, matches the prose-sm body size at all breakpoints */
+    @apply [--expressive-code-font-size:0.875rem];
   }
 
   *,
