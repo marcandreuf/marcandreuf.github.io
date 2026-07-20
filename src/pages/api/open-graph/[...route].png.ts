@@ -52,5 +52,6 @@ export const GET: APIRoute = async ({ props }: APIContext) => {
 
   const pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();
 
-  return new Response(pngBuffer);
+  // Node's Buffer is not a valid BodyInit under lib.dom types, wrap it.
+  return new Response(new Uint8Array(pngBuffer));
 };

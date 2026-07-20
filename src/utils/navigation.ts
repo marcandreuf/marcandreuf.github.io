@@ -4,7 +4,7 @@ import { ROUTES } from '@/constants/routes';
 import type { NavigationItem } from '@/types/constants';
 
 export const getActiveNavItemPath = (routePathname: string): NavigationItem['path'] | undefined => {
-  let activeNavItem: NavigationItem | undefined = undefined;
+  let activeNavItem: NavigationItem | undefined;
 
   // don't highlight home route
 

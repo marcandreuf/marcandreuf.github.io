@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 import { postSchema } from '@/schemas/post';
 import { BASE_FOLDERS } from '@/constants/collections';
 
-const { POST, PROJECT } = BASE_FOLDERS;
+const { POST } = BASE_FOLDERS;
 
 type GenerateIdFn = Parameters<typeof glob>[0]['generateId'];
 

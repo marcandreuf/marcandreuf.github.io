@@ -2,7 +2,6 @@
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 
-import { getPublishedOrUpdatedDate } from '@/modules/common';
 import { getCategoryProps } from '@/modules/post/category';
 import Link from '@/components/Link.astro';
 import TagList from '@/components/TagList.astro';
@@ -36,10 +35,6 @@ const {
 } = data;
 
 const { icon: categoryIcon } = getCategoryProps(category);
-const { lastAccessDate, isUpdatedDate } = getPublishedOrUpdatedDate({
-  publishDate,
-  updatedDate,
-});
 
 const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
 ---

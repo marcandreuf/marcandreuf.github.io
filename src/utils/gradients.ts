@@ -2,13 +2,17 @@ import { default as twColors } from 'tailwindcss/colors';
 
 import { getRandomElementFromArray as rnd } from '@/utils/strings';
 
-import type { DefaultColors } from 'tailwindcss/types/generated/colors';
+// Tailwind 4 dropped the generated `tailwindcss/types/generated/colors` entry
+// point, so derive the shape from the runtime export instead.
+type TwColors = typeof twColors;
+/** Palette keys that resolve to a shade record, e.g. 'gray', not 'inherit'. */
+type ShadedColorKeys = {
+  [K in keyof TwColors]: TwColors[K] extends Record<string, string> ? K : never;
+}[keyof TwColors];
+type ShadeKeys = keyof TwColors[ShadedColorKeys];
 
-type ColorKeys = keyof DefaultColors;
-type ShadeKeys = keyof DefaultColors[ColorKeys];
-
-const colors = ['gray', 'indigo', 'yellow', 'blue', 'cyan', 'lime', 'sky', 'white'] as ColorKeys[];
-const shades = [50, 100, 200] as ShadeKeys[];
+const colors = ['gray', 'indigo', 'yellow', 'blue', 'cyan', 'lime', 'sky', 'white'] as const;
+const shades = ['50', '100', '200'] as const satisfies readonly ShadeKeys[];
 const directions = ['to right', 'to bottom', '45deg'];
 
 // to support white

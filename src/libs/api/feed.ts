@@ -3,7 +3,6 @@ import { Feed } from 'feed';
 import { getAllPosts } from '@/modules/post/common';
 import { ROUTES } from '@/constants/routes';
 import { CONFIG_CLIENT } from '@/config/client';
-import { renderMarkdown } from '@/utils/markdown';
 
 import type { Item } from 'feed';
 
@@ -40,7 +39,7 @@ export const getFeed = async (): Promise<Feed> => {
   const sortedPosts = await getAllPosts();
 
   const itemPromises = sortedPosts.map(async (post) => {
-    const { data, body, slug } = post;
+    const { data, slug } = post;
     const { title, description, publishDate, heroImage, noHero } = data;
 
     const url = `${SITE_URL}${ROUTES.BLOG}${slug}/`;

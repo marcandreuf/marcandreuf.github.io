@@ -21,7 +21,7 @@ export interface Props extends YouTubeAstroEmbedProps, VariantProps<typeof youtu
 
 const { size = 'sm', class: className, ...props } = Astro.props;
 
-let posterQuality: YouTubeAstroEmbedProps['posterQuality'] = undefined;
+let posterQuality: YouTubeAstroEmbedProps['posterQuality'];
 
 switch (size) {
   case 'full':

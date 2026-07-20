@@ -36,7 +36,7 @@ const hasMoreThanOnePage = () => lastPage > 1;
 const pageNumbers = (length: number) => Array.from({ length }, (_, i) => i + 1);
 
 const threePageNumbers = (currentPage: number, lastPage: number): number[] => {
-  let pages: number[] = [];
+  let pages: number[];
 
   if (lastPage <= 3) {
     // if total pages are 3 or less, show all pages

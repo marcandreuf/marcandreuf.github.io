@@ -6,8 +6,8 @@ export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
   isActive?: boolean;
 }
 
-// eslint-disable-next-line no-unused-vars
-const { slot, isActive = false, class: className, ...props } = Astro.props as Props;
+// `slot` is destructured only to keep it out of ...props
+const { slot: _slot, isActive = false, class: className, ...props } = Astro.props as Props;
 ---
 
 <Link {...props} variant="link-nav" class={cn({ 'underline text-links': isActive }, className)}>
