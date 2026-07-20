@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 .astro/*
 !.astro/types.d.ts
+
+# session journals, local working notes
+.claude/journals/
