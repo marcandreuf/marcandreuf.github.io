@@ -1,6 +1,6 @@
 import { html } from 'satori-html';
 
-import { getRandomGradient } from '@/utils/gradients';
+import { getGradientForKey } from '@/utils/gradients';
 import { limitString } from '@/utils/strings';
 
 import type { TemplateProps } from '@/types/open-graph';
@@ -13,7 +13,8 @@ const templateHtml = ({ title, heroImageUrl, avatarImageUrl, siteUrl }: Template
   // max 6 rows x 10-15 chars
   const limitedTitle = limitString(title, 70);
 
-  const randomGradient = getRandomGradient();
+  // keyed by title so the image is reproducible across builds
+  const randomGradient = getGradientForKey(title);
 
   return html`
     <div class="flex p-8 h-full" style="${randomGradient}">

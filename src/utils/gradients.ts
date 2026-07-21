@@ -1,4 +1,4 @@
-import { getRandomElementFromArray as rnd } from '@/utils/strings';
+import { createSeededPicker } from '@/utils/seeded-random';
 
 // These gradients are only ever consumed by the open-graph template, which is
 // rendered by satori, not by a browser. Satori cannot parse `oklch()`, and
@@ -22,13 +22,22 @@ const colors = ['gray', 'indigo', 'yellow', 'blue', 'cyan', 'lime', 'sky', 'whit
 const shades = ['50', '100', '200'] as const;
 const directions = ['to right', 'to bottom', '45deg'];
 
-// to support white
-const getRandomColor = () => {
-  const rndColor = rnd(colors);
-  return rndColor === 'white' ? rndColor : palette[rndColor][rnd(shades)];
-};
+/**
+ * Deterministic per key: the same page always gets the same gradient, so its
+ * open-graph image stays byte identical between builds. Different pages still
+ * spread across the palette.
+ */
+export const getGradientForKey = (key: string) => {
+  const pick = createSeededPicker(key);
 
-export const getRandomGradient = () =>
-  `background: linear-gradient(${rnd(directions)}, ${getRandomColor()}, ${getRandomColor()})`;
+  // to support white
+  const pickColor = () => {
+    const color = pick(colors);
+    return color === 'white' ? color : palette[color][pick(shades)];
+  };
+
+  // template literals evaluate left to right, so the draw order is stable
+  return `background: linear-gradient(${pick(directions)}, ${pickColor()}, ${pickColor()})`;
+};
 
 export const grayGradient = `background: linear-gradient(to right, ${palette.gray[100]}, ${palette.gray[300]})`;

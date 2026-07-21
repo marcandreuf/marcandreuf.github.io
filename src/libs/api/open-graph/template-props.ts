@@ -4,6 +4,7 @@ import path from 'path';
 import { FILE_PATHS } from '@/constants/file-paths';
 import { CONFIG_CLIENT } from '@/config/client';
 import { getRandomElementFromArray } from '@/utils/array';
+import { createSeededPicker } from '@/utils/seeded-random';
 import { removeTrailingSlash } from '@/utils/paths';
 import { trimHttpProtocol } from '@/utils/strings';
 
@@ -82,7 +83,7 @@ export const getTemplatePropsBase64 = async (
 
     // fallback to random default image
     default:
-      heroImagePath = await getRandomImagePath(OG_FOLDER);
+      heroImagePath = await getRandomImagePath(OG_FOLDER, title);
       break;
   }
   //console.log('heroImagePath', heroImagePath);
@@ -149,7 +150,8 @@ const getImageType = (imagePath: string) => {
   return imageType;
 };
 
-export const getRandomImagePath = async (folderPath: string): Promise<string> => {
+/** `seed` keeps the fallback image stable per page across builds. */
+export const getRandomImagePath = async (folderPath: string, seed: string): Promise<string> => {
   const trimmedFolderPath = removeTrailingSlash(folderPath);
 
   const files = await fs.readdir(trimmedFolderPath);
@@ -162,8 +164,10 @@ export const getRandomImagePath = async (folderPath: string): Promise<string> =>
 
   if (imageFiles.length === 0) throw new Error(`No default og images found in: ${folderPath}`);
 
-  const randomIndex = Math.floor(Math.random() * imageFiles.length);
-  const randomImage = imageFiles[randomIndex];
+  // sort first: readdir order is filesystem dependent, so an unsorted list
+  // would still vary between machines even with a fixed seed
+  const pick = createSeededPicker(seed);
+  const randomImage = pick(imageFiles.slice().sort());
 
   const randomImageWithPath = `${trimmedFolderPath}/${randomImage}`;
 
