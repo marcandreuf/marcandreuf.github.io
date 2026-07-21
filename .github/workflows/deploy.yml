@@ -33,13 +33,27 @@ jobs:
         uses: actions/checkout@v4
         
       - name: build within a container
-        run: |          
+        run: |
           docker run --rm -t -v .:/home/runner/workspace \
             -e SITE_URL \
             -e PLAUSIBLE_SCRIPT_URL \
             -e PLAUSIBLE_DOMAIN \
             ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-build:main\
-            /bin/bash -c "pnpm install && pnpm exec playwright install && pnpm build"
+            /bin/bash -c "set -e && \
+              pnpm install --frozen-lockfile && \
+              pnpm exec playwright install chromium-headless-shell && \
+              pnpm exec astro sync && \
+              pnpm lint && \
+              pnpm check-types && \
+              pnpm build && \
+              pnpm verify"
+        # astro sync must precede check-types. .astro/types.d.ts is tracked, but
+        # it only /// references env.d.ts and content.d.ts, which are generated
+        # and gitignored. On a fresh clone tsc therefore fails with missing
+        # astro:env exports and untyped getCollection. The sync is here rather
+        # than inside the check-types script because it loads astro.config.ts,
+        # which requires SITE_URL, and that would make the bare `pnpm
+        # check-types` unusable locally.
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
