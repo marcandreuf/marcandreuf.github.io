@@ -25,11 +25,11 @@ const templateHtml = ({ title, heroImageUrl, avatarImageUrl, siteUrl }: Template
 
           <!-- avatar and site -->
           <div class="flex items-center ${isLongSiteUrl ? 'flex-col justify-end items-start' : ''}">
+            <!-- size must be CSS, not width/height attributes: satori rejects
+                 the string "120" those produce and collapses the image to 0 -->
             <img
               src="${avatarImageUrl}"
-              width="120"
-              height="120"
-              class="rounded-full mr-8 border-2 border-gray-300"
+              class="w-[120px] h-[120px] rounded-full mr-8 border-2 border-gray-300"
             />
             <div class="flex items-center ${isLongSiteUrl ? 'mt-4 text-3xl' : 'text-4xl'}">
               <div>${siteUrl}</div>
@@ -39,9 +39,7 @@ const templateHtml = ({ title, heroImageUrl, avatarImageUrl, siteUrl }: Template
 
         <!-- right column -->
         <div class="w-[550px] flex items-center">
-          <img src="${heroImageUrl}" 
-            width="120"
-            height="120" 
+          <img src="${heroImageUrl}"
             class="h-full w-full rounded-md" style="object-fit: cover" />
         </div>
       </div>
