@@ -36,3 +36,7 @@ pnpm-debug.log*
 
 # session journals, local working notes
 .claude/journals/
+
+# internal engineering notes, kept out of this public repo
+# see ~/projects/engineering-docs/
+docs/UPGRADE_PLAN.md
