@@ -336,7 +336,23 @@ have `@view-transition` in `BaseHead.astro` with `ClientRouter` commented out
 | 7e | **Skipped, as the condition in the table says.** The git-metadata feature is not used here: `src/types/git.ts` and `src/constants/git.ts` do not exist, and our 37-line `src/libs/git.ts` is imported by nothing. It is dead code and a candidate for deletion rather than expansion. |
 | 7f | **Not taken.** All four files have diverged 32-70 lines from upstream and several of those deltas are this fork's own (`schemas/config.ts` now carries the zod 4 migration; `BaseHead.astro` carries the deliberate view-transitions state). Taking upstream's versions would clobber fork-specific work. Needs a per-hunk review, not a file-level copy. |
 
-### Open bug found while evaluating 7d
+### Open bug found while evaluating 7d — FIXED, `debe023`
+
+Root cause was **`oklch()`**. satori cannot parse it, and Tailwind 4 emits the
+whole palette in oklch, so `getRandomGradient()` read colours from
+`tailwindcss/colors` and produced a gradient satori silently failed on. Proved
+by rendering the same gradient twice: hex gives `rgba(242,244,246,255)`, oklch
+gives `rgba(0,0,0,255)`. This is a direct consequence of this fork's Tailwind
+3 -> 4 deviation, which is why upstream never saw it.
+
+The palette is now pinned as sRGB hex in `src/utils/gradients.ts`, converted
+from the current Tailwind 4 oklch values so the design intent is preserved. All
+47 images went from black to correct. `verify-build.mjs` gained a 12th assertion
+(`d19e64e`) so this cannot regress silently.
+
+The per-build churn below is still open and is still 7d's remaining value.
+
+Original report follows.
 
 **Open-graph backgrounds render opaque black, not the intended gradient.**
 `getRandomGradient()` emits `background: linear-gradient(...)` into a `style`
