@@ -325,6 +325,36 @@ Note `0376728` also enables native view transitions upstream. We currently
 have `@view-transition` in `BaseHead.astro` with `ClientRouter` commented out
 (known Firefox distortion). Evaluate separately, do not take blind.
 
+### Status
+
+| # | Outcome |
+| --- | --- |
+| 7a | **DONE — `b16306f`.** Taken verbatim; our config body already matched upstream, so the file is now identical to theirs. |
+| 7b | **DONE — `45e9b57`.** Pagination half only; the view-transitions half of `0376728` was left out as flagged above. The bug was live: 134 double-slash hrefs across 40 pages, now zero. |
+| 7c | **Already applied.** `src/modules/common.ts` already returns `entry.data.publishDate`. Only the comment wording differs from upstream. Nothing to take. |
+| 7d | **Not taken.** See below, it has a prerequisite. |
+| 7e | **Skipped, as the condition in the table says.** The git-metadata feature is not used here: `src/types/git.ts` and `src/constants/git.ts` do not exist, and our 37-line `src/libs/git.ts` is imported by nothing. It is dead code and a candidate for deletion rather than expansion. |
+| 7f | **Not taken.** All four files have diverged 32-70 lines from upstream and several of those deltas are this fork's own (`schemas/config.ts` now carries the zod 4 migration; `BaseHead.astro` carries the deliberate view-transitions state). Taking upstream's versions would clobber fork-specific work. Needs a per-hunk review, not a file-level copy. |
+
+### Open bug found while evaluating 7d
+
+**Open-graph backgrounds render opaque black, not the intended gradient.**
+`getRandomGradient()` emits `background: linear-gradient(...)` into a `style`
+attribute, and the rendered PNG's corner pixel is `rgba(0,0,0,255)`. The palette
+is deliberately light (shades 50-200 plus white) and the title is
+`text-slate-900`, so the design intends dark text on a light background. What
+actually ships is near-black text on black: every social share preview has a
+barely legible title. This predates the upgrade chain, reproducing on satori
+0.12 as well as 0.28, so it is not a regression from Phase 6.
+
+Also note `getRandomGradient()` is seeded by `Math.random()`, so **all 47
+open-graph PNGs change on every single build**, churning 47 binaries per deploy.
+That is exactly what 7d's "deterministic randomness" addresses.
+
+Fix the black background first, or fold it into 7d. Taking 7d as-is would port
+a 260-line rework onto an OG pipeline that is already visibly broken, making it
+hard to tell which change fixed or broke what.
+
 ---
 
 ## Suggested branches
