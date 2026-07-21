@@ -194,14 +194,41 @@ code changes. Reassuring but not a guarantee for us, since our plugin set
 differs.
 
 - `astro` 6 -> 7 and the matching integration majors.
-- Bump Node to 24 and pnpm to 11 (`engines`, `packageManager`). Our CI builds
+- ~~Bump Node to 24 and pnpm to 11 (`engines`, `packageManager`). Our CI builds
   in `ghcr.io/marcandreuf/base-images/frontend-node22-pnpm-build:main` —
   **that image is pinned to Node 22 and must be rebuilt or repointed**, or CI
-  will fail even when local passes.
+  will fail even when local passes.~~ **Not required.** Astro 7 declares
+  `node: >=22.12.0`, the same floor as Astro 6, so nothing here forces Node 24.
+  See the outcome note below.
 
 **Gate:** standard gate, plus a CI run on the branch before merging.
 
 **Risk:** medium, concentrated in the container image rather than the code.
+
+**DONE — `345ff12`.** package.json and lockfile only, as upstream `cccc01f`
+suggested, but the reasoning in this section was wrong on two counts.
+
+First, Astro 7 is not a quiet release: it moves to Vite 8, makes the Rust
+compiler mandatory with stricter HTML validation, switches the default markdown
+pipeline from remark/rehype to Sätteri, flips `compressHTML` from `true` to
+`'jsx'`, removes `@astrojs/db` and the `astro:transitions` internals, and
+reserves `src/fetch.ts`. It landed cleanly here only because this repo does not
+touch most of that, and because Phase 2 had already pinned
+`processor: unified({...})` with an explicit `@astrojs/markdown-remark`
+dependency, which is precisely the documented opt-out from Sätteri. Had Phase 2
+not done that, rehypeMermaid and expressive-code would both have gone dark in
+this phase. `compressHTML: true` is likewise set explicitly in `astro.config.ts`,
+so the default flip was a non-event.
+
+Second, one bump this section did not anticipate was mandatory:
+`@tailwindcss/vite` 4.2.1 peer-depends on `vite ^5 || ^6 || ^7`, so Vite 8
+required moving it and `tailwindcss` to 4.3.3. `@astrojs/mdx` 7 was likewise
+forced by its `astro ^7.0.0` peer.
+
+`engines.node` was left at `>=v22.12.0` and `packageManager` at `pnpm@10.8.0`.
+The CI base image question is therefore **unchanged by this phase**, not
+escalated by it: the image must ship Node >= 22.12.0, which has been true since
+Phase 2. It remains unverified.
 
 ---
 
