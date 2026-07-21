@@ -58,7 +58,7 @@
     "sharp": "0.34.0",
     "tailwind-clip-path": "^1.0.0",
     "tailwind-merge": "^3.5.0",
-    "zod": "^3.25.76"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

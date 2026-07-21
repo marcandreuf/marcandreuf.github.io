@@ -15,7 +15,10 @@ export const processEnvSchema = z.object({
   PREVIEW_MODE: z
     .enum(booleanValues)
     .transform((value) => value === 'true')
-    .default('false'),
+    // prefault, not default: zod 4's default() short-circuits the pipeline and
+    // is typed against the output, so default('false') would hand back the
+    // truthy string. prefault feeds 'false' through the transform, as zod 3 did.
+    .prefault('false'),
   // ensure no trailing slash
   SITE_URL: z.string().url().regex(/[^/]$/, 'SITE_URL should not end with a slash "/"'),
   PLAUSIBLE_SCRIPT_URL: z.string().url().or(z.literal('')).optional(),
@@ -30,7 +33,7 @@ export const processEnvSchema = z.object({
         value === '' ||
         value === 'localhost' || // astro:env default
         domainSubdomainRegex.test(value),
-      (value) => ({ message: `Invalid hostname for PLAUSIBLE_DOMAIN 1: ${value}` })
+      { error: (issue) => `Invalid hostname for PLAUSIBLE_DOMAIN 1: ${issue.input}` }
     ),
 });
 
