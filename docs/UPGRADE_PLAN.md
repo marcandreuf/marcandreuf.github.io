@@ -116,6 +116,19 @@ The posts still render via the legacy path, but `legacy.collections` is
 config, so watch for URL changes. Diff the built route list before and after:
 any change is a broken permalink.
 
+**DONE — `e6316e5`.** This was substantially more than a file move plus a
+config deletion; the plan above understated it. The legacy flag was masking two
+bugs that would have bitten the moment the loader took effect: the glob pattern
+was `**/*.mdx`, which would have dropped all 33 `.md` posts, and the custom
+`generateId` assumed upstream's nested `<year>/<name>/index.mdx` layout, so on
+our flat posts it would have emitted ids with the extension still attached. The
+pattern widened to `**/*.{md,mdx}` and `generateId` was removed outright, since
+the loader's default reproduces the legacy slugs exactly. Content layer entries
+also expose `id` instead of `slug` and have no `.render()` method, so the post
+cards, feed, `getStaticPaths`, `getRandomPosts` and `modules/post/common.ts` all
+needed updating, and `blog/[slug].astro` now receives the entry as a prop. The
+built route list came out byte for byte identical, so no permalink moved.
+
 ---
 
 ## Phase 2 — Astro 6
@@ -148,7 +161,13 @@ Small surface: `src/components/react/ScrollToTop.tsx` is the only `.tsx`
 component.
 
 - `react`, `react-dom` 18.3 -> 19.2; `@types/react`, `@types/react-dom` to 19.
-- `@astrojs/react` to whichever major pairs with Astro 6 and React 19.
+- **`@astrojs/react` stays on 5.x.** An earlier draft of this plan said to move
+  it to "whichever major pairs with Astro 6 and React 19"; that major is 5.
+  5.0.7 already declares `react: ^17 || ^18 || ^19`, so React 19 needs no
+  integration bump, and `@astrojs/react` 6.0.0 published at the same timestamp
+  as `astro` 7.0.0 (2026-06-22T10:10) — it is the Astro 7 companion and belongs
+  to Phase 4. Bumping it here would drag Phase 4 forward and defeat the point of
+  splitting these phases.
 
 Done separately from Astro 7 so a hydration regression is unambiguous.
 
@@ -156,6 +175,15 @@ Done separately from Astro 7 so a hydration regression is unambiguous.
 appears and works (it is client-hydrated; a static build check cannot see it).
 
 **Risk:** low, given one component.
+
+**DONE — `c48a485`.** Two React 19 type breaks needed fixing: `useRef<T>(null)`
+now yields `RefObject<T | null>`, so the `showLink`/`hideLink` parameters in
+`ScrollToTop.tsx` widened to `React.RefObject<HTMLAnchorElement | null>`; and
+the global `JSX` namespace is gone in `@types/react` 19, so `src/types/utils.ts`
+imports `JSX` from `react`. Hydration was verified in a real browser, not just
+by build: the button renders hidden at `scrollY` 0, the IntersectionObserver
+effect reveals it at `scrollY` 3000, its `onClick` scrolls back to 0, and the
+console showed no errors or hydration mismatches.
 
 ---
 
