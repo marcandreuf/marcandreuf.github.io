@@ -248,6 +248,23 @@ and confirm the validation error is still readable.
 
 **Risk:** low-medium. zod 4 changes error shapes more than schema syntax.
 
+**DONE — `b73f557`.** The risk note was right that error shapes moved
+(`ZodError.errors` -> `.issues`, and `refine()` no longer takes a
+message-building function), but it missed the one change that could have
+shipped a silent behaviour bug rather than a compile error.
+
+`PREVIEW_MODE` was `z.enum(booleanValues).transform(v => v === 'true')
+.default('false')`. zod 4 redefines `default()` to short-circuit the pipeline
+and type it against the *output*, so the transform no longer runs on the
+default value. In TypeScript this surfaces as a type error, but the same code in
+plain JS would have quietly produced the string `'false'` — which is truthy —
+inverting preview mode whenever the env var was absent. The fix is
+`prefault('false')`: zod 4's name for the old behaviour. Any future
+`.transform().default()` chain in this repo deserves the same scrutiny.
+
+Also worth knowing for later phases: `ZodSchema` is now a type-only export, so
+it needs `import type` under `verbatimModuleSyntax`.
+
 ---
 
 ## Phase 6 — Remaining dependency drift
