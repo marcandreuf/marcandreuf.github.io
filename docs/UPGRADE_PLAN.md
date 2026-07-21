@@ -321,9 +321,20 @@ Independent of the upgrade chain. Each is its own commit and gate.
 | 7e | `libs/git.ts` + `types/git.ts`, `constants/git.ts` | 78 lines + 2 new files | Take only if the git-metadata feature is actually used. |
 | 7f | Misc small diffs | `Footer.astro` (50), `constants/image.ts` (35), `BaseHead.astro` (32), `schemas/config.ts` (59) | Review individually; some are Vercel-specific and should be skipped. |
 
-Note `0376728` also enables native view transitions upstream. We currently
-have `@view-transition` in `BaseHead.astro` with `ClientRouter` commented out
-(known Firefox distortion). Evaluate separately, do not take blind.
+Note `0376728` also enables native view transitions upstream.
+
+**Correction: this note had the local state backwards.** It claimed we run
+`@view-transition` with `ClientRouter` commented out. The reverse is true:
+`BaseHead.astro` renders `<ClientRouter fallback="none" />`, and the native
+`@view-transition` style block is the one commented out.
+
+That flips what the open option actually is. Upstream's commit moves *from*
+`ClientRouter` *to* native view transitions specifically to remove the Firefox
+distortion, so this fork is currently on the side that distorts. Swapping is a
+real, available improvement rather than something already done, but it changes
+navigation behaviour site-wide and both mechanisms have different fallback
+semantics, so it still wants a deliberate decision and a browser check rather
+than a blind cherry-pick.
 
 ### Status
 
@@ -332,9 +343,9 @@ have `@view-transition` in `BaseHead.astro` with `ClientRouter` commented out
 | 7a | **DONE — `b16306f`.** Taken verbatim; our config body already matched upstream, so the file is now identical to theirs. |
 | 7b | **DONE — `45e9b57`.** Pagination half only; the view-transitions half of `0376728` was left out as flagged above. The bug was live: 134 double-slash hrefs across 40 pages, now zero. |
 | 7c | **Already applied.** `src/modules/common.ts` already returns `entry.data.publishDate`. Only the comment wording differs from upstream. Nothing to take. |
-| 7d | **Not taken.** See below, it has a prerequisite. |
+| 7d | **DONE — `c496a8a`, but written here, not cherry-picked.** Upstream never implemented this. Their `gradients.ts` still calls `Math.random()` under a Todo reading "Won't work", and still imports the Tailwind 3 colours path whose oklch successor caused the bug fixed in `debe023`, so porting their file would have regressed it. Churn was measured, not assumed: two builds of identical code gave 47/47 differing images; now 0/47. Two sources, both seeded from the page title: the gradient, and the fallback hero image in `getRandomImagePath`. That function also now sorts before picking, because `fs.readdir` order is filesystem dependent. |
 | 7e | **Skipped, as the condition in the table says.** The git-metadata feature is not used here: `src/types/git.ts` and `src/constants/git.ts` do not exist, and our 37-line `src/libs/git.ts` is imported by nothing. It is dead code and a candidate for deletion rather than expansion. |
-| 7f | **Not taken.** All four files have diverged 32-70 lines from upstream and several of those deltas are this fork's own (`schemas/config.ts` now carries the zod 4 migration; `BaseHead.astro` carries the deliberate view-transitions state). Taking upstream's versions would clobber fork-specific work. Needs a per-hunk review, not a file-level copy. |
+| 7f | **Reviewed per hunk, and deliberately skipped in full.** Every one of the four diverges for a reason this fork chose. `Footer.astro`: upstream's version *is* the git-metadata feature, i.e. 7e, already skipped as unused, so taking it would drag 7e in through the back door. `BaseHead.astro`: upstream routes canonical URLs through a `SITE_URL_CANONICAL` config that does not exist here, and which exists for them because they run several deployments pointing at one canonical host; this site has a single domain, so `href={url}` is already correct. `constants/image.ts`: our responsive `widths`/`sizes` are tuned differently on purpose, and upstream's adds `GALLERY_THUMBNAIL`, `BLUR_16_9` and `TW_WIDTHS` for the gallery this fork deleted. `schemas/config.ts`: ours carries the zod 4 migration, upstream is still on zod 3. The only takeable content was two typos in our own comments, fixed in `11af8fe`. **Nothing further to take from 7f; consider it closed rather than pending.** |
 
 ### Open bug found while evaluating 7d — FIXED, `debe023`
 
