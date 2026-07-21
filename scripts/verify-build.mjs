@@ -13,6 +13,8 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
+import sharp from 'sharp';
+
 const DIST = 'dist';
 const EXPECTED_PAGES = 240;
 
@@ -152,6 +154,33 @@ console.log('7. open graph');
   check(ogImages.length > 0, `${ogImages.length} open-graph png(s) emitted`);
   const empty = ogImages.filter((f) => statSync(f).size === 0);
   check(empty.length === 0, 'no zero-byte open-graph images', empty.join(', '));
+
+  // The background must actually render. satori cannot parse oklch(), and
+  // Tailwind 4 emits its palette in oklch, so feeding it colours straight from
+  // `tailwindcss/colors` silently produced a black background behind dark text.
+  // Size checks cannot see that: the PNGs were all present and non-empty.
+  // The palette is light by design, so a near-black corner means the gradient
+  // failed to parse.
+  const black = [];
+  for (const file of ogImages) {
+    const { data } = await sharp(file)
+      .extract({ left: 3, top: 3, width: 1, height: 1 })
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    const [r, g, b] = data;
+    if (r < 20 && g < 20 && b < 20) black.push(file);
+  }
+  check(
+    black.length === 0,
+    'open-graph backgrounds render (no black corners)',
+    black.slice(0, 5).join(', ')
+  );
+
+  // Known gap: this section cannot tell whether every *element* inside the
+  // image rendered. satori 0.28 stopped coercing the string values that HTML
+  // width/height attributes produce, which collapsed the avatar to zero width,
+  // and every assertion here still passed. When satori or sharp moves, open a
+  // rendered PNG and compare it against the previous build by eye.
 }
 
 console.log(
