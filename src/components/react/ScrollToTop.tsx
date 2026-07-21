@@ -14,12 +14,12 @@ const { SCROLL_TO_TOP_SELECTOR } = SELECTORS;
 const fixedClasses = ['opacity-1', 'translate-y-0'];
 const hiddenClasses = ['opacity-0', 'translate-y-20'];
 
-const showLink = (linkRef: React.RefObject<HTMLAnchorElement>): void => {
+const showLink = (linkRef: React.RefObject<HTMLAnchorElement | null>): void => {
   linkRef.current?.classList.add(...fixedClasses);
   linkRef.current?.classList.remove(...hiddenClasses);
 };
 
-const hideLink = (linkRef: React.RefObject<HTMLAnchorElement>): void => {
+const hideLink = (linkRef: React.RefObject<HTMLAnchorElement | null>): void => {
   linkRef.current?.classList.remove(...fixedClasses);
   linkRef.current?.classList.add(...hiddenClasses);
 };
