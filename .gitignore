@@ -37,6 +37,10 @@ pnpm-debug.log*
 # session journals, local working notes
 .claude/journals/
 
-# internal engineering notes, kept out of this public repo
-# see ~/projects/engineering-docs/
-docs/UPGRADE_PLAN.md
+# Engineering docs do not belong in this repo. It is public, and working notes
+# (upgrade plans, audits, PR playbooks) are not visitor material. They live in
+# ~/projects/engineering-docs/ instead.
+#
+# Ignoring the whole folder is deliberate: adding a doc here has to be an
+# explicit un-ignore, which is the approval step.
+docs/
