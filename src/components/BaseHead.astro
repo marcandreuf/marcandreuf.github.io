@@ -19,11 +19,11 @@ export interface BaseHeadProps {
   metadata: Metadata;
 }
 
-// set defualt metadata in this component
+// set default metadata in this component
 const { metadata } = Astro.props as BaseHeadProps;
 
 // site: SITE_URL var + '/'
-// url: full page url, cannonical url, per page
+// url: full page url, canonical url, per page
 const { url } = Astro; // objects
 const { host } = url; // host - marcandreuf.com
 
