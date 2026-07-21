@@ -284,6 +284,28 @@ assertion 7 and by the RSS routes.
 
 **Risk:** medium for satori/feed, low for the rest.
 
+**DONE — `a976b38` (low risk), `6a22ece` (satori), `f544e15` (feed).** Split
+into three commits rather than one batch so a regression stays attributable;
+that paid off. Actual versions were further along than this section assumed:
+satori 0.12 -> **0.28**, and `astro-expressive-code` was already on 0.44, so
+only its patch was left. `typescript` stayed on 5.9 as recommended.
+
+**The standard gate is not sufficient for this phase.** `pnpm verify` asserts
+only that 47 open-graph PNGs exist and are non-empty. satori 0.28 stopped
+coercing the string values that HTML `width`/`height` attributes produce, which
+collapsed the avatar image to zero width, and **the gate passed anyway**. It was
+caught only by opening a rendered PNG and comparing it to the previous one. The
+template now sizes images in CSS. Whenever `satori` or `sharp` moves, open an
+actual image; and `object-treeify` sits behind a `@ts-expect-error`, so it needs
+a runtime check rather than a typecheck.
+
+`feed` 6 needed no code change but does alter output: `<guid>` gains
+`isPermaLink="false"`, four `<link>`s gain a trailing slash, and JSON feed items
+carry `content_html` instead of `summary` (a spec-compliance fix, since v4
+emitted no content field). Item counts and, critically, guid/id *values* are
+unchanged, so no subscriber sees old posts resurface. Diff both feeds against
+the previous build when this dependency moves.
+
 ---
 
 ## Phase 7 — Cherry-picks from upstream
