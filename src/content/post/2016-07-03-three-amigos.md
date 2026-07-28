@@ -19,7 +19,7 @@ toc: true
 
 ## Overview
 
-In the previous [post](2016-06-15-sqahoax) I discussed why we need Quality & Assurance (QA) experts instead of just Developers (DEVs) with QA background. This is a follow-up post where we will zoom into the details of the QA team member specializations. The QA team composition has the main goal to leverage the power of an efficient test automation framework, which should be constantly evolving and reporting valuable information about the project.
+In the previous [post](/blog/2016-06-15-sqahoax/) I discussed why we need Quality & Assurance (QA) experts instead of just Developers (DEVs) with QA background. This is a follow-up post where we will zoom into the details of the QA team member specializations. The QA team composition has the main goal to leverage the power of an efficient test automation framework, which should be constantly evolving and reporting valuable information about the project.
 
 A usual misunderstanding among many teams is to regard testing as one team without any specialization. Moreover, the biggest mistake that I have seen is to give the same job title to all "testers" regardless their skills and contributions.
 
