@@ -32,7 +32,7 @@ const handledMetadata = handleTitle(metadata);
 const filteredMetadata = filterUndefined(handledMetadata);
 const mergedMetadata: Required<Metadata> = { ...DEFAULT_METADATA, ...filteredMetadata };
 
-const { title, description, image } = mergedMetadata;
+const { title, description, image, noindex } = mergedMetadata;
 
 const ogImageUrl = new URL(image, url);
 ---
@@ -44,6 +44,9 @@ const ogImageUrl = new URL(image, url);
 
   {/* wrong, set from theme toggle */}
   <meta name="theme-color" content="" />
+
+  {/* 'follow' so link equity still flows to the canonical tag/category pages */}
+  {noindex && <meta name="robots" content="noindex, follow" />}
 
   {/* Links */}
   {/* Root-Relative URL (Starts with /): */}

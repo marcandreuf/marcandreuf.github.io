@@ -20,14 +20,12 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   const uniqueCategories = getUniqueCategories(posts);
 
-  const pagination = uniqueCategories.flatMap((category) => {
+  // no /1 alias for page one, see the note in src/pages/blog/[...page].astro
+  return uniqueCategories.flatMap((category) => {
     const filteredPosts = posts.filter((post) => post.data.category === category);
     const categoryPagination = paginate(filteredPosts, { pageSize, params: { category } });
     return categoryPagination;
   });
-
-  pagination.push({ ...pagination[0], params: { ...pagination[0].params, page: '1' } });
-  return pagination;
 }
 
 const { page } = Astro.props;

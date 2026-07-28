@@ -73,7 +73,8 @@ const postMetaProps = {
 const shareProps = {
   title,
   description,
-  url: `${SITE_URL}${ROUTES.BLOG}${slug}`,
+  // trailing slash so shared links do not land on a 301
+  url: `${SITE_URL}${ROUTES.BLOG}${slug}/`,
 };
 
 const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });

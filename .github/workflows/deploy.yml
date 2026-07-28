@@ -21,7 +21,10 @@ permissions:
 
 # set env vars in Github settings here
 env:
-  SITE_URL: 'https://www.marcandreuf.com'
+  # Must be the hostname that serves 200, NOT the one that redirects.
+  # Cloudflare 301s www -> apex, so canonical/sitemap/OG URLs must be apex.
+  # Using www here pointed every canonical at a redirect and stalled indexing.
+  SITE_URL: 'https://marcandreuf.com'
   PLAUSIBLE_SCRIPT_URL: ''
   PLAUSIBLE_DOMAIN: 'marcandreuf.com'
 

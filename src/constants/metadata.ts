@@ -16,6 +16,7 @@ export const DEFAULT_METADATA: Required<Metadata> = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   image: defaultOgImage,
+  noindex: false,
 } as const;
 
 /**

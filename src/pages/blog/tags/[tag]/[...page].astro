@@ -19,14 +19,12 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   const uniqueTags = getUniqueTags(posts);
 
-  const pagination = uniqueTags.flatMap((tag) => {
+  // no /1 alias for page one, see the note in src/pages/blog/[...page].astro
+  return uniqueTags.flatMap((tag) => {
     const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
     const tagPagination = paginate(filteredPosts, { pageSize, params: { tag } });
     return tagPagination;
   });
-
-  pagination.push({ ...pagination[0], params: { ...pagination[0].params, page: '1' } });
-  return pagination;
 }
 
 const { page } = Astro.props;
@@ -36,7 +34,11 @@ const title = `#${tag}`;
 
 // dynamic param for metadata
 const defaultMetadata = getPageMetadata('lists/blog/tags/tag');
-const metadata: Metadata = { ...defaultMetadata, title };
+
+// A tag page listing a single post is strictly less useful than that post, and
+// 39 of the 69 tags are in that state. Keep the page (TagList.astro links to it)
+// but leave it out of the index so it stops competing with the post itself.
+const metadata: Metadata = { ...defaultMetadata, title, noindex: page.total < 2 };
 
 const paginationProps = pickPaginationPropsFromPage(page);
 const layoutProps = { metadata, paginationProps };

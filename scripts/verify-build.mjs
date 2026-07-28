@@ -16,7 +16,9 @@ import { join } from 'node:path';
 import sharp from 'sharp';
 
 const DIST = 'dist';
-const EXPECTED_PAGES = 240;
+// 240 -> 234: dropped the six /1 aliases that duplicated their own page one
+// (/blog/1, /blog/explore/1, /blog/tags/proxmox/1, ...). See src/pages/blog/[...page].astro.
+const EXPECTED_PAGES = 234;
 
 let failures = 0;
 let checks = 0;

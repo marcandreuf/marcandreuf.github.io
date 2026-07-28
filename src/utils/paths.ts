@@ -18,7 +18,9 @@ export const getPathnameFromFilterParams = (filterParams: FilterParams): string 
   if (!(filterType && ['tags', 'categories'].includes(filterType) && filterSlug)) return undefined;
 
   const pathSegment = filterType === 'tags' ? ROUTES.EXPLORE_TAGS : ROUTES.EXPLORE_CATEGORIES;
-  const pathname = `${pathSegment}${filterSlug}`;
+  // trailing slash must match the hrefs built in getTagLinks/getCategoryLinks,
+  // otherwise the isActive comparison there never matches
+  const pathname = `${pathSegment}${filterSlug}/`;
 
   return pathname;
 };

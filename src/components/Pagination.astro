@@ -22,17 +22,26 @@ const {
   class: className,
 } = Astro.props;
 // All URLs in Astro are relative /blog/2 and WITHOUT trailing slash and query string
-const { prev: prevUrl, current: currentUrl, next: nextUrl } = url;
+const { prev: rawPrevUrl, current: currentUrl, next: rawNextUrl } = url;
+
+/**
+ * The site is served from a static host that 301s /blog/2 -> /blog/2/, so every
+ * link emitted without the slash costs a redirect hop and shows up in Search
+ * Console as "Page with redirect". Normalise here rather than relying on the
+ * trailingSlash config, which does not rewrite the urls paginate() hands back.
+ */
+const withTrailingSlash = (path: string) => (path.endsWith('/') ? path : `${path}/`);
+
+const prevUrl = rawPrevUrl ? withTrailingSlash(rawPrevUrl) : rawPrevUrl;
+const nextUrl = rawNextUrl ? withTrailingSlash(rawNextUrl) : rawNextUrl;
 
 /** Trim page number and all after number (After first number in URL). */
-const getFirstUrl = () => currentUrl.replace(/\/\d+.*$/, '');
-
-// Note: ALL final pagination links WITHOUT trailing slash. Consistent with tags and categories.
+const getFirstUrl = () => withTrailingSlash(currentUrl.replace(/\/\d+.*$/, ''));
 
 const firstUrl = getFirstUrl();
 
 const getPageUrl = (pageNumber: number) =>
-  pageNumber === 1 ? firstUrl : `${firstUrl}/${pageNumber}`;
+  pageNumber === 1 ? firstUrl : `${firstUrl}${pageNumber}/`;
 
 const lastUrl = getPageUrl(lastPage);
 

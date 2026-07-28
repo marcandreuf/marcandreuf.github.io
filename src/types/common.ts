@@ -14,6 +14,12 @@ export interface Metadata {
   description?: string;
   /** Must be url. */
   image?: string;
+  /**
+   * Emit `robots: noindex, follow`. For pages that duplicate content reachable
+   * elsewhere (the /blog/explore/ tree mirrors /blog/tags/ and /blog/categories/)
+   * and so should stay browsable for people but out of the index.
+   */
+  noindex?: boolean;
 }
 
 export interface PaginationProps

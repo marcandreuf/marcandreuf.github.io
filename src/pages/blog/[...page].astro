@@ -17,9 +17,10 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   const pageSize = CONFIG_CLIENT.PAGE_SIZE_POST_CARD; // must take entire config here, interesting
 
-  const pagination = paginate(posts, { pageSize });
-  pagination.push({ params: { page: '1' }, props: pagination[0].props });
-  return pagination;
+  // Do not emit a /1 alias for page one. Nothing links to it (Pagination.astro
+  // maps page 1 to the bare url) and it is a byte-identical duplicate of /blog/,
+  // which Search Console flags as "Alternative page with proper canonical tag".
+  return paginate(posts, { pageSize });
 }
 
 // page from pagination
