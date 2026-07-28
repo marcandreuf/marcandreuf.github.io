@@ -1,4 +1,5 @@
 import { ROUTES } from '@/constants/routes';
+import { slugifyTag } from '@/utils/slug';
 
 import type { Filter, FilterLink, PostCollection } from '@/types/post';
 
@@ -18,7 +19,7 @@ export const getTagLinks = (posts: PostCollection[], pathname?: string): FilterL
   const itemLinks = filterItems.map((item) => {
     const { text, count } = item;
 
-    const originalHref = `${ROUTES.EXPLORE_TAGS}${text}/`;
+    const originalHref = `${ROUTES.EXPLORE_TAGS}${slugifyTag(text)}/`;
     const textWithCount = `#${text} ${count}`;
 
     // unused, wont display in category and tag list

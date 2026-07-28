@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority';
 
 import Tag from '@/components/Tag.astro';
 import { ROUTES } from '@/constants/routes';
+import { slugifyTag } from '@/utils/slug';
 
 import type { TagProps } from '@/components/Tag.astro';
 import type { HTMLAttributes } from 'astro/types';
@@ -29,8 +30,12 @@ const {
   ...props
 } = Astro.props;
 
+// slug in the href, original name in the label
 // trailing slash required: the host 301s /blog/tags/astro -> /blog/tags/astro/
-const tagLinks = tags.map((tagItem) => ({ href: `${ROUTES.TAGS}${tagItem}/`, text: `#${tagItem}` }));
+const tagLinks = tags.map((tagItem) => ({
+  href: `${ROUTES.TAGS}${slugifyTag(tagItem)}/`,
+  text: `#${tagItem}`,
+}));
 ---
 
 {

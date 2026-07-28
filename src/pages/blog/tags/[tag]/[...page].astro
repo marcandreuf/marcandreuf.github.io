@@ -8,6 +8,7 @@ import { ROUTES } from '@/constants/routes';
 import { CONFIG_CLIENT } from '@/config/client';
 import { getPageMetadata } from '@/utils/metadata';
 import { pickPaginationPropsFromPage } from '@/utils/pagination';
+import { slugifyTag } from '@/utils/slug';
 
 import type { Metadata } from '@/types/common';
 import type { Post } from '@/types/post';
@@ -22,15 +23,19 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   // no /1 alias for page one, see the note in src/pages/blog/[...page].astro
   return uniqueTags.flatMap((tag) => {
     const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
-    const tagPagination = paginate(filteredPosts, { pageSize, params: { tag } });
+    // slug in the url, original name via props for display - reversing a slug is lossy
+    const tagPagination = paginate(filteredPosts, {
+      pageSize,
+      params: { tag: slugifyTag(tag) },
+      props: { tagName: tag },
+    });
     return tagPagination;
   });
 }
 
-const { page } = Astro.props;
-const { tag } = Astro.params;
+const { page, tagName } = Astro.props;
 
-const title = `#${tag}`;
+const title = `#${tagName}`;
 
 // dynamic param for metadata
 const defaultMetadata = getPageMetadata('lists/blog/tags/tag');

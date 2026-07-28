@@ -11,6 +11,7 @@ import { CONFIG_CLIENT } from '@/config/client';
 import { getPageMetadata } from '@/utils/metadata';
 import { pickPaginationPropsFromPage } from '@/utils/pagination';
 import { getPathnameFromFilterParams } from '@/utils/paths';
+import { slugifyTag } from '@/utils/slug';
 
 import type { FilterParams, FilterType, Post } from '@/types/post';
 import type { GetStaticPathsOptions } from 'astro';
@@ -35,7 +36,8 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   const tagPagination = uniqueTags.flatMap((tag) => {
     const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
-    const options = { pageSize, params: { filter: `tags/${tag}` } };
+    // slug in the url, matching the hrefs getTagLinks builds
+    const options = { pageSize, params: { filter: `tags/${slugifyTag(tag)}` } };
     const pagination = paginate(filteredPosts, options);
     return pagination;
   });
