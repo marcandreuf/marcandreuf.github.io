@@ -18,7 +18,9 @@ import sharp from 'sharp';
 const DIST = 'dist';
 // 240 -> 234: dropped the six /1 aliases that duplicated their own page one
 // (/blog/1, /blog/explore/1, /blog/tags/proxmox/1, ...). See src/pages/blog/[...page].astro.
-const EXPECTED_PAGES = 234;
+// 234 -> 222: dropped the twelve /blog/explore/{tags,categories}/(N) root listings,
+// which duplicated /blog/explore/(N). See src/pages/blog/explore/[...filter]/[...page].astro.
+const EXPECTED_PAGES = 222;
 
 let failures = 0;
 let checks = 0;

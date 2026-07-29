@@ -22,12 +22,11 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   // grouping is outside of getStaticPaths
 
-  // root pagination, '/', '/tags', '/categories'
-  const filters = [undefined, 'tags', 'categories'];
-  const rootPagination = filters.flatMap((filter) => {
-    const pagination = paginate(posts, { pageSize, params: { filter } });
-    return pagination;
-  });
+  // root pagination, '/' only. '/tags' and '/categories' used to be paginated
+  // here too, but all three listed the same full post set, so they differed
+  // only in their own canonical and pagination hrefs. Nothing outside their own
+  // pagination linked to them, so they were orphan islands.
+  const rootPagination = paginate(posts, { pageSize, params: { filter: undefined } });
 
   // no /1 alias for page one, see the note in src/pages/blog/[...page].astro
 
