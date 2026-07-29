@@ -10,6 +10,7 @@ import { IMAGE_SIZES } from '@/constants/image';
 import { ROUTES } from '@/constants/routes';
 import { setTransitionSlug, TRANSITION_ELEMENT_IDS } from '@/constants/transitions';
 import { formatDateIso, formatMYDate } from '@/utils/datetime';
+import { slugifyCategory } from '@/utils/slug';
 import { cn } from '@/utils/styles';
 
 import type { Post } from '@/types/post';
@@ -74,7 +75,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
       })}
     >
       <Link
-        href={`${ROUTES.CATEGORIES}${category}/`}
+        href={`${ROUTES.CATEGORIES}${slugifyCategory(category)}/`}
         class="inline-flex items-center gap-1 bg-primary-base-200 font-medium px-1 py-0.5 rounded-button mr-3"
       >
         <Icon name={categoryIcon} class="w-4 h-4" />

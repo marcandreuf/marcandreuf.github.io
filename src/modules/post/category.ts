@@ -1,5 +1,6 @@
 import { CATEGORIES } from '@/constants/collections';
 import { ROUTES } from '@/constants/routes';
+import { slugifyCategory } from '@/utils/slug';
 
 import type { CategoryType } from '@/types/constants';
 import type { Filter, FilterLink, PostCollection } from '@/types/post';
@@ -33,7 +34,7 @@ export const getCategoryLinks = (posts: PostCollection[], pathname?: string): Fi
   const itemLinks = filterItems.map((item) => {
     const { text, count } = item;
 
-    const originalHref = `${ROUTES.EXPLORE_CATEGORIES}${text}/`;
+    const originalHref = `${ROUTES.EXPLORE_CATEGORIES}${slugifyCategory(text)}/`;
     const textWithCount = `${text} ${count}`;
 
     const isActive = originalHref === pathname;

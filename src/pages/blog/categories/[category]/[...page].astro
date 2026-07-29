@@ -8,6 +8,7 @@ import { ROUTES } from '@/constants/routes';
 import { CONFIG_CLIENT } from '@/config/client';
 import { getPageMetadata } from '@/utils/metadata';
 import { pickPaginationPropsFromPage } from '@/utils/pagination';
+import { slugifyCategory } from '@/utils/slug';
 import { capitalizeFirstLetter } from '@/utils/strings';
 
 import type { Metadata } from '@/types/common';
@@ -23,17 +24,21 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   // no /1 alias for page one, see the note in src/pages/blog/[...page].astro
   return uniqueCategories.flatMap((category) => {
     const filteredPosts = posts.filter((post) => post.data.category === category);
-    const categoryPagination = paginate(filteredPosts, { pageSize, params: { category } });
+    // slug in the url, original name via props for display - reversing a slug is lossy
+    const categoryPagination = paginate(filteredPosts, {
+      pageSize,
+      params: { category: slugifyCategory(category) },
+      props: { categoryName: category },
+    });
     return categoryPagination;
   });
 }
 
-const { page } = Astro.props;
-const { category } = Astro.params;
+const { page, categoryName } = Astro.props;
 
 const defaultMetadata = getPageMetadata('lists/blog/categories/category');
 
-const title = capitalizeFirstLetter(category);
+const title = capitalizeFirstLetter(categoryName);
 const metadata: Metadata = { ...defaultMetadata, title };
 
 const paginationProps = pickPaginationPropsFromPage(page);
