@@ -1,0 +1,14 @@
+# Vulnerability disclosure for marcandreuf.com
+# https://www.rfc-editor.org/rfc/rfc9116
+
+# Report privately through GitHub security advisories. The site is a static
+# build published by GitHub Pages, so reports about the site itself belong on
+# the repository that produces it.
+Contact: https://github.com/marcandreuf/marcandreuf.github.io/security/advisories/new
+
+# Refresh this before the date below. An expired security.txt reads as an
+# abandoned site, which is worse than not publishing one at all.
+Expires: 2027-07-28T00:00:00.000Z
+
+Preferred-Languages: en, ca, es
+Canonical: https://marcandreuf.com/.well-known/security.txt
