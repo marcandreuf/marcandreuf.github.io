@@ -6,8 +6,8 @@
   }
 
   :root {
-    /* code blocks, matches the prose-sm body size at all breakpoints */
-    @apply [--expressive-code-font-size:0.875rem];
+    /* code blocks, matches the prose body size at all breakpoints */
+    @apply [--expressive-code-font-size:1rem] lg:[--expressive-code-font-size:1.125rem];
   }
 
   *,
