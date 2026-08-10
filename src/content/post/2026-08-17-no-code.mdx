@@ -1,0 +1,94 @@
+---
+title: I Forgot How to Code (And I'm Not Sure That's a Bad Thing)
+description: After a year of shipping four projects with AI, coding challenges feel like being asked to write Assembler in 2001. If you are not generating 120% of your code with AI, the production code plus the tests that verify it, you are losing the game.
+publishDate: 2026-08-17
+updatedDate: 2026-08-17
+heroImage: '@/content/post/_images/2026-08-17-no-code/river-bridge.jpg'
+heroAlt: 'A photo taken from the riverbank looking up at the underside of a long concrete bridge spanning a calm river, with trees and sky reflected in the water below.'
+noHero: false
+tags:
+  - Ai
+  - recruitment
+  - coding
+  - software
+  - best practices
+  - testing
+  - code quality
+  - software quality
+category: Article
+toc: false
+draft: false
+---
+
+
+For the last 12 months I've been deep in delivery mode. Four projects: two for clients, two of my own. I shipped two full SaaS products, web + mobile apps included. Everything was tested, functional, and solid enough for real users.
+
+Here's the part that feels strange: I barely looked at whether the code was “clean,” “maintainable,” or “elegant.” If it worked, I kept it. If it didn't, I added more tests and pushed harder until it did. The metric that mattered was simple, does this solve the problem for the people using it?
+
+Now I'm looking at job opportunities and the first request lands: “Please complete this coding challenge.”
+
+Are you kidding me?
+
+This feels exactly like someone asking me to write Assembler in 2001, when we already had object-oriented languages and far more productive ways to get work done. Back then the answer was “Yes, I can, but… really?” The same question applies today.
+
+We have AI. It can write clean, testable, well-structured code better and faster than most of us can by hand, if you know how to ask. My job has shifted. I no longer need to be the one who hand-crafts every elegant abstraction. I need to define the problem clearly, drive the solution, validate it with tests, and ship something that actually works.
+
+Asking senior engineers to grind through coding challenges in 2026 feels a lot like the old obsession with algorithms and data structures interviews ten or fifteen years ago. Useful for a tiny percentage of roles. Mostly irrelevant for the work the vast majority of us actually do.
+
+## Clean Code Was an Economics Argument
+
+Let me be precise about what I am claiming, because it is easy to read this as “quality does not matter.”
+
+Clean code, elegant design, the patterns, the refactoring discipline, all of that came from a world where writing code was more expensive than gold. Every line was cut by hand, by someone expensive, slowly. When production is that costly, the rational move is to optimise for the next human who has to touch it: readable names, small functions, familiar patterns, abstractions that pay for themselves over years. Those practices were never sacred. They were an economic response to an economic reality.
+
+The reality changed. Code generation is now close to free. I can produce, throw away, and regenerate in an afternoon what used to be a sprint. When the cost of producing a line collapses, the cost of admiring it does not. It stays exactly as expensive as it always was. My time.
+
+And honestly? I miss it. I love spending a full day changing two lines and then sitting back to admire what I wrote. It is one of the genuine pleasures of this job. But it is a luxury, and software engineers mostly do not get to afford it any more.
+
+So the rule I ended up with is blunt. If the code works, keep it. If it does not, fix it, or regenerate it and move on. Do not spend the afternoon making working code prettier.
+
+And the same logic scales all the way up. Architecture used to be the expensive mistake, the one you spent months in design meetings trying not to make, because unwinding it later cost quarters and a lot of goodwill. Now, if the architecture or the design turns out to be wrong, we change it. It is a longer path than a normal change, sure, but for most solutions with a solid test suite, that is one or two days, not one or two quarters. The tests are what make it survivable: they do not care how the code underneath is arranged, only that the behaviour still holds. Which means architecture stops being a decision you have to get right before you understand the problem, and becomes one you can revise once you finally do.
+
+What replaces the old discipline is not “no quality.” It is quality pointed somewhere else. Keep generating tests so that regression coverage grows as fast as the code does, which is what keeps the whole thing under control. Then spend your remaining attention where it now actually pays off: does this feature do the right thing for the person using it, and does it stay fast and stand up under real load?
+
+Feature quality and performance quality. That is what users actually experience. No user has ever experienced my beautiful abstraction.
+
+## The 120% Rule
+
+There is a parallel discussion happening everywhere right now: how much code is actually written by AI? The numbers do not agree with each other. A large study in [Science](https://www.science.org/doi/10.1126/science.adz9311) analysed more than 30 million Python contributions and estimated AI was substantially involved in about 29% of Python functions in the US by the end of 2024. [SonarSource's developer survey](https://www.sonarsource.com/state-of-code-developer-survey-report.pdf) puts it at 42% of committed code, up from 6% in 2023. [State of AI 2026](https://2026.stateofai.dev/en-US) reports 54%. They disagree because they measure different things, code that was measured versus code that developers say they generated, and “generated” versus “assisted”. So treat any single headline number with suspicion.
+
+But I think the whole framing is wrong. Asking what percentage of your code AI wrote is like asking what percentage of your binary the compiler wrote. It is the wrong unit.
+
+Here is my number instead: **if you are not generating 120% of your code with AI, you are losing the game.**
+
+The 100% is the production code. All of it. The extra 20 to 30% is the test code, and that is the part that actually matters, because it is the only reason I can stop caring how the first 100% was written. Tests are what turn “I have no idea if this is elegant” into “I do not need to know.” That is not a shortcut. That is the whole mechanism.
+
+And this is where I part ways with the people who read “AI writes it all” as “ship whatever the model gives you.” The research is blunt about the risk. A [large-scale study of AI-authored commits](https://arxiv.org/abs/2603.28592) across 6,299 GitHub repositories found that more than 15% of commits from every assistant tested introduced at least one issue, and 22.7% of those issues were still sitting in the latest revision of the repo. [GitLab's accountability report](https://ir.gitlab.com/news/news-details/2026/GitLab-Research-Reveals-Organizations-Are-Generating-AI-Code-Faster-Than-They-Can-Control-It/default.aspx) found 85% of respondents agree the bottleneck has moved from writing code to reviewing and validating it.
+
+Exactly. The bottleneck moved. So point the AI at the bottleneck. Generate the tests, the fixtures, the edge cases, the static analysis config, the CI gates, all of the 20% that verifies the 100%. Then hold all of it to the same standard you would hold a human's code to, plus provenance, which is roughly what [NIST SP 800-218A](https://csrc.nist.gov/pubs/sp/800/218/a/final) has been saying about validating generated output all along.
+
+That is what I did for twelve months. Not “no code.” More code than I could have written by hand, with more tests around it than I would have had the patience to write by hand. That is the game.
+
+## Write the Spec, Not the Code
+
+If I had to name the single highest-leverage thing I do now, it is not clean code and it is not even the test suite. It is the requirements document and the implementation plan.
+
+That is where the leverage actually sits. A good requirements doc and a good implementation plan define the context the AI works inside: the constraints, the edge cases, the things that must not break, the shape of the solution and the order to build it in. Give the model somewhere solid to stand and the code comes out fitting the problem.
+
+Get it wrong and you get the worst outcome on the menu, which is clean, elegant, thoroughly tested code for the wrong solution. Delivered fast, too. The tests pass. The pipeline is green. Every quality signal you have says this is excellent work, and nobody notices for weeks, because it looks exactly like excellent work.
+
+That is the failure mode no dashboard catches. Tests tell you that you built the thing right. They cannot tell you that you built the right thing. Only the spec can, and only if someone did the thinking before the generation started.
+
+So the work did not disappear. It moved upstream, from typing the solution to defining the problem precisely enough that the solution becomes mechanical. Which is, conveniently, the one skill no coding challenge has ever tested.
+
+I like solving hard problems. That's the part I care about. Show me a real problem and ask how I would approach it, how I would break it down, how I would validate the solution, and how I would ship it. Don't ask me to perform clean, perfectly formatted code under time pressure as if that is still the primary skill that separates good engineers from the rest.
+
+And the thing that actually matters is not even a question about me. It is not “what is the problem, and how would you solve it?”, because if you are hiring, you already have the problem. You have been living with it for months. You know it far better than I will after forty minutes on a call. So put it on the table:
+
+**This is the problem. Now, how would you solve it?**
+
+That is the conversation worth having, whether you're hiring for a consulting gig, a freelance engagement, or a full-time role.
+
+Yes, this is a rant. But it's also the reality many of us are living right now.
+
+_Got questions, or think I have this completely wrong? I am happy to go into the details: how I structure requirements and implementation plans, how I keep the test suite ahead of the generated code, or what this looks like on a real project. Reach out on [LinkedIn](https://www.linkedin.com/in/marcandreuf) or through the [about page](/about)._
