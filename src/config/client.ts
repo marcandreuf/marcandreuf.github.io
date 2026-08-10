@@ -23,6 +23,8 @@ const configClientData: ConfigClientType = {
   AUTHOR_LINKEDIN: 'https://www.linkedin.com/in/marcandreuf',
   AUTHOR_TWITTER: 'https://x.com/marcandreuf',
   AUTHOR_YOUTUBE: 'https://www.youtube.com/@marcandreuf',
+  /** business site, for work enquiries */
+  BUSINESS_URL: 'https://itqualab.com',
   REPO_URL: 'https://github.com/marcandreuf/marcandeuf.github.io',
 };
 
