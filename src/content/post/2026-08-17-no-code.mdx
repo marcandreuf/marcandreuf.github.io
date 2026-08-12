@@ -69,6 +69,36 @@ Exactly. The bottleneck moved. So point the AI at the bottleneck. Generate the t
 
 That is what I did for twelve months. Not “no code.” More code than I could have written by hand, with more tests around it than I would have had the patience to write by hand. That is the game.
 
+## Nobody Wrote It in Notepad
+
+There is a whole genre of video and post doing the rounds right now. A recent one landed in my feed with the title [“El fin del código IA: ¿Por qué Linux, Java y Rust han dicho basta?”](https://www.youtube.com/watch?v=rBp3kn6pP00). The end of AI code. The big projects have said enough.
+
+So I went and read what those projects actually published, and the headline falls apart on contact.
+
+The Linux kernel did not say enough. It shipped [a documented policy for AI coding assistants](https://docs.kernel.org/process/coding-assistants.html) that allows the tools and puts rules around them. Tag the contribution `Assisted-by:` with the agent and model. Only a human may add `Signed-off-by:`, because only a human can legally certify the Developer Certificate of Origin. And the human submitter is responsible for reviewing the generated code, for the licensing, and for the contribution, fully. That is not a ban. That is disclosure plus accountability, which is roughly what I would have written if they had asked me.
+
+The genuine bans do exist. [QEMU declines contributions](https://www.qemu.org/docs/master/devel/code-provenance.html) believed to include AI-generated content, [Gentoo's council forbade it](https://wiki.gentoo.org/wiki/Project:Council/AI_policy) in April 2024, NetBSD treats such code as presumed tainted. But read their reasoning and it is mostly not “the code is bad.” It is provenance. QEMU's objection is that a contributor signing the DCO has to understand the copyright and licence status of what they are submitting, and with model output that status is unsettled. QEMU will happily let you use AI to research, debug, or run static analysis. What it declines is the submitted content. That is a legal argument about who owns the line, not an engineering argument about whether the line works, and I want to be straight about it, because tests do not answer it. If your problem is licence provenance, no amount of coverage helps you.
+
+And then there is [curl shutting down its bug bounty](https://www.theregister.com/2026/01/21/curl_ends_bug_bounty/) in January, after a torrent of submissions that Daniel Stenberg described as putting a high load on the security team. Seven reports in the week before the announcement, not one of them describing a real vulnerability. That one I have no argument with at all. A generated security report with nobody accountable behind it is pure cost transferred onto a volunteer maintainer.
+
+So yes, some of the caution is right, and I am not going to pretend otherwise. Safety-critical systems. Regulated environments. Anything where being wrong costs someone their health, their money, or their licence to operate. A security report a regulator is going to read is not the place to find out how confident your model was feeling. If that is your context, caution is the correct engineering posture.
+
+But most of us are not maintaining the kernel or writing avionics firmware. Most of us are building products for people who need a problem solved, on a team where we know exactly who is accountable for every line because their name is on the pull request. For that work, switching this off is not a safety strategy. It is just a slower way to arrive at the same risk.
+
+Here is the part the warnings keep skipping. We never wrote all of it by hand anyway.
+
+Be honest about the last twenty years. You hit a problem, you searched, you found something close enough on Stack Overflow or in a blog post or buried in the docs, you pasted it in and you amended it until it fitted. Nobody built a codebase in Notepad from first principles. We had IDEs writing our getters, frameworks scaffolding thousands of lines nobody ever read, generators, templates, snippets, an entire dependency tree of other people's code we pulled in on trust and never opened. Authorship was already a polite fiction long before the models turned up.
+
+And we did not trust that code either. That is the bit everyone has quietly forgotten. You did not paste an answer from 2011 into production and feel good about it. You read it, you adapted it, and then you did the only thing that ever actually made it safe. You tested it. As much as the delivery date allowed, on the parts that mattered most, because you knew perfectly well that you did not fully understand what you had just pasted. That was the strategy the whole time. Not authorship. Verification.
+
+So what has genuinely changed? The sourcing. The pasting is automatic now, and the source is a model instead of a search engine and thirty open tabs. The trust problem is identical. What is different is the volume and the speed, and that is precisely the argument for automating the verification rather than doing it by eye, because eyes do not scale and delivery dates have not moved.
+
+Which lands the work back in the same three places. Scope the context, so the model is standing on the right material instead of guessing. Define the rules and the requirements, so there is something concrete to verify against. Then automate the tests hard enough that coverage grows at least as fast as the code does.
+
+Which is, more or less, where the kernel landed. Not “no AI.” Say where it came from, and have a human put their name on it and carry the responsibility. The disagreement was never really about generation. It was about accountability, and about who absorbs the review cost when the volume goes up.
+
+Because banning the generation does not remove the risk. It moves you back to a slower pipeline carrying the same trust problem, with less budget left over for the tests that were the actual answer. The teams getting burned are not the ones generating code. They are the ones generating code and then reviewing it the way we reviewed hand-written code, by eye, at human reading speed, while the volume goes up tenfold.
+
 ## Write the Spec, Not the Code
 
 If I had to name the single highest-leverage thing I do now, it is not clean code and it is not even the test suite. It is the requirements document and the implementation plan.
@@ -80,6 +110,40 @@ Get it wrong and you get the worst outcome on the menu, which is clean, elegant,
 That is the failure mode no dashboard catches. Tests tell you that you built the thing right. They cannot tell you that you built the right thing. Only the spec can, and only if someone did the thinking before the generation started.
 
 So the work did not disappear. It moved upstream, from typing the solution to defining the problem precisely enough that the solution becomes mechanical. Which is, conveniently, the one skill no coding challenge has ever tested.
+
+## The Job Was Always the Decisions
+
+There is something underneath the spec that took me a while to name. Our job is to make good decisions. That was always the job. We just never got much practice at it.
+
+Think about how the time was actually distributed. Choosing the queue, the data model, the boundary between two services, that was an afternoon of argument. Building it was the rest of the quarter, plus the review cycles, the migration, the release process, the rollback plan, the whole protocol we wrapped around production code because production code was expensive and dangerous to change. Deciding was a rounding error. Executing was the job, or at least it was the part that filled the calendar.
+
+So decisions got rationed. They went to the architects, the staff engineers, the person with the most scar tissue in the room. Everyone else received a decision that had already been made and spent the next six months implementing it. I am not criticising that. It was the only sane way to allocate the work when execution was the expensive part. You do not open a technical choice to the whole team when whoever loses the argument still has to hand-write the consequences for two quarters.
+
+The result is that most of us have far fewer decisions per year of experience than our titles suggest. We got very good at execution under constraint, and we got very little repetition at the thing that actually determines whether the project works.
+
+Now the ratio has inverted. Generation is cheap, so the afternoon of argument is no longer a rounding error against the quarter of implementation. It is most of what is left. And the model will happily build whatever you decided, quickly, with tests, without ever asking whether you were sure. It amplifies the decision. It does not audit it. Point it at a well-researched call and you get leverage. Point it at a lazy one and you get a lazy one shipped faster than you can notice.
+
+Which means research stops being the thing you skip because there is no time. It is the thing you spend the time on, because it is now the highest-value hour in the week. Read the actual documentation instead of the blog post summarising it. Find out how the library behaves at the load you will really have, not the load in the README. Check what breaks in eighteen months. Understand the constraint your client has not told you about yet, because they do not know it is a constraint. And when two options look equally good on paper, build both, because a spike that used to cost a week now costs an afternoon, and evidence beats a well-argued opinion every single time.
+
+That last part is the genuinely new thing. We used to decide from theory and taste because trying it was too expensive to do twice. Now you can afford to be wrong on purpose, early, cheaply, in a branch nobody merges.
+
+The upside is that decision-making is no longer rationed to the top of the org chart. Every engineer on the team is now making calls that used to belong to the architect. The downside is exactly the same sentence. The skill we all under-trained for twenty years is suddenly the one the work runs on.
+
+## We Were Solving Our Own Problems
+
+Here is the summary of everything above, and it took me the whole twelve months to see it.
+
+Look honestly at where our effort went for the last twenty years. Build systems. Dependency upgrades. The refactor before the feature. The naming argument. The extra layer so the next change would be easier. The migration, the review protocol, the release process. Nearly all of it pointed inward. We were solving technical problems for ourselves, to keep the software maintainable and in decent shape for the team.
+
+That work was real and I am not sneering at it. It was necessary. But be clear about who the beneficiary was. The user never asked for any of it, never saw it, and at best stood downstream of it hoping some of the benefit trickled through. It was the tax we paid so the code could keep existing long enough to be useful to someone else.
+
+The models have now paid a large part of that tax for us. What is left over is the part that was always the actual point. What does this person need, why do they need it, and did we give it to them?
+
+So the move is not only upstream into specs and decisions. It is outward. Closer to the user. Read the support queue. Watch someone struggle with the thing you built. Learn the business well enough to know which feature is worth building before you build a beautiful one nobody wanted. We have been lifted a level, and the level we landed on is the one where the value was sitting the whole time.
+
+I wish the trade were not what it is. The pleasure of a genuinely elegant piece of code was real, and it was ours. But it was ours, and the job was never to have it.
+
+I am generalising, obviously. Aerospace, medical devices, anything with a Tesla or a NASA logo on it, that code should be reviewed line by line, in pairs, by people who are paid to be paranoid, and I would not have it any other way. But most of us are not shipping that. Most of us are shipping the next CRM feature, and that can be generated, covered with generated tests, validated by the developer, and then validated properly by real users. Match the verification to the blast radius. For twenty years a lot of us have been paying aerospace prices on CRM risk, and calling it professionalism.
 
 I like solving hard problems. That's the part I care about. Show me a real problem and ask how I would approach it, how I would break it down, how I would validate the solution, and how I would ship it. Don't ask me to perform clean, perfectly formatted code under time pressure as if that is still the primary skill that separates good engineers from the rest.
 
