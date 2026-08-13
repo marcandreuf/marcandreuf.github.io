@@ -13,7 +13,7 @@ import Link from '../components/Link.astro';
 import Electronics1Image from '../assets/images/all-images/diy-electronics.jpg';
 
 
-export const { AUTHOR_GITHUB, AUTHOR_LINKEDIN, AUTHOR_TWITTER, AUTHOR_YOUTUBE } = CONFIG_CLIENT;
+export const { AUTHOR_GITHUB, AUTHOR_LINKEDIN, AUTHOR_TWITTER, AUTHOR_YOUTUBE, BUSINESS_URL } = CONFIG_CLIENT;
 
 {/* bellow SM image is full width of content so higher resolution image */}
 export const imageSizes = {
@@ -34,9 +34,13 @@ I am also passionate about self-hosting and home-lab tinkering.
 
 My hobbies are ethical hacking, coding, reading, playing football and DIY electronics.
 
-If you want to contact me about SaaS delivery, AI automation, integrations, or platform engineering, please reach out via:
+For work enquiries about SaaS delivery, AI automation, integrations, or platform engineering, my business is <Link href={BUSINESS_URL} target="_blank">ITQuaLab</Link>. You can also reach me directly via:
 
 
+<p class="my-2 flex gap-1 flex-col xs:flex-row">
+  <label class="font-bold">Business:</label>
+  <Link href={BUSINESS_URL} target="_blank">{BUSINESS_URL}</Link>
+</p>
 <p class="my-2 flex gap-1 flex-col xs:flex-row">
   <label class="font-bold">GitHub:</label>
   <Link href={AUTHOR_GITHUB} target="_blank">{AUTHOR_GITHUB}</Link>

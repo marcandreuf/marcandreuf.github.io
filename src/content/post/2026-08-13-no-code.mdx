@@ -1,0 +1,192 @@
+---
+title: I Almost Forgot How to Code. Is That Bad?
+description: A year of shipping four projects with AI, run as an experiment. The bottleneck was never the coding. It is refining the problem until the tools can solve it.
+publishDate: 2026-08-13
+updatedDate: 2026-08-13
+heroImage: '@/content/post/_images/2026-08-13-no-code/river-bridge.jpg'
+heroAlt: 'A photo taken from the riverbank looking up at the underside of a long concrete bridge spanning a calm river, with trees and sky reflected in the water below.'
+noHero: false
+tags:
+  - Ai
+  - recruitment
+  - coding
+  - software
+  - best practices
+  - testing
+  - code quality
+  - software quality
+category: Article
+toc: true
+draft: false
+---
+
+
+For the last 12 months I've been deep in delivery mode. Four projects: two for clients, two of my own. I shipped two full SaaS products, web + mobile apps included. Everything was tested, functional, and solid enough for real users.
+
+It was also an experiment, and I should be upfront that I set it up as one. I wanted to work out what my role as a software engineer actually is now, not by reading other people's opinions about it, but by building real things for real users and watching which parts of the job survived contact with the tools.
+
+Here's the part that feels strange: I barely looked at whether the code was “clean,” “maintainable,” or “elegant.” If it worked, I kept it. If it didn't, I added more tests and pushed harder until it did. The metric that mattered was simple, does this solve the problem for the people using it?
+
+Now I'm looking at job opportunities and the first request lands: “Please complete this coding challenge.”
+
+Are you kidding me?
+
+This feels exactly like someone asking me to write Assembler in 2001, when we already had object-oriented languages and far more productive ways to get work done. Back then the answer was “Yes, I can, but… really?” The same question applies today.
+
+We have AI. It can write clean, testable, well-structured code better and faster than most of us can by hand, if you know how to ask. My job has shifted. I no longer need to be the one who hand-crafts every elegant abstraction. I need to define the problem clearly, drive the solution, validate it with tests, and ship something that actually works.
+
+Asking senior engineers to grind through coding challenges in 2026 feels a lot like the old obsession with algorithms and data structures interviews ten or fifteen years ago. Useful for a tiny percentage of roles. Mostly irrelevant for the work the vast majority of us actually do.
+
+## Clean Code Was an Economics Argument
+
+Let me be precise about what I am claiming, because it is easy to read this as “quality does not matter.”
+
+Clean code, elegant design, the patterns, the refactoring discipline, all of that came from a world where writing code was more expensive than gold. Every line was cut by hand, by someone expensive, slowly. When production is that costly, the rational move is to optimise for the next human who has to touch it: readable names, small functions, familiar patterns, abstractions that pay for themselves over years. Those practices were never sacred. They were an economic response to an economic reality.
+
+The reality changed. Code generation is now close to free. I can produce, throw away, and regenerate in an afternoon what used to be a sprint. When the cost of producing a line collapses, the cost of admiring it does not. It stays exactly as expensive as it always was. My time.
+
+And honestly? I miss it. I love spending a full day changing two lines and then sitting back to admire what I wrote. But it is a luxury, and software engineers mostly do not get to afford it any more.
+
+So the rule I ended up with is blunt. If the code works, keep it. If it does not, fix it, or regenerate it and move on. Do not spend the afternoon making working code prettier.
+
+And the same logic scales all the way up. Architecture used to be the expensive mistake, the one you spent months in design meetings trying not to make, because unwinding it later cost quarters and a lot of goodwill. Now, if the architecture or the design turns out to be wrong, we change it. It is a longer path than a normal change, sure, but for most solutions with a solid test suite, that is one or two days, not one or two quarters. The tests are what make it survivable: they do not care how the code underneath is arranged, only that the behaviour still holds. Which means architecture stops being a decision you have to get right before you understand the problem, and becomes one you can revise once you finally do.
+
+What replaces the old discipline is not “no quality.” It is quality pointed somewhere else. Keep generating tests so that regression coverage grows as fast as the code does, which is what keeps the whole thing under control. Then spend your remaining attention where it now actually pays off: does this feature do the right thing for the person using it, and does it stay fast and stand up under real load?
+
+Feature quality and performance quality. That is what users actually experience. No user has ever experienced my beautiful abstraction.
+
+## The 120% Rule
+
+There is a parallel discussion happening everywhere right now: how much code is actually written by AI? The numbers do not agree with each other. A large study in [Science](https://www.science.org/doi/10.1126/science.adz9311) analysed more than 30 million Python contributions and estimated AI was substantially involved in about 29% of Python functions in the US by the end of 2024. [SonarSource's developer survey](https://www.sonarsource.com/state-of-code-developer-survey-report.pdf) puts it at 42% of committed code, up from 6% in 2023. [State of AI 2026](https://2026.stateofai.dev/en-US) reports 54%. They disagree because they measure different things, code that was measured versus code that developers say they generated, and “generated” versus “assisted”. So treat any single headline number with suspicion.
+
+But I think the whole framing is wrong. Asking what percentage of your code AI wrote is like asking what percentage of your binary the compiler wrote. It is the wrong unit.
+
+Here is my number instead: **if you are not generating 120% of your code with AI, you are losing the game.**
+
+The 100% is the production code. All of it. The extra 20 to 30% is the test code, and that is the part that actually matters, because it is the only reason I can stop caring how the first 100% was written. Tests are what turn “I have no idea if this is elegant” into “I do not need to know.” That is not a shortcut. That is the whole mechanism.
+
+And this is where I part ways with the people who read “AI writes it all” as “ship whatever the model gives you.” The research is blunt about the risk. A [large-scale study of AI-authored commits](https://arxiv.org/abs/2603.28592) across 6,299 GitHub repositories found that more than 15% of commits from every assistant tested introduced at least one issue, and 22.7% of those issues were still sitting in the latest revision of the repo. [GitLab's accountability report](https://ir.gitlab.com/news/news-details/2026/GitLab-Research-Reveals-Organizations-Are-Generating-AI-Code-Faster-Than-They-Can-Control-It/default.aspx) found 85% of respondents agree the bottleneck has moved from writing code to reviewing and validating it.
+
+Exactly. The bottleneck moved. So point the AI at the bottleneck. Generate the tests, the fixtures, the edge cases, the static analysis config, the CI gates, all of the 20% that verifies the 100%. Then hold all of it to the same standard you would hold a human's code to, plus provenance, which is roughly what [NIST SP 800-218A](https://csrc.nist.gov/pubs/sp/800/218/a/final) has been saying about validating generated output all along.
+
+That is what I did for twelve months. Not “no code.” More code than I could have written by hand, with more tests around it than I would have had the patience to write by hand. That is the game.
+
+## Nobody Wrote It in Notepad
+
+There is a whole genre of video and post doing the rounds right now. A recent one landed in my feed with the title [“El fin del código IA: ¿Por qué Linux, Java y Rust han dicho basta?”](https://www.youtube.com/watch?v=rBp3kn6pP00). The end of AI code. The big projects have said enough.
+
+So I went and read what those projects actually published, and the headline falls apart on contact.
+
+The Linux kernel did not say enough. It shipped [a documented policy for AI coding assistants](https://docs.kernel.org/process/coding-assistants.html) that allows the tools and puts rules around them. Tag the contribution `Assisted-by:` with the agent and model. Only a human may add `Signed-off-by:`, because only a human can legally certify the Developer Certificate of Origin. And the human submitter is responsible for reviewing the generated code, for the licensing, and for the contribution, fully. That is not a ban. That is disclosure plus accountability.
+
+The genuine bans do exist. [QEMU declines contributions](https://www.qemu.org/docs/master/devel/code-provenance.html) believed to include AI-generated content, [Gentoo's council forbade it](https://wiki.gentoo.org/wiki/Project:Council/AI_policy) in April 2024, NetBSD treats such code as presumed tainted. But read their reasoning and it is mostly not “the code is bad.” It is provenance. QEMU's objection is that a contributor signing the DCO has to understand the copyright and licence status of what they are submitting, and with model output that status is unsettled. QEMU will happily let you use AI to research, debug, or run static analysis. What it declines is the submitted content. That is a legal argument about who owns the line, not an engineering argument about whether the line works. If your problem is licence provenance, no amount of coverage helps you.
+
+And then there is [curl shutting down its bug bounty](https://www.theregister.com/2026/01/21/curl_ends_bug_bounty/) in January, after a torrent of submissions that Daniel Stenberg described as putting a high load on the security team. Seven reports in the week before the announcement, not one of them describing a real vulnerability. A generated security report with nobody accountable behind it is pure cost transferred onto a volunteer maintainer.
+
+So yes, some of the caution is right. Safety-critical systems, regulated environments, anything where being wrong costs someone their health or their licence to operate. If that is your context, caution is the correct engineering posture. But it is not most of us, and for everyone else, switching this off is not a safety strategy. It is just a slower way to arrive at the same risk.
+
+Here is the part the warnings keep skipping. We never wrote all of it by hand anyway.
+
+Be honest about the last twenty years. You hit a problem, you searched, you found something close enough on Stack Overflow or in a blog post or buried in the docs, you pasted it in and you amended it until it fitted. Nobody built a codebase in Notepad from first principles. We had IDEs writing our getters, frameworks scaffolding thousands of lines nobody ever read, and an entire dependency tree of other people's code we pulled in on trust and never opened.
+
+**Authorship was already a polite fiction long before the models turned up.**
+
+And we did not trust that code either. That is the bit everyone has quietly forgotten. You did not paste an answer from 2011 into production and feel good about it. You read it, you adapted it, and most of the time you understood it before it shipped. Sometimes you did not, because the deadline was Friday, so you copied it, amended it, tested it, and understood it properly later, if at all. And everything you never touched, you never understood at all, because reading all of it was never possible for anyone. So you did the only thing that ever made any of it safe. You tested it. As much as the delivery date allowed, on the parts that mattered most. That was the strategy the whole time. Not authorship. Verification.
+
+So what has genuinely changed? The sourcing. The pasting is automatic now, and the source is a model instead of a search engine and thirty open tabs. The trust problem is identical. What is different is the volume and the speed, and that is precisely the argument for automating the verification rather than doing it by eye, because eyes do not scale and delivery dates have not moved.
+
+Which lands the work back in the same three places. Scope the context, define the requirements, and automate the tests hard enough that coverage grows at least as fast as the code does.
+
+That is close to where the kernel landed. Use the tools, disclose them, and let a human carry the responsibility. The disagreement was never really about generation. It was about accountability, and about who absorbs the review cost when the volume goes up.
+
+Because banning the generation does not remove the risk. It moves you back to a slower pipeline carrying the same trust problem, with less budget left over for the tests that were the actual answer. The teams getting burned are not the ones generating code. They are the ones generating code and then reviewing it the way we reviewed hand-written code, by eye, at human reading speed, while the volume goes up tenfold.
+
+Which leaves the practical question. If there is more generated code every week than anyone on the team can read, how do you review it at all?
+
+You do not. You automate the checking, and then the only thing that decides whether you can trust the verdict is what you gave it to check against.
+
+## Write the Spec, Not the Code
+
+If I had to name the single highest-leverage thing I do now, it is not clean code and it is not even the test suite. It is the requirements document and the implementation plan.
+
+That is where the leverage actually sits. A good requirements doc and a good implementation plan define the context the AI works inside: the constraints, the edge cases, the things that must not break, the shape of the solution and the order to build it in. Give the model somewhere solid to stand and the code comes out fitting the problem.
+
+I do not sit down and author a perfect requirements document from scratch. Nobody ever could, which is why the waterfall version of this failed too.
+
+It is a conversation. I describe the problem, the model drafts, and most of the work is me pushing back on what it drafted. It surfaces edge cases I had not considered, and some of them matter. It makes assumptions, and some of them are wrong. What I bring to that loop is judgment: which questions are worth answering, which constraints are real, and what the client needs but has not told me. The spec does not have to be beautiful. It has to be good enough to solve the problem.
+
+Get it wrong and you get the worst outcome on the menu, which is clean, elegant, thoroughly tested code for the wrong solution. Delivered fast, too. The tests pass. The pipeline is green. Every quality signal you have says this is excellent work, and nobody notices for weeks, because it looks exactly like excellent work.
+
+That is the failure mode no dashboard catches. Tests tell you that you built the thing right. They cannot tell you that you built the right thing. Only the spec can, and only if someone did the thinking before the generation started.
+
+So the work did not disappear. It moved upstream, from typing the solution to defining the problem precisely enough that the solution becomes mechanical. Which is, conveniently, the one skill no coding challenge has ever tested.
+
+## We Already Knew How to Do This
+
+The first thing the experiment taught me was that writing code by hand had stopped being the efficient move. That part was quick, and it is the part everyone wants to argue about. The second thing took the rest of the year and matters considerably more.
+
+If the goal is to solve the client's problem, the bottleneck is not the coding. It is refining the problem, the constraints and the context until the tools can operate on it effectively, with as much autonomy as I can safely hand them. That is where nearly all of my remaining effort goes now. Not into the solution. Into the description of the problem.
+
+And here is the part I did not expect. That is not a new methodology. It is the old one.
+
+Think about what we always said good engineering looked like, back before any of this existed. Define the requirements, then refine them. Get the architecture right before you commit to it. Work out the design and the test strategy ahead of the production code. Build a proof of concept to establish that the technology choice is actually correct, rather than merely the one you already knew. Every serious methodology said some version of that, and all of us nodded along.
+
+Almost nobody did it. Not because we disagreed with it, but because it was too slow and too expensive to be realistic. Requirements took weeks and the deadline was Friday. A POC for each candidate technology cost a sprint nobody was going to give you, so you chose from experience and hoped. Design up front lost the argument to “we will clean it up later,” every time. The discipline was correct and unaffordable, so we skipped it, and then paid for having skipped it somewhere further down the project.
+
+What actually changed is that the whole thing is now cheap enough to do properly. Draft the requirements and refine them in an afternoon. Sketch three architectures instead of defending the first one you thought of. Produce the test strategy alongside the design instead of retrofitting it afterwards. Do all of that properly and the generation at the end comes out good, verified by the tests and then validated by the people who actually understand the problem.
+
+So the shift is not that we stopped needing the discipline. It is that we can finally afford it, and run it in tight cycles, refining and fixing and improving at every level, requirements, architecture, design, code, instead of pouring concrete at the top of the project and finding out six months later.
+
+## The Job Was Always the Decisions
+
+There is something underneath the spec that took me a while to name. Our job is to make good decisions. That was always the job. We just never got much practice at it.
+
+I did not arrive at that on my own, and it is not new. [Alistair Cockburn](https://alistaircockburn.com/), one of the authors of the Agile Manifesto, has been making a sharper version of it for twenty years. In knowledge work the inventory is not the code. It is the decisions, and specifically the unvalidated ones. Every requirement written down, every interface sketched, every architecture committed to and not yet tested against reality is a decision sitting on a shelf waiting to be proved right or wrong. Code is just the most expensive way we ever found to store one.
+
+Think about how the time was actually distributed. Choosing the queue, the data model, the boundary between two services, that was an afternoon of argument. Building it was the rest of the quarter, plus the review cycles, the migration, the release process, the rollback plan, the whole protocol we wrapped around production code because production code was expensive and dangerous to change. Deciding was a rounding error. Executing was the job, or at least it was the part that filled the calendar.
+
+So decisions got rationed. They went to the architects, the staff engineers, the person with the most scar tissue in the room. Everyone else received a decision that had already been made and spent the next six months implementing it. I am not criticising that. It was the only sane way to allocate the work when execution was the expensive part.
+
+The result is that most of us have far fewer decisions per year of experience than our titles suggest. We got very good at execution under constraint, and we got very little repetition at the thing that actually determines whether the project works.
+
+Now the ratio has inverted. Generation is cheap, so the afternoon of argument is no longer a rounding error against the quarter of implementation. It is most of what is left. And the model will happily build whatever you decided, quickly, with tests, without ever asking whether you were sure. It amplifies the decision. It does not audit it. Point it at a well-researched call and you get leverage. Point it at a lazy one and you get a lazy one shipped faster than you can notice.
+
+Put that in Cockburn's terms and it should worry you. The models are inventory machines. They let a team accumulate unvalidated decisions faster than any team in history, and they do nothing at all to validate them.
+
+Tests do not close that gap, because tests confirm you built what the spec said, not that the spec was right. Only contact with the problem settles that, which is why the loop has to close quickly and why what you deliver has to be small enough to be wrong cheaply. If you want the short version of the discipline that follows from this, Cockburn eventually distilled it to four words, [collaborate, deliver, reflect, improve](https://heartofagile.com/).
+
+Which means research stops being the thing you skip because there is no time. It is the thing you spend the time on, because it is now the highest-value hour in the week. Read the actual documentation instead of the blog post summarising it. Find out how the library behaves at the load you will really have, not the load in the README. Check what breaks in eighteen months. Understand the constraint your client has not told you about yet, because they do not know it is a constraint. And when two options look equally good on paper, build both, because a spike that used to cost a week now costs an afternoon, and evidence beats a well-argued opinion every single time.
+
+That last part is new. We used to decide from theory and taste because trying it was too expensive to do twice. Now you can afford to be wrong on purpose, early, cheaply, in a branch nobody merges.
+
+The upside is that decision-making is no longer rationed to the top of the org chart. Every engineer on the team is now making calls that used to belong to the architect. The downside is exactly the same sentence. We spent twenty years getting almost no practice at deciding, and now the whole job depends on it.
+
+## We Were Solving Our Own Problems
+
+Here is the summary of everything above, and it took me the whole twelve months to see it.
+
+Look honestly at where our effort went for the last twenty years. Build systems. Dependency upgrades. The refactor before the feature. The naming argument. The extra layer so the next change would be easier. The migration, the review protocol, the release process. Nearly all of it pointed inward. We were solving technical problems for ourselves, to keep the software maintainable and in decent shape for the team.
+
+That work was real and I am not sneering at it. It was necessary. But be clear about who the beneficiary was. The user never asked for any of it, never saw it, and at best stood downstream of it hoping some of the benefit trickled through. It was the tax we paid so the code could keep existing long enough to be useful to someone else.
+
+The models have now paid a large part of that tax for us. What is left over is the part that was always the actual point. What does this person need, why do they need it, and did we give it to them?
+
+So the move is not only upstream into specs and decisions. It is outward. Closer to the user. Read the support queue. Watch someone struggle with the thing you built. Learn the business well enough to know which feature is worth building before you build a beautiful one nobody wanted. We have been lifted a level, and the level we landed on is the one where the value was sitting the whole time.
+
+I wish the trade were not what it is. The pleasure of a genuinely elegant piece of code was real, and it was ours. But it was ours, and the job was never to have it.
+
+## The Conversation Worth Having
+
+I am generalising, obviously. Aerospace, medical devices, anything with a Tesla or a NASA logo on it, that code should be reviewed line by line, in pairs, by people who are paid to be paranoid, and I would not have it any other way. But most of us are not shipping that. Most of us are shipping the next CRM feature, and that can be generated, covered with generated tests, validated by the developer, and then validated properly by real users. Match the verification to the blast radius. For twenty years a lot of us have been paying aerospace prices on CRM risk, and calling it professionalism.
+
+I like solving hard problems. That's the part I care about. Show me a real problem and ask how I would approach it, how I would break it down, how I would validate the solution, and how I would ship it. Don't ask me to perform clean, perfectly formatted code under time pressure as if that is still the primary skill that separates good engineers from the rest.
+
+And the thing that actually matters is not even a question about me. It is not “what is the problem, and how would you solve it?”, because if you are hiring, you already have the problem. You have been living with it for months. You know it far better than I will after forty minutes on a call. So put it on the table:
+
+**This is the problem. Now, how would you solve it?**
+
+That is the conversation worth having, whether you're hiring for a consulting gig, a freelance engagement, or a full-time role.
+
+Yes, this is a rant. But it's also the reality many of us are living right now.
+
+_Got questions, or think I have this completely wrong? Leave a comment below, I would rather be argued with than agreed with. I am happy to go into the details: how I structure requirements and implementation plans, how I keep the test suite ahead of the generated code, or what this looks like on a real project. You can also reach me on [LinkedIn](https://www.linkedin.com/in/marcandreuf) or through the [about page](/about)._
