@@ -1,9 +1,9 @@
 ---
-title: I Forgot How to Code (And I'm Not Sure That's a Bad Thing)
-description: After a year of shipping four projects with AI, coding challenges feel like being asked to write Assembler in 2001. If you are not generating 120% of your code with AI, the production code plus the tests that verify it, you are losing the game.
-publishDate: 2026-08-17
-updatedDate: 2026-08-17
-heroImage: '@/content/post/_images/2026-08-17-no-code/river-bridge.jpg'
+title: I Almost Forgot How to Code. Is That Bad?
+description: A year of shipping four projects with AI, run as an experiment. The bottleneck was never the coding. It is refining the problem until the tools can solve it.
+publishDate: 2026-08-13
+updatedDate: 2026-08-13
+heroImage: '@/content/post/_images/2026-08-13-no-code/river-bridge.jpg'
 heroAlt: 'A photo taken from the riverbank looking up at the underside of a long concrete bridge spanning a calm river, with trees and sky reflected in the water below.'
 noHero: false
 tags:
@@ -16,12 +16,14 @@ tags:
   - code quality
   - software quality
 category: Article
-toc: false
+toc: true
 draft: false
 ---
 
 
 For the last 12 months I've been deep in delivery mode. Four projects: two for clients, two of my own. I shipped two full SaaS products, web + mobile apps included. Everything was tested, functional, and solid enough for real users.
+
+It was also an experiment, and I should be upfront that I set it up as one. I wanted to work out what my role as a software engineer actually is now, not by reading other people's opinions about it, but by building real things for real users and watching which parts of the job survived contact with the tools.
 
 Here's the part that feels strange: I barely looked at whether the code was “clean,” “maintainable,” or “elegant.” If it worked, I kept it. If it didn't, I added more tests and pushed harder until it did. The metric that mattered was simple, does this solve the problem for the people using it?
 
@@ -43,7 +45,7 @@ Clean code, elegant design, the patterns, the refactoring discipline, all of tha
 
 The reality changed. Code generation is now close to free. I can produce, throw away, and regenerate in an afternoon what used to be a sprint. When the cost of producing a line collapses, the cost of admiring it does not. It stays exactly as expensive as it always was. My time.
 
-And honestly? I miss it. I love spending a full day changing two lines and then sitting back to admire what I wrote. It is one of the genuine pleasures of this job. But it is a luxury, and software engineers mostly do not get to afford it any more.
+And honestly? I miss it. I love spending a full day changing two lines and then sitting back to admire what I wrote. But it is a luxury, and software engineers mostly do not get to afford it any more.
 
 So the rule I ended up with is blunt. If the code works, keep it. If it does not, fix it, or regenerate it and move on. Do not spend the afternoon making working code prettier.
 
@@ -77,25 +79,23 @@ So I went and read what those projects actually published, and the headline fall
 
 The Linux kernel did not say enough. It shipped [a documented policy for AI coding assistants](https://docs.kernel.org/process/coding-assistants.html) that allows the tools and puts rules around them. Tag the contribution `Assisted-by:` with the agent and model. Only a human may add `Signed-off-by:`, because only a human can legally certify the Developer Certificate of Origin. And the human submitter is responsible for reviewing the generated code, for the licensing, and for the contribution, fully. That is not a ban. That is disclosure plus accountability, which is roughly what I would have written if they had asked me.
 
-The genuine bans do exist. [QEMU declines contributions](https://www.qemu.org/docs/master/devel/code-provenance.html) believed to include AI-generated content, [Gentoo's council forbade it](https://wiki.gentoo.org/wiki/Project:Council/AI_policy) in April 2024, NetBSD treats such code as presumed tainted. But read their reasoning and it is mostly not “the code is bad.” It is provenance. QEMU's objection is that a contributor signing the DCO has to understand the copyright and licence status of what they are submitting, and with model output that status is unsettled. QEMU will happily let you use AI to research, debug, or run static analysis. What it declines is the submitted content. That is a legal argument about who owns the line, not an engineering argument about whether the line works, and I want to be straight about it, because tests do not answer it. If your problem is licence provenance, no amount of coverage helps you.
+The genuine bans do exist. [QEMU declines contributions](https://www.qemu.org/docs/master/devel/code-provenance.html) believed to include AI-generated content, [Gentoo's council forbade it](https://wiki.gentoo.org/wiki/Project:Council/AI_policy) in April 2024, NetBSD treats such code as presumed tainted. But read their reasoning and it is mostly not “the code is bad.” It is provenance. QEMU's objection is that a contributor signing the DCO has to understand the copyright and licence status of what they are submitting, and with model output that status is unsettled. QEMU will happily let you use AI to research, debug, or run static analysis. What it declines is the submitted content. That is a legal argument about who owns the line, not an engineering argument about whether the line works, and I want to be straight about it: if your problem is licence provenance, no amount of coverage helps you.
 
 And then there is [curl shutting down its bug bounty](https://www.theregister.com/2026/01/21/curl_ends_bug_bounty/) in January, after a torrent of submissions that Daniel Stenberg described as putting a high load on the security team. Seven reports in the week before the announcement, not one of them describing a real vulnerability. That one I have no argument with at all. A generated security report with nobody accountable behind it is pure cost transferred onto a volunteer maintainer.
 
-So yes, some of the caution is right, and I am not going to pretend otherwise. Safety-critical systems. Regulated environments. Anything where being wrong costs someone their health, their money, or their licence to operate. A security report a regulator is going to read is not the place to find out how confident your model was feeling. If that is your context, caution is the correct engineering posture.
-
-But most of us are not maintaining the kernel or writing avionics firmware. Most of us are building products for people who need a problem solved, on a team where we know exactly who is accountable for every line because their name is on the pull request. For that work, switching this off is not a safety strategy. It is just a slower way to arrive at the same risk.
+So yes, some of the caution is right, and I am not going to pretend otherwise. Safety-critical systems, regulated environments, anything where being wrong costs someone their health or their licence to operate. If that is your context, caution is the correct engineering posture. But it is not most of us, and for everyone else, switching this off is not a safety strategy. It is just a slower way to arrive at the same risk.
 
 Here is the part the warnings keep skipping. We never wrote all of it by hand anyway.
 
-Be honest about the last twenty years. You hit a problem, you searched, you found something close enough on Stack Overflow or in a blog post or buried in the docs, you pasted it in and you amended it until it fitted. Nobody built a codebase in Notepad from first principles. We had IDEs writing our getters, frameworks scaffolding thousands of lines nobody ever read, generators, templates, snippets, an entire dependency tree of other people's code we pulled in on trust and never opened. Authorship was already a polite fiction long before the models turned up.
+Be honest about the last twenty years. You hit a problem, you searched, you found something close enough on Stack Overflow or in a blog post or buried in the docs, you pasted it in and you amended it until it fitted. Nobody built a codebase in Notepad from first principles. We had IDEs writing our getters, frameworks scaffolding thousands of lines nobody ever read, and an entire dependency tree of other people's code we pulled in on trust and never opened. Authorship was already a polite fiction long before the models turned up.
 
 And we did not trust that code either. That is the bit everyone has quietly forgotten. You did not paste an answer from 2011 into production and feel good about it. You read it, you adapted it, and then you did the only thing that ever actually made it safe. You tested it. As much as the delivery date allowed, on the parts that mattered most, because you knew perfectly well that you did not fully understand what you had just pasted. That was the strategy the whole time. Not authorship. Verification.
 
 So what has genuinely changed? The sourcing. The pasting is automatic now, and the source is a model instead of a search engine and thirty open tabs. The trust problem is identical. What is different is the volume and the speed, and that is precisely the argument for automating the verification rather than doing it by eye, because eyes do not scale and delivery dates have not moved.
 
-Which lands the work back in the same three places. Scope the context, so the model is standing on the right material instead of guessing. Define the rules and the requirements, so there is something concrete to verify against. Then automate the tests hard enough that coverage grows at least as fast as the code does.
+Which lands the work back in the same three places. Scope the context, define the requirements, and automate the tests hard enough that coverage grows at least as fast as the code does.
 
-Which is, more or less, where the kernel landed. Not “no AI.” Say where it came from, and have a human put their name on it and carry the responsibility. The disagreement was never really about generation. It was about accountability, and about who absorbs the review cost when the volume goes up.
+Which is, more or less, where the kernel landed. The disagreement was never really about generation. It was about accountability, and about who absorbs the review cost when the volume goes up.
 
 Because banning the generation does not remove the risk. It moves you back to a slower pipeline carrying the same trust problem, with less budget left over for the tests that were the actual answer. The teams getting burned are not the ones generating code. They are the ones generating code and then reviewing it the way we reviewed hand-written code, by eye, at human reading speed, while the volume goes up tenfold.
 
@@ -111,6 +111,22 @@ That is the failure mode no dashboard catches. Tests tell you that you built the
 
 So the work did not disappear. It moved upstream, from typing the solution to defining the problem precisely enough that the solution becomes mechanical. Which is, conveniently, the one skill no coding challenge has ever tested.
 
+## We Already Knew How to Do This
+
+The first thing the experiment taught me was that writing code by hand had stopped being the efficient move. That part was quick, and it is the part everyone wants to argue about. The second thing took the rest of the year and matters considerably more.
+
+If the goal is to solve the client's problem, the bottleneck is not the coding. It is refining the problem, the constraints and the context until the tools can operate on it effectively, with as much autonomy as I can safely hand them. That is where nearly all of my remaining effort goes now. Not into the solution. Into the description of the problem.
+
+And here is the part I did not expect. That is not a new methodology. It is the old one.
+
+Think about what we always said good engineering looked like, back before any of this existed. Define the requirements, then refine them. Get the architecture right before you commit to it. Work out the design and the test strategy ahead of the production code. Build a proof of concept to establish that the technology choice is actually correct, rather than merely the one you already knew. Every serious methodology said some version of that, and all of us nodded along.
+
+Almost nobody did it. Not because we disagreed with it, but because it was too slow and too expensive to be realistic. Requirements took weeks and the deadline was Friday. A POC for each candidate technology cost a sprint nobody was going to give you, so you chose from experience and hoped. Design up front lost the argument to “we will clean it up later,” every time. The discipline was correct and unaffordable, so we skipped it, and then paid for having skipped it somewhere further down the project.
+
+What actually changed is that the whole thing is now cheap enough to do properly. Draft the requirements and refine them in an afternoon. Sketch three architectures instead of defending the first one you thought of. Produce the test strategy alongside the design instead of retrofitting it afterwards. Do all of that properly and the generation at the end comes out good, verified by the tests and then validated by the people actually using it.
+
+So the shift is not that we stopped needing the discipline. It is that we can finally afford it, and run it in tight cycles, refining and fixing and improving at every level, requirements, architecture, design, code, instead of pouring concrete at the top of the project and finding out six months later.
+
 ## The Job Was Always the Decisions
 
 There is something underneath the spec that took me a while to name. Our job is to make good decisions. That was always the job. We just never got much practice at it.
@@ -125,7 +141,7 @@ Now the ratio has inverted. Generation is cheap, so the afternoon of argument is
 
 Which means research stops being the thing you skip because there is no time. It is the thing you spend the time on, because it is now the highest-value hour in the week. Read the actual documentation instead of the blog post summarising it. Find out how the library behaves at the load you will really have, not the load in the README. Check what breaks in eighteen months. Understand the constraint your client has not told you about yet, because they do not know it is a constraint. And when two options look equally good on paper, build both, because a spike that used to cost a week now costs an afternoon, and evidence beats a well-argued opinion every single time.
 
-That last part is the genuinely new thing. We used to decide from theory and taste because trying it was too expensive to do twice. Now you can afford to be wrong on purpose, early, cheaply, in a branch nobody merges.
+That last part is new. We used to decide from theory and taste because trying it was too expensive to do twice. Now you can afford to be wrong on purpose, early, cheaply, in a branch nobody merges.
 
 The upside is that decision-making is no longer rationed to the top of the org chart. Every engineer on the team is now making calls that used to belong to the architect. The downside is exactly the same sentence. The skill we all under-trained for twenty years is suddenly the one the work runs on.
 

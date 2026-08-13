@@ -1,4 +1,4 @@
-I forgot how to code. I am not sure that is a bad thing.
+I almost forgot how to code. Is that bad?
 
 Twelve months, four projects, two SaaS products shipped. I barely looked at whether the code was clean. If it worked, I kept it.
 
@@ -10,6 +10,6 @@ And if you are hiring, you already have the problem. So put it on the table:
 
 "This is the problem. Now, how would you solve it?"
 
-Full post: https://marcandreuf.com/blog/2026-08-17-no-code
+Full post: https://marcandreuf.com/blog/2026-08-13-no-code
 
 #AI #SoftwareEngineering #Hiring
