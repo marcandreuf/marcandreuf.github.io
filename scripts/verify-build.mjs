@@ -20,7 +20,9 @@ const DIST = 'dist';
 // (/blog/1, /blog/explore/1, /blog/tags/proxmox/1, ...). See src/pages/blog/[...page].astro.
 // 234 -> 222: dropped the twelve /blog/explore/{tags,categories}/(N) root listings,
 // which duplicated /blog/explore/(N). See src/pages/blog/explore/[...filter]/[...page].astro.
-const EXPECTED_PAGES = 222;
+// 222 -> 224: the 2026-08-13-no-code post, plus the /blog/explore/7 paginator page it
+// pushed the explore listing into. Its eight tags all already had pages.
+const EXPECTED_PAGES = 224;
 
 let failures = 0;
 let checks = 0;
