@@ -5,10 +5,40 @@ on:
   # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [ main ]
-    # Ignore changes to the README.md file and todo files
+    # Only deploy when something that affects the built site changes.
+    #
+    # This is a denylist, so anything not listed here still deploys. That is
+    # deliberate: a missed entry costs one unnecessary build, whereas an
+    # allowlist that misses a path silently leaves the live site stale.
+    #
+    # Do NOT add a blanket '**/*.md' here - the blog posts in
+    # src/content/post are markdown and must trigger a deploy.
+    #
+    # Deliberately NOT ignored, because the CI build runs lint, check-types
+    # and verify, so these can all change whether the build passes:
+    #   eslint.config.mjs, tsconfig.json, scripts/**, package.json,
+    #   pnpm-lock.yaml, plugins/**, .astro/**, env.d.ts
+    # .github/workflows/** is also not ignored, so a change to this file
+    # triggers a run that validates it.
     paths-ignore:
-      - README.md
-      - todo
+      # Repository documentation. Note the filename is 'Readme.md' - these
+      # filters are CASE-SENSITIVE, so 'README.md' alone never matched it and
+      # every readme edit rebuilt and redeployed the site.
+      - 'Readme.md'
+      - 'README.md'
+      - 'CLAUDE.md'
+      - 'LICENSE'
+      - 'todo'
+      # Local tooling and editor setup - no effect on the built output.
+      - '.devcontainer/**'
+      - '.gitignore'
+      - '.prettierrc.js'
+      - '.prettierignore'
+      - '.env.development.example'
+      - '.env.production.example'
+      # Self-hosted docker/nginx deployment path. The Pages build uses the
+      # prebuilt ghcr.io container image, not this Dockerfile.
+      - 'docker/**'
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
