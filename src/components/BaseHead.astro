@@ -32,7 +32,7 @@ const handledMetadata = handleTitle(metadata);
 const filteredMetadata = filterUndefined(handledMetadata);
 const mergedMetadata: Required<Metadata> = { ...DEFAULT_METADATA, ...filteredMetadata };
 
-const { title, description, image, noindex } = mergedMetadata;
+const { title, description, image, noindex, ogType } = mergedMetadata;
 
 const ogImageUrl = new URL(image, url);
 ---
@@ -92,18 +92,19 @@ const ogImageUrl = new URL(image, url);
   <link rel="sitemap" type="application/xml" title="Sitemap" href={`${ROUTES.STATIC.SITEMAP}`} />
 
   {/* Open Graph / Facebook */}
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:url" content={url} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImageUrl} />
 
-  {/* Twitter */}
-  <meta property="twitter:card" content="summary" />
-  <meta property="twitter:url" content={url} />
-  <meta property="twitter:title" content={title} />
-  <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={ogImageUrl} />
+  {/* Twitter - the spec uses name=, not property=, for these */}
+  {/* the open-graph images are 1200x630, which is the large-card size */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={url} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
 
   {/* Analytics */}
   {

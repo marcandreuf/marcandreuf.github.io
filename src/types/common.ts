@@ -20,6 +20,11 @@ export interface Metadata {
    * and so should stay browsable for people but out of the index.
    */
   noindex?: boolean;
+  /**
+   * og:type. 'article' for a single post, 'website' for everything else.
+   * Defaults to 'website' via DEFAULT_METADATA.
+   */
+  ogType?: 'website' | 'article';
 }
 
 export interface PaginationProps

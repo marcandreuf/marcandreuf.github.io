@@ -17,6 +17,7 @@ export const DEFAULT_METADATA: Required<Metadata> = {
   description: SITE_DESCRIPTION,
   image: defaultOgImage,
   noindex: false,
+  ogType: 'website',
 } as const;
 
 /**
