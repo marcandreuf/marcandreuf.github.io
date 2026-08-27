@@ -1,6 +1,15 @@
 import { ROUTES } from '@/constants/routes';
+import { CONFIG_CLIENT } from '@/config/client';
 
-/** Doesn't contain Home nav item. */
+const { BUSINESS_URL } = CONFIG_CLIENT;
+
+/**
+ * Doesn't contain Home nav item.
+ *
+ * `path` is normally an internal route from ROUTES, but an entry may also be an
+ * absolute external url. Consumers detect that from the value itself rather
+ * than from a flag, so nothing here has to be kept in sync.
+ */
 export const NAVIGATION_ITEMS = [
   {
     title: 'Blog',
@@ -26,6 +35,10 @@ export const NAVIGATION_ITEMS = [
     title: 'About',
     path: ROUTES.ABOUT,
   },
+  {
+    title: 'Services',
+    path: BUSINESS_URL,
+  },
   // {
   //   title: 'Links',
   //   path: ROUTES.LINKS,
@@ -35,3 +48,6 @@ export const NAVIGATION_ITEMS = [
   //   path: ROUTES.RESUME,
   // },
 ] as const;
+
+/** An external nav target is an absolute url; everything else is a site route. */
+export const isExternalNavPath = (path: string): boolean => /^https?:\/\//.test(path);
