@@ -1,4 +1,5 @@
 import { CONFIG_CLIENT } from '@/config/client';
+import { trimHttpProtocol } from '@/utils/strings';
 
 import type { Metadata } from '@/types/common';
 import type { ValueUnion } from '@/types/utils';
@@ -6,6 +7,8 @@ import type { ValueUnion } from '@/types/utils';
 // can't import getDefaultOpenGraphImagePath here, circular dependency
 
 const { SITE_URL, SITE_DESCRIPTION, SITE_TITLE } = CONFIG_CLIENT;
+
+const domain = trimHttpProtocol(SITE_URL);
 
 /** Must be url from public folder. */
 export const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image-library.jpg`;
@@ -17,6 +20,7 @@ export const DEFAULT_METADATA: Required<Metadata> = {
   description: SITE_DESCRIPTION,
   image: defaultOgImage,
   noindex: false,
+  ogType: 'website',
 } as const;
 
 /**
@@ -34,6 +38,7 @@ export const PAGE_METADATA = {
   },
   'lists/blog/tags': {
     title: 'Tags',
+    description: `Every tag used across the posts on ${domain}.`,
   },
   'lists/blog/tags/tag': {
     title: 'Tag',
@@ -44,6 +49,7 @@ export const PAGE_METADATA = {
   },
   'lists/blog/categories': {
     title: 'Categories',
+    description: `Every category used across the posts on ${domain}.`,
   },
   'lists/blog/categories/category': {
     title: 'Category',

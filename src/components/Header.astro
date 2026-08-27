@@ -6,7 +6,7 @@ import HeaderLink from '@/components/HeaderLink.astro';
 import ThemeToggle from '@/components/ThemeToggle.astro';
 import { SELECTORS } from '@/constants/dom';
 import { IMAGE_SIZES } from '@/constants/image';
-import { NAVIGATION_ITEMS } from '@/constants/navigation';
+import { NAVIGATION_ITEMS, isExternalNavPath } from '@/constants/navigation';
 import { ROUTES } from '@/constants/routes';
 import { CONFIG_CLIENT } from '@/config/client';
 import { getActiveNavItemPath } from '@/utils/navigation';
@@ -71,7 +71,13 @@ const activeNavItemPath = getActiveNavItemPath(routePathname);
         {
           NAVIGATION_ITEMS.map(({ title, path }) => (
             <li>
-              <HeaderLink href={path} isActive={path === activeNavItemPath}>
+              <HeaderLink
+                href={path}
+                isActive={path === activeNavItemPath}
+                {...(isExternalNavPath(path)
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+              >
                 {title}
               </HeaderLink>
             </li>

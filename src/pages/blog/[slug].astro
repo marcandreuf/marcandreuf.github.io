@@ -82,7 +82,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
 // handle all metadata here
 const image = getOpenGraphImagePath(pathname);
 
-const metadata: Metadata = { title, description, image };
+const metadata: Metadata = { title, description, image, ogType: 'article' };
 ---
 
 <PostLayout {metadata}>

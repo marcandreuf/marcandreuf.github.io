@@ -6,7 +6,7 @@ import Link from '@/components/Link.astro';
 import PostList from '@/components/PostList.astro';
 import { ROUTES } from '@/constants/routes';
 import { CONFIG_CLIENT } from '@/config/client';
-import { getPageMetadata } from '@/utils/metadata';
+import { getPageMetadata, getTagDescription, withPageNumber } from '@/utils/metadata';
 import { pickPaginationPropsFromPage } from '@/utils/pagination';
 import { slugifyTag } from '@/utils/slug';
 
@@ -43,7 +43,15 @@ const defaultMetadata = getPageMetadata('lists/blog/tags/tag');
 // A tag page listing a single post is strictly less useful than that post, and
 // 39 of the 69 tags are in that state. Keep the page (TagList.astro links to it)
 // but leave it out of the index so it stops competing with the post itself.
-const metadata: Metadata = { ...defaultMetadata, title, noindex: page.total < 2 };
+const metadata: Metadata = withPageNumber(
+  {
+    ...defaultMetadata,
+    title,
+    description: getTagDescription(tagName),
+    noindex: page.total < 2,
+  },
+  page.currentPage
+);
 
 const paginationProps = pickPaginationPropsFromPage(page);
 const layoutProps = { metadata, paginationProps };

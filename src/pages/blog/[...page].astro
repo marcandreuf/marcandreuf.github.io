@@ -3,7 +3,7 @@ import { getAllPostsWithReadingTime } from '@/modules/post/common';
 import List from '@/layouts/List.astro';
 import PostList from '@/components/PostList.astro';
 import { CONFIG_CLIENT } from '@/config/client';
-import { getPageMetadata } from '@/utils/metadata';
+import { getPageMetadata, withPageNumber } from '@/utils/metadata';
 import { pickPaginationPropsFromPage } from '@/utils/pagination';
 
 import type { Post } from '@/types/post';
@@ -29,7 +29,7 @@ const { data: posts } = page;
 
 const paginationProps = pickPaginationPropsFromPage(page);
 
-const metadata = getPageMetadata('lists/blog');
+const metadata = withPageNumber(getPageMetadata('lists/blog'), page.currentPage);
 
 const layoutProps = { metadata, paginationProps };
 ---
