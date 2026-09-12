@@ -98,7 +98,7 @@ State in the PR description what you verified and what you could not.
 
 **These facts are confirmed. Do not derive them from anything else on the site, and do not change them:**
 
-- **25 years of experience, professional since 2001.** The 2004 date in the work history is correct where it refers to the UAB Barcelona degree; it is wrong wherever it is used as a career start year.
+- **Over 20 years of experience, professional since 2004.** 2004 is both the career start year and the year of the UAB Barcelona degree in the work history, so the same date in those two places is correct, not a duplication to reconcile.
 
 **Linking out to It Quality Lab is fine and wanted.** The main navigation, the footer, and blog posts may link to `https://itqualab.com` and to its services and offers. Use the label given in the issue.
 
