@@ -24,7 +24,7 @@ const year = new Date().getFullYear();
       </div>
 
       <!-- right column -->
-      <ul class="flex gap-2 flex-wrap xs:flex-nowrap lg:items-center">
+      <ul class="flex gap-2 flex-wrap lg:items-center">
         <li>
           <Link
             href={BUSINESS_URL}
@@ -36,6 +36,19 @@ const year = new Date().getFullYear();
           >
             <Icon name="mdi:briefcase-outline" class="h-6 w-6 fill-current" />
             <span>Services</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={`${BUSINESS_URL}/devops-status-report`}
+            target="_blank"
+            rel="noreferrer noopener"
+            title="AI & DevOps Status Report at It Quality Lab"
+            class="flex items-center gap-2 text-base xs:text-lg"
+            variant="link-nav"
+          >
+            <Icon name="mdi:chart-box-outline" class="h-6 w-6 fill-current" />
+            <span>AI &amp; DevOps Status Report</span>
           </Link>
         </li>
         <li>
