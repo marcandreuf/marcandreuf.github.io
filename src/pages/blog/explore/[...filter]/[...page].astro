@@ -8,11 +8,18 @@ import Explore from '@/components/Explore.astro';
 import PostCardSmall from '@/components/PostCardSmall.astro';
 import { getTransitionName, TRANSITION_ELEMENT_IDS } from '@/constants/transitions';
 import { CONFIG_CLIENT } from '@/config/client';
-import { getPageMetadata } from '@/utils/metadata';
+import {
+  getCategoryDescription,
+  getPageMetadata,
+  getTagDescription,
+  withPageNumber,
+} from '@/utils/metadata';
 import { pickPaginationPropsFromPage } from '@/utils/pagination';
 import { getPathnameFromFilterParams } from '@/utils/paths';
 import { slugifyCategory, slugifyTag } from '@/utils/slug';
+import { capitalizeFirstLetter } from '@/utils/strings';
 
+import type { Metadata } from '@/types/common';
 import type { FilterParams, FilterType, Post } from '@/types/post';
 import type { GetStaticPathsOptions } from 'astro';
 
@@ -35,8 +42,12 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   const tagPagination = uniqueTags.flatMap((tag) => {
     const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
-    // slug in the url, matching the hrefs getTagLinks builds
-    const options = { pageSize, params: { filter: `tags/${slugifyTag(tag)}` } };
+    // slug in the url, original name via props for display - reversing a slug is lossy
+    const options = {
+      pageSize,
+      params: { filter: `tags/${slugifyTag(tag)}` },
+      props: { tagName: tag },
+    };
     const pagination = paginate(filteredPosts, options);
     return pagination;
   });
@@ -46,8 +57,12 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   const categoryPagination = uniqueCategories.flatMap((category) => {
     const filteredPosts = posts.filter((post) => post.data.category === category);
-    // slug in the url, matching the hrefs getCategoryLinks builds
-    const options = { pageSize, params: { filter: `categories/${slugifyCategory(category)}` } };
+    // slug in the url, original name via props for display - reversing a slug is lossy
+    const options = {
+      pageSize,
+      params: { filter: `categories/${slugifyCategory(category)}` },
+      props: { categoryName: category },
+    };
     const pagination = paginate(filteredPosts, options);
     return pagination;
   });
@@ -57,7 +72,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   return pagination;
 }
 
-const { page } = Astro.props;
+const { page, tagName, categoryName } = Astro.props;
 const { data: paginatedPosts } = page;
 const { filter, page: pageParam } = Astro.params;
 
@@ -78,7 +93,27 @@ const paginationProps = pickPaginationPropsFromPage(page);
 // The explore tree mirrors /blog/tags/ and /blog/categories/ post for post, so
 // it stays browsable but out of the index. /blog/tags/ is the canonical tree
 // because TagList.astro and PostCard.astro link there.
-const metadata = { ...getPageMetadata('lists/blog/explore'), noindex: true };
+//
+// noindex keeps these out of search, but og:description is not gated by it, so
+// a shared description still shows on every social preview of an explore url.
+// Derive it from the filter, exactly as the canonical tag and category routes
+// do, so the two trees describe a given tag identically.
+const filteredDescription = (() => {
+  if (tagName) return getTagDescription(tagName);
+  if (categoryName) return getCategoryDescription(capitalizeFirstLetter(categoryName));
+  return undefined;
+})();
+
+const defaultMetadata = getPageMetadata('lists/blog/explore');
+
+const metadata: Metadata = withPageNumber(
+  {
+    ...defaultMetadata,
+    ...(filteredDescription ? { description: filteredDescription } : {}),
+    noindex: true,
+  },
+  page.currentPage
+);
 const layoutProps = { metadata, paginationProps };
 
 // render
