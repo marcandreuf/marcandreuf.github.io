@@ -1,13 +1,24 @@
 #!/usr/bin/env node
 /**
- * Captures the portfolio card screenshots in src/assets/images/index/.
+ * Captures the site's committed screenshot assets.
  *
- * The portfolio page self-hosts a PNG per project rather than hotlinking, so a
- * card keeps working after the site it shows goes away. This script regenerates
- * those PNGs.
+ * Two kinds, both self-hosted so they keep working after the site they show
+ * changes or goes away:
  *
- *   node scripts/capture-portfolio-shots.mjs            # all targets
- *   node scripts/capture-portfolio-shots.mjs cipcity    # only matching targets
+ *   - the portfolio card images in src/assets/images/index/
+ *   - the open-graph fallback hero in src/assets/images/default/open-graph/,
+ *     which is the picture on the social card of every page without a hero
+ *     image of its own
+ *
+ *   node scripts/capture-screenshots.mjs             # all targets
+ *   node scripts/capture-screenshots.mjs cipcity     # only matching targets
+ *   node scripts/capture-screenshots.mjs light-site  # just the og hero
+ *
+ * The og hero is a picture of this site, so it goes stale whenever the
+ * homepage changes. Re-run it after any homepage edit. To capture a change
+ * that has not deployed yet, run `pnpm preview` and point SITE at it:
+ *
+ *   SITE=http://localhost:3005 node scripts/capture-screenshots.mjs light-site
  *
  * Add a site by appending one entry to TARGETS below.
  */
@@ -17,7 +28,7 @@ import { join } from 'node:path';
 import { chromium } from 'playwright';
 import sharp from 'sharp';
 
-const OUT_DIR = join('src', 'assets', 'images', 'index');
+const SITE = process.env.SITE ?? 'https://marcandreuf.com';
 
 const TARGETS = [
   // openmemship.com declares /docs/ as its homepage field, but the bare root
@@ -27,10 +38,34 @@ const TARGETS = [
   { file: 'fcprobity-home-page.png', url: 'https://fcprobity.com' },
   // English at the bare root. Do not capture /ko/ or /ru/.
   { file: 'cipcity-home-page.png', url: 'https://cipcity.com' },
+  {
+    file: 'light-site.png',
+    url: SITE,
+    dir: join('src', 'assets', 'images', 'default', 'open-graph'),
+    // The og card is 1200x630 with p-8, and the picture sits in a w-[550px]
+    // column at full height under object-fit: cover, so the slot is about
+    // 550x566. Capturing at that ratio means cover crops nothing. The asset
+    // this replaced was 925x780, ratio 1.19, and lost its left edge mid-word.
+    viewport: { width: 1280, height: 1317 },
+    deviceScaleFactor: 1.5,
+    outputWidth: 1100,
+    maxBytes: 350 * 1024,
+    // The filename promises the light theme, and DEFAULT_MODE is 'light'.
+    // Pin it so the capture cannot follow a machine's dark preference.
+    colorScheme: 'light',
+  },
 ];
 
-const VIEWPORT = { width: 1280, height: 800 };
-const DEVICE_SCALE_FACTOR = 2;
+const DEFAULTS = {
+  dir: join('src', 'assets', 'images', 'index'),
+  viewport: { width: 1280, height: 800 },
+  deviceScaleFactor: 2,
+  /** Match the widest existing card image so the set stays visually consistent. */
+  outputWidth: 2069,
+  /** The existing images run 100KB-500KB. Stay inside that. */
+  maxBytes: 500 * 1024,
+  colorScheme: 'light',
+};
 
 /**
  * Viewport-only, not fullPage.
@@ -44,11 +79,6 @@ const DEVICE_SCALE_FACTOR = 2;
  * to get the other reading.
  */
 const FULL_PAGE = false;
-
-/** Match the widest existing card image so the set stays visually consistent. */
-const OUTPUT_WIDTH = 2069;
-/** The existing images run 100KB-500KB. Stay inside that. */
-const MAX_BYTES = 500 * 1024;
 
 /** Give lazy-loaded hero imagery a chance to settle after network idle. */
 const SETTLE_MS = 1500;
@@ -72,8 +102,8 @@ const LADDER = [
   { colours: 64, quality: 60 },
 ];
 
-const compress = async (buffer, label) => {
-  const resized = sharp(buffer).resize({ width: OUTPUT_WIDTH, withoutEnlargement: true });
+const compress = async (buffer, label, outputWidth, maxBytes) => {
+  const resized = sharp(buffer).resize({ width: outputWidth, withoutEnlargement: true });
 
   for (const { colours, quality } of LADDER) {
     const out = await resized
@@ -81,13 +111,13 @@ const compress = async (buffer, label) => {
       .png({ compressionLevel: 9, palette: true, colours, quality, effort: 10 })
       .toBuffer();
 
-    if (out.length <= MAX_BYTES) return { out, colours, quality };
+    if (out.length <= maxBytes) return { out, colours, quality };
     console.log(
       `       ${colours} colours q${quality} -> ${(out.length / 1024).toFixed(0)}KB, too big, retrying`,
     );
   }
 
-  throw new Error(`${label}: cannot get under ${MAX_BYTES / 1024}KB at the lowest rung of the ladder`);
+  throw new Error(`${label}: cannot get under ${maxBytes / 1024}KB at the lowest rung of the ladder`);
 };
 
 const filters = process.argv.slice(2);
@@ -100,31 +130,38 @@ if (!selected.length) {
   process.exit(1);
 }
 
-mkdirSync(OUT_DIR, { recursive: true });
+// Some hosts serve a cut-down page to an obvious headless agent.
+const USER_AGENT =
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
 const browser = await chromium.launch();
-const context = await browser.newContext({
-  viewport: VIEWPORT,
-  deviceScaleFactor: DEVICE_SCALE_FACTOR,
-  // Some hosts serve a cut-down page to an obvious headless agent.
-  userAgent:
-    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-});
 
 let failures = 0;
 
-for (const { file, url } of selected) {
-  const dest = join(OUT_DIR, file);
+for (const target of selected) {
+  const { file, url, dir, viewport, deviceScaleFactor, outputWidth, maxBytes, colorScheme } = {
+    ...DEFAULTS,
+    ...target,
+  };
+
+  mkdirSync(dir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport,
+    deviceScaleFactor,
+    colorScheme,
+    userAgent: USER_AGENT,
+  });
   const page = await context.newPage();
 
   try {
-    console.log(`  ${file}  <-  ${url}`);
+    console.log(`  ${join(dir, file)}  <-  ${url}`);
     await page.goto(url, { waitUntil: 'networkidle', timeout: NAV_TIMEOUT_MS });
     await page.waitForTimeout(SETTLE_MS);
 
     const shot = await page.screenshot({ type: 'png', fullPage: FULL_PAGE });
-    const { out, colours, quality } = await compress(shot, file);
-    writeFileSync(dest, out);
+    const { out, colours, quality } = await compress(shot, file, outputWidth, maxBytes);
+    writeFileSync(join(dir, file), out);
 
     const { width, height } = await sharp(out).metadata();
     console.log(
@@ -134,12 +171,11 @@ for (const { file, url } of selected) {
     failures++;
     console.log(`       FAIL ${error.message}`);
   } finally {
-    await page.close();
+    await context.close();
   }
 }
 
-await context.close();
 await browser.close();
 
-console.log(`\n${selected.length - failures}/${selected.length} captured into ${OUT_DIR}/`);
+console.log(`\n${selected.length - failures}/${selected.length} captured`);
 process.exit(failures ? 1 : 0);
