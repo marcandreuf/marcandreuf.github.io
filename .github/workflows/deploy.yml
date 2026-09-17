@@ -48,6 +48,23 @@ permissions:
   pages: write
   id-token: write
 
+# Serialise deploys. Without this, two pushes close together build in parallel
+# and publish in whatever order they finish, so the older commit can land last
+# and overwrite the newer one. That happened on 2026-09-17: the merges of #34
+# and #35 ran together, the older build finished 12 seconds later, and the site
+# served a snapshot missing what the newer commit had added. Both runs reported
+# success, which is what makes it easy to miss.
+#
+# Top level, not on the deploy job: scoped to deploy alone, two build jobs
+# could still race to upload the artifact.
+#
+# cancel-in-progress stays false so a production deploy already in flight is
+# allowed to finish. Queued runs collapse to the most recent, so the newest
+# commit is always the one published last.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 
 # set env vars in Github settings here
 env:
