@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Marc Andreu">
+  <title>Marc Andreu</title>
+  <!--
+    Flat redraw of the LED in android-chrome-512x512.png. The raster original is
+    photographic, with gradients and reflections that turn to mush at 16px, so
+    this keeps only what survives at favicon size: the tilted red bullet, its
+    collar and two legs. Colours are sampled from that PNG rather than picked.
+
+    The tilt is kept deliberately, so the mark stays the one already showing in
+    browser tabs from favicon-32x32.png.
+
+    Colours are plain fill attributes, not var(), because not every SVG
+    rasteriser resolves custom properties and an unresolved fill renders black.
+    The stylesheet below only overrides them, so a renderer that ignores it
+    still gets the light palette.
+  -->
+  <style>
+    /* An SVG favicon is rendered as its own document, so it can answer the
+       viewer's theme. Lift the red and the legs for a dark tab strip. */
+    @media (prefers-color-scheme: dark) {
+      .led { fill: #ff3030; }
+      .collar { fill: #c81c1c; }
+      .highlight { fill: #ff7070; }
+      .leg { fill: #c8c8c8; }
+    }
+  </style>
+
+  <g transform="translate(32 32) rotate(38) scale(0.9)">
+    <!-- legs -->
+    <rect class="leg" fill="#a8a8a8" x="-7.5" y="4" width="4" height="27" rx="2" />
+    <rect class="leg" fill="#a8a8a8" x="3.5" y="4" width="4" height="27" rx="2" />
+
+    <!-- collar, the wider flange under the dome -->
+    <rect class="collar" fill="#a81818" x="-14" y="0" width="28" height="7" rx="2" />
+
+    <!-- body: domed top over straight sides -->
+    <path class="led" fill="#d81f1f" d="M-11 -19 A11 11 0 0 1 11 -19 L11 2 L-11 2 Z" />
+
+    <!-- highlight, a flat shape rather than a gradient -->
+    <rect class="highlight" fill="#ff4848" x="-6" y="-24" width="5" height="18" rx="2.5" />
+  </g>
+</svg>

@@ -75,6 +75,9 @@ const jsonLdTitle = metadata.title ?? title;
     sizes="180x180"
     href={`${ROUTES.STATIC.FAVICONS}apple-touch-icon.png`}
   />
+  {/* Listed before the PNGs so a browser that understands it takes it, and the
+      PNGs stay as the fallback for one that does not. */}
+  <link rel="icon" type="image/svg+xml" href={`${ROUTES.STATIC.FAVICONS}favicon.svg`} />
   <link
     rel="icon"
     type="image/png"
