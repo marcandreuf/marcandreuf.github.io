@@ -40,7 +40,7 @@ export const OG_LOCALE = 'en_GB';
  */
 export const THEME_COLOR_LIGHT = '#f8fafc';
 
-export const DEFAULT_METADATA: Required<Metadata> = {
+export const DEFAULT_METADATA: Required<Omit<Metadata, 'article'>> = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   image: defaultOgImage,

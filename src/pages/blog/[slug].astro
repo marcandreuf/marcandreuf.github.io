@@ -82,7 +82,14 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
 // handle all metadata here
 const image = getOpenGraphImagePath(pathname);
 
-const metadata: Metadata = { title, description, image, ogType: 'article' };
+// `article` feeds the BlogPosting node in the JSON-LD, nothing else reads it.
+const metadata: Metadata = {
+  title,
+  description,
+  image,
+  ogType: 'article',
+  article: { publishDate, updatedDate },
+};
 ---
 
 <PostLayout {metadata}>

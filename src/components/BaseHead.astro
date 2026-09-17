@@ -4,6 +4,7 @@ import '@/styles/main.css';
 
 import { ClientRouter } from 'astro:transitions';
 
+import JsonLd from '@/components/JsonLd.astro';
 import ThemeScript from '@/components/ThemeScript.astro';
 import {
   DEFAULT_METADATA,
@@ -16,7 +17,7 @@ import { CONFIG_CLIENT } from '@/config/client';
 import { handleTitle } from '@/utils/metadata';
 import { filterUndefined } from '@/utils/objects';
 
-import type { Metadata } from '@/types/common';
+import type { Metadata, ResolvedMetadata } from '@/types/common';
 
 const { AUTHOR_NAME, AUTHOR_TWITTER, SITE_TITLE, PLAUSIBLE_SCRIPT_URL, PLAUSIBLE_DOMAIN } =
   CONFIG_CLIENT;
@@ -40,11 +41,17 @@ const { host } = url; // host - marcandreuf.com
 const handledMetadata = handleTitle(metadata);
 
 const filteredMetadata = filterUndefined(handledMetadata);
-const mergedMetadata: Required<Metadata> = { ...DEFAULT_METADATA, ...filteredMetadata };
+const mergedMetadata: ResolvedMetadata = { ...DEFAULT_METADATA, ...filteredMetadata };
 
-const { title, description, image, noindex, ogType } = mergedMetadata;
+const { title, description, image, noindex, ogType, article } = mergedMetadata;
 
 const ogImageUrl = new URL(image, url);
+
+// handleTitle() appends " - Marc Andreu" for the <title> and the social cards.
+// schema.org headline wants the article's own headline, so the JSON-LD uses the
+// title as it was passed in, falling back to the handled one for pages that set
+// no title of their own.
+const jsonLdTitle = metadata.title ?? title;
 ---
 
 <head>
@@ -128,6 +135,13 @@ const ogImageUrl = new URL(image, url);
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
   <meta name="twitter:image:alt" content={title} />
+
+  {/* Structured data */}
+  <JsonLd
+    metadata={{ title: jsonLdTitle, description, ogType, article }}
+    canonicalUrl={url.href}
+    imageUrl={ogImageUrl.href}
+  />
 
   {/* Analytics */}
   {
