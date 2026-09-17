@@ -1,0 +1,94 @@
+---
+import { CONFIG_CLIENT } from '@/config/client';
+
+import type { Metadata } from '@/types/common';
+
+/**
+ * Emits one JSON-LD block per page, as a @graph so the nodes can reference each
+ * other by @id rather than repeating the author on every page type.
+ *
+ * Every value comes from CONFIG_CLIENT or from the page's own metadata. Nothing
+ * here is written prose, so a new post needs no new structured data.
+ */
+export interface Props {
+  /**
+   * `title` is the bare page title, before handleTitle() appends the author
+   * name. schema.org headline is the article's own headline, so
+   * "Post title - Marc Andreu" would be wrong here.
+   */
+  metadata: Required<Pick<Metadata, 'title' | 'description'>> &
+    Pick<Metadata, 'ogType' | 'article'>;
+  /** Absolute, already resolved against the site origin. */
+  canonicalUrl: string;
+  /** Absolute, already resolved against the site origin. */
+  imageUrl: string;
+}
+
+const {
+  SITE_URL,
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  AUTHOR_NAME,
+  AUTHOR_GITHUB,
+  AUTHOR_LINKEDIN,
+  AUTHOR_TWITTER,
+  AUTHOR_YOUTUBE,
+} = CONFIG_CLIENT;
+
+const { metadata, canonicalUrl, imageUrl } = Astro.props;
+const { title, description, ogType, article } = metadata;
+
+// Stable @id values so BlogPosting.author can point at the Person node instead
+// of inlining a second copy of it.
+const personId = `${SITE_URL}/#person`;
+const siteId = `${SITE_URL}/#website`;
+
+const person = {
+  '@type': 'Person',
+  '@id': personId,
+  name: AUTHOR_NAME,
+  url: SITE_URL,
+  sameAs: [AUTHOR_GITHUB, AUTHOR_LINKEDIN, AUTHOR_TWITTER, AUTHOR_YOUTUBE],
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': siteId,
+  name: SITE_TITLE,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  publisher: { '@id': personId },
+};
+
+const blogPosting =
+  ogType === 'article' && article
+    ? {
+        '@type': 'BlogPosting',
+        '@id': `${canonicalUrl}#article`,
+        headline: title,
+        description,
+        image: imageUrl,
+        datePublished: article.publishDate.toISOString(),
+        // Only emit dateModified when the post actually carries one. Defaulting
+        // it to publishDate would assert the post has never been revised.
+        ...(article.updatedDate ? { dateModified: article.updatedDate.toISOString() } : {}),
+        author: { '@id': personId },
+        publisher: { '@id': personId },
+        isPartOf: { '@id': siteId },
+        mainEntityOfPage: canonicalUrl,
+      }
+    : undefined;
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [person, website, ...(blogPosting ? [blogPosting] : [])],
+};
+
+/**
+ * A literal `</script>` anywhere in the data would close this tag early, so the
+ * `<` is escaped. JSON parsers read < as `<`, so the payload is unchanged.
+ */
+const json = JSON.stringify(graph).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" is:inline set:html={json} />
