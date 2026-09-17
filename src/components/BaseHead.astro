@@ -5,7 +5,12 @@ import '@/styles/main.css';
 import { ClientRouter } from 'astro:transitions';
 
 import ThemeScript from '@/components/ThemeScript.astro';
-import { DEFAULT_METADATA } from '@/constants/metadata';
+import {
+  DEFAULT_METADATA,
+  OG_IMAGE_SIZE,
+  OG_LOCALE,
+  THEME_COLOR_LIGHT,
+} from '@/constants/metadata';
 import { ROUTES } from '@/constants/routes';
 import { CONFIG_CLIENT } from '@/config/client';
 import { handleTitle } from '@/utils/metadata';
@@ -13,7 +18,12 @@ import { filterUndefined } from '@/utils/objects';
 
 import type { Metadata } from '@/types/common';
 
-const { AUTHOR_NAME, PLAUSIBLE_SCRIPT_URL, PLAUSIBLE_DOMAIN } = CONFIG_CLIENT;
+const { AUTHOR_NAME, AUTHOR_TWITTER, SITE_TITLE, PLAUSIBLE_SCRIPT_URL, PLAUSIBLE_DOMAIN } =
+  CONFIG_CLIENT;
+
+// AUTHOR_TWITTER is a profile url, but twitter:site wants the @handle form.
+// Derived rather than written out again so the two cannot drift apart.
+const twitterHandle = `@${AUTHOR_TWITTER.replace(/\/+$/, '').split('/').pop()}`;
 
 export interface BaseHeadProps {
   metadata: Metadata;
@@ -42,8 +52,10 @@ const ogImageUrl = new URL(image, url);
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  {/* wrong, set from theme toggle */}
-  <meta name="theme-color" content="" />
+  {/* ThemeScript.astro overwrites this with the live body background about a
+      second after load, and its updateMetaTag() bails if the tag is absent, so
+      the tag has to stay and has to carry a usable value until then. */}
+  <meta name="theme-color" content={THEME_COLOR_LIGHT} />
 
   {/* 'follow' so link equity still flows to the canonical tag/category pages */}
   {noindex && <meta name="robots" content="noindex, follow" />}
@@ -96,15 +108,26 @@ const ogImageUrl = new URL(image, url);
   <meta property="og:url" content={url} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
+  <meta property="og:site_name" content={SITE_TITLE} />
+  <meta property="og:locale" content={OG_LOCALE} />
   <meta property="og:image" content={ogImageUrl} />
+  {/* Declared so a platform can reserve the space before it has fetched the
+      image. Shared with the generator, see OG_IMAGE_SIZE. */}
+  <meta property="og:image:width" content={String(OG_IMAGE_SIZE.width)} />
+  <meta property="og:image:height" content={String(OG_IMAGE_SIZE.height)} />
+  {/* The card renders this title as its own headline, so the title is an
+      accurate description of the picture rather than a restatement of it. */}
+  <meta property="og:image:alt" content={title} />
 
   {/* Twitter - the spec uses name=, not property=, for these */}
   {/* the open-graph images are 1200x630, which is the large-card size */}
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content={twitterHandle} />
   <meta name="twitter:url" content={url} />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
+  <meta name="twitter:image:alt" content={title} />
 
   {/* Analytics */}
   {

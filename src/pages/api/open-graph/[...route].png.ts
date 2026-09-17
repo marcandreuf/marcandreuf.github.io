@@ -4,6 +4,7 @@ import satori from 'satori';
 import sharp from 'sharp';
 
 import { FILE_PATHS } from '@/constants/file-paths';
+import { OG_IMAGE_SIZE } from '@/constants/metadata';
 import { getPages } from '@/libs/api/open-graph/pages';
 import templateHtml from '@/libs/api/open-graph/template-html';
 import { getTemplatePropsBase64 } from '@/libs/api/open-graph/template-props';
@@ -38,8 +39,8 @@ export const GET: APIRoute = async ({ props }: APIContext) => {
   const fontData = await fs.readFile(`${FONTS_FOLDER}inter-regular.woff`);
 
   const svg = await satori(templateHtml(templateProps) as React.ReactNode, {
-    width: 1200,
-    height: 630,
+    width: OG_IMAGE_SIZE.width,
+    height: OG_IMAGE_SIZE.height,
     fonts: [
       {
         name: 'Inter',

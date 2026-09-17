@@ -15,6 +15,31 @@ export const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-ima
 
 export const titleSeparator = '-';
 
+/**
+ * The satori canvas size in src/pages/api/open-graph/[...route].png.ts.
+ *
+ * og:image:width and og:image:height must match the image actually served or
+ * they are worse than absent, so the generator and the meta tags both read
+ * this rather than each carrying their own literal.
+ */
+export const OG_IMAGE_SIZE = { width: 1200, height: 630 } as const;
+
+/**
+ * og:locale wants the language_TERRITORY form, so the plain 'en' on <html> in
+ * src/layouts/Base.astro cannot be reused directly. GB rather than US because
+ * the posts and pages consistently use British spelling (realise, behaviour,
+ * optimise, organisation, licence).
+ */
+export const OG_LOCALE = 'en_GB';
+
+/**
+ * Body background of the default light theme, measured from the built site.
+ * ThemeScript.astro overwrites the theme-color tag with the live computed
+ * background about a second after load; this is what the tag carries until
+ * then, and for anyone without JavaScript.
+ */
+export const THEME_COLOR_LIGHT = '#f8fafc';
+
 export const DEFAULT_METADATA: Required<Metadata> = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
