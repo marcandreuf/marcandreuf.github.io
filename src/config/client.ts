@@ -9,7 +9,8 @@ const configClientData: ConfigClientType = {
   /** all urls without '/' */
   SITE_URL,
   SITE_TITLE: 'Marc Andreu',
-  SITE_DESCRIPTION: 'Full-Stack SaaS Developer & AI Automation Builder shipping modern products that scale smart.',
+  SITE_DESCRIPTION:
+    'I build SaaS solutions, AI automations and integrations · Java · Python · DevOps · 20+ years in software delivery and quality',
   PLAUSIBLE_SCRIPT_URL,
   PLAUSIBLE_DOMAIN,
   PAGE_SIZE_POST_CARD: 5,
