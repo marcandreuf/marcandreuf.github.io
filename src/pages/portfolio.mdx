@@ -5,37 +5,59 @@ description: 'Selected SaaS, web, and automation projects.'
 class: 'md:pt-12 lg:pt-12'
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
-import usenemiHomePage from '../assets/images/index/usenemi-home-page.png';
-import gmHomePage from '../assets/images/index/gm-home-page.png';
-import itqualabHomePage from '../assets/images/index/itql-screenshot-small-screen.png';
+import memshipHomePage from '../assets/images/index/memship-home-page.png';
+import fcprobityHomePage from '../assets/images/index/fcprobity-home-page.png';
+import cipcityHomePage from '../assets/images/index/cipcity-home-page.png';
 import pickupeeHomePage from '../assets/images/index/pickupee-home-page.png';
+import itqualabHomePage from '../assets/images/index/itql-screenshot-small-screen.png';
+import gmHomePage from '../assets/images/index/gm-home-page.png';
+import usenemiHomePage from '../assets/images/index/usenemi-home-page.png';
 
 # Portfolio
 
 ## Projects / Creations
 
-### Money SAAS for builders
+### Memship
 
-<a href="https://usenemi.com/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
-    <Image class="rounded-md m-0 w-full object-contain" src={usenemiHomePage} alt="Money SAAS for builders screenshot" />
+<a href="https://openmemship.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+    <Image class="rounded-md m-0 w-full object-contain" src={memshipHomePage} alt="Memship home page screenshot" />
 </a>
 
-- **What it is:** Creator-focused SaaS for money and business clarity.
-- **Tech:** Astro, TypeScript, API integrations, automation workflows.
-- **Outcome:** Built and shipped as a productized platform, reducing manual tracking and reporting work through automation.
+- **What it is:** Open source membership platform.
+- **Tech:** Python, FastAPI. Source at [github.com/marcandreuf/memship](https://github.com/marcandreuf/memship).
+- **Outcome:** Built and maintained in the open as founder and lead implementer, with public documentation and issue tracker.
 
 ### Other selected work
 
 <div class="grid md:grid-cols-2 gap-3 mt-2 justify-center items-start">
     <div class="flex flex-col">
-        <a href="https://www.gestio-mozart.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
-            <Image class="rounded-md m-0 w-full object-contain" src={gmHomePage} alt="Finques Mozart home page screenshot" />
+        <a href="https://fcprobity.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={fcprobityHomePage} alt="FC Probity home page screenshot" />
         </a>
-        <p class="my-2 text-sm font-semibold">Finques Mozart</p>
-        <p class="my-1 text-sm">Property management web platform.</p>
-        <p class="my-1 text-sm"><strong>Tech:</strong> Web app architecture, integrations, custom business workflows.</p>
-        <p class="my-1 text-sm"><strong>Outcome:</strong> Streamlined day-to-day operations with digital process automation.</p>
+        <p class="my-2 text-sm font-semibold">FC Probity</p>
+        <p class="my-1 text-sm">Website for a youth football academy in Cheongju, North Chungcheong, South Korea.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Astro, Tailwind, bilingual Korean and English routing, GitLab CI/CD with manual-gated deploys to Cloudflare Pages.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Gave the club a live bilingual public presence, Korean for local families and English for the wider community.</p>
+    </div>
+    <div class="flex flex-col">
+        <a href="https://cipcity.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={cipcityHomePage} alt="CIPcity home page screenshot" />
+        </a>
+        <p class="my-2 text-sm font-semibold">CIPcity</p>
+        <p class="my-1 text-sm">Community platform for the international community living in Korea.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Astro, MDX, trilingual English, Korean and Russian routing with per-locale news and RSS, GitLab CI/CD to Cloudflare Pages.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Gave the community one trilingual home, publishing news in all three languages from a single content pipeline.</p>
+    </div>
+    <div class="flex flex-col">
+        <a href="https://pickupee.com/en/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={pickupeeHomePage} alt="Pickupee home page screenshot" />
+        </a>
+        <p class="my-2 text-sm font-semibold">Pickupee</p>
+        <p class="my-1 text-sm">Pickup and delivery service platform.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Astro, TypeScript, frontend implementation, integrations.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Delivered a production-ready solution aligned with real business logistics workflows.</p>
     </div>
     <div class="flex flex-col">
         <a href="https://itqualab.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
@@ -46,13 +68,23 @@ import pickupeeHomePage from '../assets/images/index/pickupee-home-page.png';
         <p class="my-1 text-sm"><strong>Tech:</strong> Full-stack web development, automation frameworks, testing systems.</p>
         <p class="my-1 text-sm"><strong>Outcome:</strong> Enabled teams to improve release confidence with practical quality automation.</p>
     </div>
-    <div class="flex flex-col md:col-span-2">
-        <a href="https://pickupee.com/en/" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
-            <Image class="rounded-md m-0 w-full object-contain" src={pickupeeHomePage} alt="Pickupee home page screenshot" />
+    <div class="flex flex-col">
+        <a href="https://www.gestio-mozart.com" target="_blank" class="hover:no-underline hover:text-inherit no-underline">
+            <Image class="rounded-md m-0 w-full object-contain" src={gmHomePage} alt="Finques Mozart home page screenshot" />
         </a>
-        <p class="my-2 text-sm font-semibold">Pickupee</p>
-        <p class="my-1 text-sm">Pickup and delivery service platform.</p>
-        <p class="my-1 text-sm"><strong>Tech:</strong> Astro, TypeScript, frontend implementation, integrations.</p>
-        <p class="my-1 text-sm"><strong>Outcome:</strong> Delivered a production-ready solution aligned with real business logistics workflows.</p>
+        <p class="my-2 text-sm font-semibold">Finques Mozart</p>
+        <p class="my-1 text-sm">Property management web platform.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Web app architecture, integrations, custom business workflows.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Streamlined day-to-day operations with digital process automation.</p>
+    </div>
+    <div class="flex flex-col">
+        <Image class="rounded-md m-0 w-full object-contain" src={usenemiHomePage} alt="Money SAAS for builders home page screenshot" />
+        <p class="my-2 text-sm font-semibold">Money SAAS for builders</p>
+        <p class="my-1 text-sm">Creator-focused SaaS for money and business clarity.</p>
+        <p class="my-1 text-sm"><strong>Tech:</strong> Astro, TypeScript, API integrations, automation workflows.</p>
+        <p class="my-1 text-sm"><strong>Outcome:</strong> Built and shipped as a productized platform, reducing manual tracking and reporting work through automation. The business has since closed and the site is no longer online.</p>
+        <a href="https://www.instagram.com/nemi.gmbh/" target="_blank" aria-label="Nemi on Instagram" class="my-1 text-sm inline-flex items-center gap-1 self-start no-underline hover:no-underline visited:text-inherit">
+            <Icon name="mdi:instagram" size={20} /><span>nemi.gmbh</span>
+        </a>
     </div>
 </div>
