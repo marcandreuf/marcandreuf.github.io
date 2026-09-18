@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         
       - name: build within a container
         run: |
@@ -106,9 +106,14 @@ jobs:
         # check-types` unusable locally.
 
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: "./dist/"
+          # v4 stopped bundling dotfiles by default. dist/ carries
+          # .well-known/security.txt (RFC 9116), so leaving this at the default
+          # would drop it from the artifact and quietly 404 a file that is live
+          # today. .git and .github are excluded by the action regardless.
+          include-hidden-files: true
 
 
   deploy:
@@ -120,4 +125,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
