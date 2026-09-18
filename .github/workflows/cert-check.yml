@@ -1,0 +1,162 @@
+name: Check Pages certificate
+
+# GitHub renews the Pages TLS certificate through Let's Encrypt, but it reports
+# a failed renewal nowhere: no workflow run, no email, no notification. The only
+# record is one field in the Pages REST API. On 2026-09-18 the certificate
+# expired after a month of silently failing renewals and the site returned 526
+# sitewide, while every deploy kept reporting success.
+#
+# This job is the missing alarm. It fails, and opens an issue, while there is
+# still time to repair the renewal before the certificate lapses.
+
+on:
+  schedule:
+    # Mondays, 06:17 UTC. Off the hour so it is not queued behind the crowd of
+    # jobs that every cron scheduler piles onto :00.
+    - cron: '17 6 * * 1'
+  # So the check can be exercised on demand. This workflow only reads state and
+  # opens issues, so running it by hand is safe. That is NOT true of deploy.yml.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pages: read
+
+env:
+  DOMAIN: marcandreuf.com
+  # Any one of the four Pages anycast addresses. Connecting to the IP with SNI
+  # set to the custom domain reads the certificate GitHub actually serves at the
+  # origin. Checking https://marcandreuf.com instead would read whatever sits in
+  # front: with the Cloudflare proxy enabled that is Cloudflare's edge
+  # certificate, which stays healthy while the origin certificate rots unseen.
+  ORIGIN_IP: 185.199.108.153
+  # Renewal begins about 30 days out, so 25 days means a renewal that should
+  # already have happened has not.
+  THRESHOLD_DAYS: 25
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect the origin certificate and the Pages certificate state
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          problems=()
+
+          # --- origin certificate --------------------------------------------
+          cert=$(echo | timeout 30 openssl s_client \
+                   -connect "${ORIGIN_IP}:443" -servername "${DOMAIN}" 2>/dev/null)
+
+          if [ -z "${cert}" ]; then
+            problems+=("Could not open a TLS connection to the origin (${ORIGIN_IP}:443, SNI ${DOMAIN}).")
+            days=""
+          else
+            end=$(printf '%s' "${cert}" | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)
+            if [ -z "${end}" ]; then
+              problems+=("Connected to the origin but could not read an expiry date from the certificate.")
+              days=""
+            else
+              days=$(( ( $(date -u -d "${end}" +%s) - $(date -u +%s) ) / 86400 ))
+              echo "Origin certificate expires ${end} (${days} days)."
+              if [ "${days}" -lt "${THRESHOLD_DAYS}" ]; then
+                problems+=("Origin certificate expires in ${days} days (${end}), under the ${THRESHOLD_DAYS}-day threshold. Renewal has not run.")
+              fi
+            fi
+
+            if ! printf '%s' "${cert}" | openssl x509 -noout -ext subjectAltName 2>/dev/null \
+                 | grep -q "DNS:${DOMAIN}"; then
+              problems+=("The origin certificate does not list ${DOMAIN} in its subjectAltName.")
+            fi
+          fi
+
+          # --- Pages certificate state ----------------------------------------
+          # The early warning. This turns bad at renewal time, weeks before the
+          # expiry date starts running down.
+          if state=$(gh api "repos/${GITHUB_REPOSITORY}/pages" \
+                       --jq '.https_certificate.state' 2>/dev/null) && [ -n "${state}" ]; then
+            echo "Pages certificate state: ${state}"
+            if [ "${state}" != "approved" ]; then
+              desc=$(gh api "repos/${GITHUB_REPOSITORY}/pages" \
+                       --jq '.https_certificate.description' 2>/dev/null || echo "")
+              problems+=("Pages certificate state is '${state}', not 'approved'. ${desc}")
+            fi
+          else
+            # Not fatal: the certificate check above is the primary signal.
+            echo "::warning::Could not read .https_certificate.state from the Pages API."
+          fi
+
+          # --- report ----------------------------------------------------------
+          {
+            echo "### Pages certificate"
+            echo ""
+            echo "- Origin: \`${ORIGIN_IP}:443\`, SNI \`${DOMAIN}\`"
+            [ -n "${days}" ] && echo "- Expires in: **${days} days**"
+            echo "- Pages state: \`${state:-unreadable}\`"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ ${#problems[@]} -gt 0 ]; then
+            { echo ""; echo "**Problems:**"; printf -- '- %s\n' "${problems[@]}"; } >> "${GITHUB_STEP_SUMMARY}"
+            printf -- '- %s\n' "${problems[@]}" > problems.txt
+            echo "failed=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "failed=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Open an issue
+        if: steps.check.outputs.failed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh label create cert-monitor \
+            --description "Raised by the scheduled Pages certificate check" \
+            --color FBCA04 2>/dev/null || true
+
+          # One open issue at a time, so a weekly check cannot file the same
+          # report every Monday until someone acts on it.
+          if [ -n "$(gh issue list --label cert-monitor --state open \
+                       --limit 1 --json number --jq '.[].number')" ]; then
+            echo "An open cert-monitor issue already exists. Not filing another."
+            exit 0
+          fi
+
+          {
+            echo "The scheduled certificate check failed:"
+            echo ""
+            cat problems.txt
+            echo ""
+            echo "## Fix"
+            echo ""
+            echo "The renewal needs the Let's Encrypt challenge to reach the Pages origin."
+            echo "With the Cloudflare proxy enabled (orange cloud) it cannot, because public"
+            echo "DNS resolves to Cloudflare rather than to the Pages addresses."
+            echo ""
+            echo "1. In Cloudflare DNS, set the \`${DOMAIN}\` A records and the \`www\` record to **DNS only**."
+            echo "2. In Settings > Pages, untick **Enforce HTTPS**, remove the custom domain, save."
+            echo "3. Re-add \`${DOMAIN}\`, save. This restarts the authorization."
+            echo "4. Wait for issuance, then re-tick **Enforce HTTPS**."
+            echo ""
+            echo "Check progress with:"
+            echo ""
+            echo '```sh'
+            echo "gh api repos/${GITHUB_REPOSITORY}/pages --jq '.https_certificate'"
+            echo '```'
+            echo ""
+            echo "Done when: \`state\` is \`approved\` and \`expires_at\` has moved forward,"
+            echo "and this workflow passes on a manual run."
+          } > body.md
+
+          gh issue create \
+            --title "Pages certificate renewal needs attention" \
+            --label cert-monitor \
+            --body-file body.md
+
+      - name: Fail the run
+        if: steps.check.outputs.failed == 'true'
+        run: |
+          echo "::error::The Pages certificate check failed. See the job summary."
+          exit 1
