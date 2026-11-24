@@ -6,21 +6,21 @@ name: Check Pages certificate
 # expired after a month of silently failing renewals and the site returned 526
 # sitewide, while every deploy kept reporting success.
 #
-# This job is the missing alarm. It fails, and opens an issue, while there is
-# still time to repair the renewal before the certificate lapses.
+# This job is the missing alarm. It fails while there is still time to repair
+# the renewal before the certificate lapses. GitHub emails the failure, and the
+# run summary carries the full repair steps.
 
 on:
   schedule:
     # Mondays, 06:17 UTC. Off the hour so it is not queued behind the crowd of
     # jobs that every cron scheduler piles onto :00.
     - cron: '17 6 * * 1'
-  # So the check can be exercised on demand. This workflow only reads state and
-  # opens issues, so running it by hand is safe. That is NOT true of deploy.yml.
+  # So the check can be exercised on demand. This workflow only reads state, so
+  # running it by hand is safe. That is NOT true of deploy.yml.
   workflow_dispatch:
 
 permissions:
   contents: read
-  issues: write
   pages: read
 
 env:
@@ -104,92 +104,56 @@ jobs:
               echo "**Problems:**"
               printf -- '- %s\n' "${problems[@]}"
               echo ""
-              echo "**Fix:** set the Cloudflare DNS records to *DNS only* (grey cloud) so the"
-              echo "Let's Encrypt challenge can reach the origin, let the renewal finish, re-run"
-              echo "this check, and re-enable the proxy only once it passes. If the state is"
-              echo "\`bad_authz\`, also remove and re-add the custom domain in Settings > Pages:"
-              echo "grey-clouding alone will not restart a failed authorization."
+              echo "### Fix: let the renewal through, then re-enable the proxy"
+              echo ""
+              echo "The renewal needs the Let's Encrypt challenge to reach the Pages origin."
+              echo "With the Cloudflare proxy on (orange cloud) it cannot, because public DNS"
+              echo "resolves to Cloudflare rather than to the Pages addresses."
+              echo ""
+              echo "Budget about a day end to end. Almost all of it is waiting."
+              echo ""
+              echo "1. **Cloudflare > DNS:** set the \`${DOMAIN}\` A records and the \`www\`"
+              echo "   record to **DNS only** (grey cloud). Give it a few minutes to propagate."
+              echo "2. **Check whether GitHub will retry on its own:**"
+              echo ""
+              echo '   ```sh'
+              echo "   gh api repos/${GITHUB_REPOSITORY}/pages --jq '.https_certificate'"
+              echo '   ```'
+              echo ""
+              echo "   - State is \`bad_authz\`: GitHub has given up and will **not** retry."
+              echo "     Do step 3. Grey-clouding alone will not fix it."
+              echo "   - State is anything mid-flight (\`authorization_*\`, \`issued\`): skip to step 4."
+              echo "3. **Restart the authorization.** Settings > Pages: untick **Enforce HTTPS**,"
+              echo "   remove the custom domain, save. Then re-add \`${DOMAIN}\` and save."
+              echo "4. **Wait for issuance.** Minutes, occasionally up to an hour."
+              echo "5. Re-tick **Enforce HTTPS** once the state reads \`approved\`."
+              echo "6. **Re-run this check:** Actions > Check Pages certificate > Run workflow."
+              echo "   Confirm it passes."
+              echo "7. **Only then** re-enable the Cloudflare proxy (orange cloud). Turning it"
+              echo "   back on before the certificate is issued makes the renewal fail again."
+              echo ""
+              echo "### Expected noise in step 3"
+              echo ""
+              echo "Re-adding the custom domain makes GitHub commit a \`CNAME\` file to \`main\`,"
+              echo "which triggers the legacy \`pages-build-deployment\` (Jekyll) workflow. It will"
+              echo "fail on the Astro sources. That is harmless and expected: its deploy job is"
+              echo "skipped because this repo publishes through Actions. Do not rerun it."
+              echo ""
+              echo "### While the proxy is on"
+              echo ""
+              echo "Keep SSL/TLS mode at **Full**, not Full (strict), so an expired origin"
+              echo "certificate degrades quietly instead of returning 526 sitewide."
+              echo ""
+              echo "Done when: \`state\` is \`approved\`, \`expires_at\` has moved forward, and"
+              echo "this workflow passes on a manual run."
             } >> "${GITHUB_STEP_SUMMARY}"
-            printf -- '- %s\n' "${problems[@]}" > problems.txt
             echo "failed=true" >> "${GITHUB_OUTPUT}"
           else
             echo "failed=false" >> "${GITHUB_OUTPUT}"
           fi
 
-      - name: Open an issue
-        if: steps.check.outputs.failed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh label create cert-monitor \
-            --description "Raised by the scheduled Pages certificate check" \
-            --color FBCA04 2>/dev/null || true
-
-          # One open issue at a time, so a weekly check cannot file the same
-          # report every Monday until someone acts on it.
-          if [ -n "$(gh issue list --label cert-monitor --state open \
-                       --limit 1 --json number --jq '.[].number')" ]; then
-            echo "An open cert-monitor issue already exists. Not filing another."
-            exit 0
-          fi
-
-          {
-            echo "The scheduled certificate check failed:"
-            echo ""
-            cat problems.txt
-            echo ""
-            echo "## Fix: let the renewal through, then re-enable the proxy"
-            echo ""
-            echo "The renewal needs the Let's Encrypt challenge to reach the Pages origin."
-            echo "With the Cloudflare proxy on (orange cloud) it cannot, because public DNS"
-            echo "resolves to Cloudflare rather than to the Pages addresses."
-            echo ""
-            echo "Budget about a day end to end. Almost all of it is waiting."
-            echo ""
-            echo "1. **Cloudflare > DNS:** set the \`${DOMAIN}\` A records and the \`www\`"
-            echo "   record to **DNS only** (grey cloud). Give it a few minutes to propagate."
-            echo "2. **Check whether GitHub will retry on its own:**"
-            echo ""
-            echo '   ```sh'
-            echo "   gh api repos/${GITHUB_REPOSITORY}/pages --jq '.https_certificate'"
-            echo '   ```'
-            echo ""
-            echo "   - State is \`bad_authz\`: GitHub has given up and will **not** retry."
-            echo "     Do step 3. Grey-clouding alone will not fix it."
-            echo "   - State is anything mid-flight (\`authorization_*\`, \`issued\`): skip to step 4."
-            echo "3. **Restart the authorization.** Settings > Pages: untick **Enforce HTTPS**,"
-            echo "   remove the custom domain, save. Then re-add \`${DOMAIN}\` and save."
-            echo "4. **Wait for issuance.** Minutes, occasionally up to an hour."
-            echo "5. Re-tick **Enforce HTTPS** once the state reads \`approved\`."
-            echo "6. **Re-run this check:** Actions > Check Pages certificate > Run workflow."
-            echo "   Confirm it passes."
-            echo "7. **Only then** re-enable the Cloudflare proxy (orange cloud). Turning it"
-            echo "   back on before the certificate is issued makes the renewal fail again."
-            echo ""
-            echo "### Expected noise in step 3"
-            echo ""
-            echo "Re-adding the custom domain makes GitHub commit a \`CNAME\` file to \`main\`,"
-            echo "which triggers the legacy \`pages-build-deployment\` (Jekyll) workflow. It will"
-            echo "fail on the Astro sources. That is harmless and expected: its deploy job is"
-            echo "skipped because this repo publishes through Actions. Do not rerun it."
-            echo ""
-            echo "### While the proxy is on"
-            echo ""
-            echo "Keep SSL/TLS mode at **Full**, not Full (strict), so an expired origin"
-            echo "certificate degrades quietly instead of returning 526 sitewide."
-            echo ""
-            echo "Done when: \`state\` is \`approved\`, \`expires_at\` has moved forward, and"
-            echo "this workflow passes on a manual run."
-          } > body.md
-
-          gh issue create \
-            --title "Pages certificate renewal needs attention" \
-            --label cert-monitor \
-            --body-file body.md
-
       - name: Fail the run
         if: steps.check.outputs.failed == 'true'
         run: |
-          echo "::error::Pages certificate needs attention. Fix: grey-cloud the Cloudflare DNS proxy (DNS only), let the renewal finish, re-run this check, and only re-enable the proxy once it passes. If the state is bad_authz you must also remove and re-add the custom domain in Settings > Pages. Full steps are in the cert-monitor issue."
+          echo "::error::Pages certificate needs attention. Fix: grey-cloud the Cloudflare DNS proxy (DNS only), let the renewal finish, re-run this check, and only re-enable the proxy once it passes. If the state is bad_authz you must also remove and re-add the custom domain in Settings > Pages. Full steps are in this run's summary."
           exit 1
