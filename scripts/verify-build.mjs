@@ -22,7 +22,10 @@ const DIST = 'dist';
 // which duplicated /blog/explore/(N). See src/pages/blog/explore/[...filter]/[...page].astro.
 // 222 -> 224: the 2026-08-13-no-code post, plus the /blog/explore/7 paginator page it
 // pushed the explore listing into. Its eight tags all already had pages.
-const EXPECTED_PAGES = 224;
+// 224 -> 225: @astrojs/partytown 2.1.9 moved to the @qwik.dev/partytown 1.x core,
+// which emits ~partytown/partytown-sandbox-sw.html. A service-worker helper, not
+// a site page, and it does not appear in the sitemap.
+const EXPECTED_PAGES = 225;
 
 let failures = 0;
 let checks = 0;
