@@ -30,7 +30,7 @@ The project is based on a fork of `nemanjam/nemanjam.github.io` and adapted for 
 
 ## Requirements
 
-- Node.js `>= 22.9.0`
+- Node.js `>= 24`
 - pnpm (project uses `pnpm` lockfile and scripts)
 
 ## Getting started

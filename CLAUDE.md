@@ -74,7 +74,7 @@ Same task. The second version publishes commercial reasoning.
 
 ## 4. Setup and verification
 
-Requires **Node >= 22.12.0** and **pnpm 10.8.0**.
+Requires **Node >= 24** and **pnpm 10.8.0**.
 
 ```sh
 pnpm i
