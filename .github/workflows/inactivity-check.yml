@@ -1,0 +1,79 @@
+name: Check repository activity
+
+# GitHub disables scheduled workflows in a public repository after 60 days
+# without activity, and it does so without failing anything. Once that happens
+# the weekly Pages certificate check stops running, and nothing says so.
+#
+# This job fails from day 55 onwards, which emails the failure, so there are
+# five days to push something to main before the disable lands. It runs daily,
+# so it keeps failing every day until the clock is reset. A weekly run would
+# land anywhere between day 55 and day 61, which can be too late.
+#
+# It cannot protect itself: it is a scheduled workflow too. It works because it
+# fires before day 60, while it is still enabled.
+
+on:
+  schedule:
+    # Daily, 07:23 UTC. Off the hour, like cert-check.yml.
+    - cron: '23 7 * * *'
+  # Read-only, so running it by hand is safe.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  THRESHOLD_DAYS: 55
+  DISABLE_DAYS: 60
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Count days since the last commit on the default branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          # The latest commit on the default branch, not the repository's
+          # pushed_at. pushed_at also moves on pushes to other branches, and
+          # those may not count as activity for this rule. The default branch
+          # is the conservative measure: it can only make the alarm fire early.
+          last=$(gh api "repos/${GITHUB_REPOSITORY}/commits?per_page=1" \
+                   --jq '.[0].commit.committer.date')
+          days=$(( ( $(date -u +%s) - $(date -u -d "${last}" +%s) ) / 86400 ))
+          left=$(( DISABLE_DAYS - days ))
+
+          echo "Last commit on the default branch: ${last} (${days} days ago)."
+
+          {
+            echo "### Repository activity"
+            echo ""
+            echo "- Last commit on the default branch: \`${last}\`"
+            echo "- Days without activity: **${days}**"
+            echo "- Scheduled workflows are disabled at ${DISABLE_DAYS} days"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ "${days}" -lt "${THRESHOLD_DAYS}" ]; then
+            exit 0
+          fi
+
+          {
+            echo ""
+            echo "### Fix: push a commit to main"
+            echo ""
+            echo "GitHub disables this repository's scheduled workflows in about"
+            echo "**${left} days**. Any commit on \`main\` resets the clock."
+            echo ""
+            echo "- Merge a pending pull request, or"
+            echo "- push an empty commit: \`git commit --allow-empty -m 'chore: keep scheduled workflows enabled'\`"
+            echo ""
+            echo "A push to \`main\` deploys the site, so the deploy workflow will run."
+            echo ""
+            echo "If the workflows were already disabled, re-enable each one under"
+            echo "Actions > (workflow) > **Enable workflow**, then run this check by hand."
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          echo "::error::No commit on main for ${days} days. GitHub disables scheduled workflows (including the Pages certificate check) at ${DISABLE_DAYS} days, in about ${left} days. Push any commit to main to reset the clock. Details are in this run's summary."
+          exit 1
