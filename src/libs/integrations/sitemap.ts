@@ -27,7 +27,7 @@ const readPageHtml = (pageUrl: string): string | null => {
   const cached = htmlCache.get(pageUrl);
   if (cached !== undefined) return cached;
 
-  let html: string | null = null;
+  let html: string | null;
   try {
     // decode: slugs used to contain spaces ('home lab'), so a url could arrive
     // percent-encoded while the emitted directory is not. Without this such a
