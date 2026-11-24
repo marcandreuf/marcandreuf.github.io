@@ -1,4 +1,4 @@
-name: Check Pages certificate
+name: Check Pages certificate and security.txt
 
 # GitHub renews the Pages TLS certificate through Let's Encrypt, but it reports
 # a failed renewal nowhere: no workflow run, no email, no notification. The only
@@ -9,6 +9,10 @@ name: Check Pages certificate
 # This job is the missing alarm. It fails while there is still time to repair
 # the renewal before the certificate lapses. GitHub emails the failure, and the
 # run summary carries the full repair steps.
+#
+# It also checks the Expires date in the live /.well-known/security.txt
+# (RFC 9116). Nothing else watches that date, and an expired security.txt reads
+# as an abandoned site.
 
 on:
   schedule:
@@ -34,6 +38,9 @@ env:
   # Renewal begins about 30 days out, so 25 days means a renewal that should
   # already have happened has not.
   THRESHOLD_DAYS: 25
+  # security.txt must be refreshed by hand (public/.well-known/security.txt).
+  # A month is plenty of notice for a one-line change.
+  SECURITY_TXT_THRESHOLD_DAYS: 30
 
 jobs:
   check:
@@ -89,6 +96,29 @@ jobs:
             echo "::warning::Could not read .https_certificate.state from the Pages API."
           fi
 
+          # --- security.txt ---------------------------------------------------
+          # Fetched from the live site rather than the repo, so a deploy that
+          # stopped publishing the file (it lives in a dotfile directory) is
+          # caught too.
+          sec_problems=()
+          sec_url="https://${DOMAIN}/.well-known/security.txt"
+          sec_days=""
+          if ! sec=$(curl -fsSL --max-time 30 "${sec_url}" 2>/dev/null); then
+            sec_problems+=("Could not fetch ${sec_url}.")
+          else
+            sec_expires=$(printf '%s\n' "${sec}" | grep -i '^Expires:' | head -n 1 \
+                            | cut -d: -f2- | tr -d ' \r' || true)
+            if [ -z "${sec_expires}" ] || ! sec_epoch=$(date -u -d "${sec_expires}" +%s 2>/dev/null); then
+              sec_problems+=("${sec_url} has no readable Expires field.")
+            else
+              sec_days=$(( ( sec_epoch - $(date -u +%s) ) / 86400 ))
+              echo "security.txt expires ${sec_expires} (${sec_days} days)."
+              if [ "${sec_days}" -lt "${SECURITY_TXT_THRESHOLD_DAYS}" ]; then
+                sec_problems+=("security.txt expires in ${sec_days} days (${sec_expires}), under the ${SECURITY_TXT_THRESHOLD_DAYS}-day threshold.")
+              fi
+            fi
+          fi
+
           # --- report ----------------------------------------------------------
           {
             echo "### Pages certificate"
@@ -96,12 +126,17 @@ jobs:
             echo "- Origin: \`${ORIGIN_IP}:443\`, SNI \`${DOMAIN}\`"
             [ -n "${days}" ] && echo "- Expires in: **${days} days**"
             echo "- Pages state: \`${state:-unreadable}\`"
+            echo ""
+            echo "### security.txt"
+            echo ""
+            echo "- URL: ${sec_url}"
+            [ -n "${sec_days}" ] && echo "- Expires in: **${sec_days} days**"
           } >> "${GITHUB_STEP_SUMMARY}"
 
           if [ ${#problems[@]} -gt 0 ]; then
             {
               echo ""
-              echo "**Problems:**"
+              echo "**Certificate problems:**"
               printf -- '- %s\n' "${problems[@]}"
               echo ""
               echo "### Fix: let the renewal through, then re-enable the proxy"
@@ -127,7 +162,7 @@ jobs:
               echo "   remove the custom domain, save. Then re-add \`${DOMAIN}\` and save."
               echo "4. **Wait for issuance.** Minutes, occasionally up to an hour."
               echo "5. Re-tick **Enforce HTTPS** once the state reads \`approved\`."
-              echo "6. **Re-run this check:** Actions > Check Pages certificate > Run workflow."
+              echo "6. **Re-run this check:** Actions > Check Pages certificate and security.txt > Run workflow."
               echo "   Confirm it passes."
               echo "7. **Only then** re-enable the Cloudflare proxy (orange cloud). Turning it"
               echo "   back on before the certificate is issued makes the renewal fail again."
@@ -147,13 +182,38 @@ jobs:
               echo "Done when: \`state\` is \`approved\`, \`expires_at\` has moved forward, and"
               echo "this workflow passes on a manual run."
             } >> "${GITHUB_STEP_SUMMARY}"
-            echo "failed=true" >> "${GITHUB_OUTPUT}"
-          else
-            echo "failed=false" >> "${GITHUB_OUTPUT}"
+            echo "cert_failed=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+          if [ ${#sec_problems[@]} -gt 0 ]; then
+            {
+              echo ""
+              echo "**security.txt problems:**"
+              printf -- '- %s\n' "${sec_problems[@]}"
+              echo ""
+              echo "### Fix: refresh security.txt"
+              echo ""
+              echo "1. In \`public/.well-known/security.txt\`, set \`Expires:\` to a date under a"
+              echo "   year away (RFC 9116 recommends less than a year), e.g. \`$(date -u -d '+11 months' +%Y-%m-%dT00:00:00.000Z)\`."
+              echo "2. Merge the change to \`main\` so it deploys."
+              echo "3. Re-run this check and confirm it passes."
+              echo ""
+              echo "If the file could not be fetched at all, check that the deploy still"
+              echo "publishes dotfiles (\`include-hidden-files: true\` in \`deploy.yml\`)."
+            } >> "${GITHUB_STEP_SUMMARY}"
+            echo "sec_failed=true" >> "${GITHUB_OUTPUT}"
           fi
 
       - name: Fail the run
-        if: steps.check.outputs.failed == 'true'
+        if: steps.check.outputs.cert_failed == 'true' || steps.check.outputs.sec_failed == 'true'
+        env:
+          CERT_FAILED: ${{ steps.check.outputs.cert_failed }}
+          SEC_FAILED: ${{ steps.check.outputs.sec_failed }}
         run: |
-          echo "::error::Pages certificate needs attention. Fix: grey-cloud the Cloudflare DNS proxy (DNS only), let the renewal finish, re-run this check, and only re-enable the proxy once it passes. If the state is bad_authz you must also remove and re-add the custom domain in Settings > Pages. Full steps are in this run's summary."
+          if [ "${CERT_FAILED}" = "true" ]; then
+            echo "::error::Pages certificate needs attention. Fix: grey-cloud the Cloudflare DNS proxy (DNS only), let the renewal finish, re-run this check, and only re-enable the proxy once it passes. If the state is bad_authz you must also remove and re-add the custom domain in Settings > Pages. Full steps are in this run's summary."
+          fi
+          if [ "${SEC_FAILED}" = "true" ]; then
+            echo "::error::security.txt needs attention. Fix: move the Expires date in public/.well-known/security.txt forward (under a year) and merge to main. Details are in this run's summary."
+          fi
           exit 1
