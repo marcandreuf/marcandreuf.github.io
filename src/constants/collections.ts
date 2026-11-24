@@ -60,7 +60,7 @@ export const TAGS = [
   'efficiency',
   'recruitment',
   'software',
-  'cybersecuity',
+  'cybersecurity',
   'CIA triad',
   'information security',
   'vpn',
