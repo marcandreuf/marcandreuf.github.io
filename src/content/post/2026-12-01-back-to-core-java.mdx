@@ -1,6 +1,6 @@
 ---
 title: Back to Core Java
-description: I use AI to put working prototypes in front of users. For long lived enterprise systems I want to review every line, so I am going back to core Java.
+description: For a year I used AI to build SaaS products, websites and tools. However, for long lived enterprise systems, I prefer to be a craftsman developer.
 publishDate: 2026-12-01
 updatedDate: 2026-12-01
 heroImage: '@/content/post/_images/2026-12-01-back-to-core-java/laptop-coding.jpg'
@@ -30,23 +30,23 @@ I am not leaving AI behind. I want to use it for the right tasks. But I also wan
 
 The experiment worked, but I did not expect how the work would feel once the novelty was gone.
 
-Everything I shipped looked right. The tests were green, the users were happy, the features arrived. But the whole thing felt alienated from me, from the problem, and from the solution. I knew _what_ the software did. I did not really know _how_ it did it, and so I did not know where it would bend and where it would break.
+Everything I shipped looked right. The tests were green, the users were happy, the features arrived. But the whole thing felt alienated from me and from the solution. I knew _what_ the software did. I did not really know _how_ it did it, and so I did not know where it would bend and where it would break.
 
 That distance has a cost, and it shows up at the worst possible moment: when a user asks for something new. When I have written the code myself, a new requirement lands on a model I already carry in my head. I can see where it goes, what it touches, and what it will cost. When the code was generated, a new requirement is the start of an investigation. I am reading my own system like a stranger's.
 
-What I love about this job has always been solving problems, and spending time writing code that feels good, that solves the problem, and that I can quickly adapt or extend when the requirements move. A year of generating solutions gave me the first part without the rest.
+What I love about this job has always been solving problems, and spending time writing code that feels good, that solves the problem, and that I can quickly adapt or extend when the requirements move. A year of generating solutions gave me the pleasure of releasing faster, but also a hollowness that kept me from fully enjoying what I was doing.
 
 Maybe that is nostalgia. I have asked myself that more than once. But I do not think it is only that.
 
 ## Use AI for the Right Tasks
 
-In the August post I argued that most of us work on information systems, not on safety-critical systems such as aerospace or medical devices, and that we should match the verification to the blast radius. I still believe that. For most software, most of the time, generated code, generated tests and real users validating it is the right trade.
+In the August post I argued that most of us work on information systems, not on safety-critical systems such as aerospace or medical devices, and that we should check the code as carefully as the damage a mistake could cause. I still believe that. For most software, most of the time, generated code, generated tests and real users validating it is the right trade.
 
-But I underweighted one dimension of blast radius: **time**.
+But I underweighted one part of that risk: **time**.
 
-The first version of a new idea, an internal tool, a campaign landing page, a short-lived integration: these can be generated and validated with real users, and nobody will miss the craft. An enterprise system is different. It lives for ten or twenty years. It outlives its team, its framework versions and usually its original requirements. The question for that kind of system is not "does it work today?" but "can someone change it safely in 2035?"
+The first version of a new idea, an internal tool, a campaign landing page, a short-lived integration: these can be generated and validated with real users, and nobody will miss the craft. An enterprise system is different. It lives for ten or twenty years. It outlives its team, its framework versions and usually its original requirements. The question for that kind of system is not "does it work today?" but "can it be safely maintained for the next fifteen years?"
 
-That someone needs to understand it. And understanding is exactly what I was trading away.
+Maintaining it takes more than reading the code and the docs. It takes understanding the business, the organisation and the team behind it, and how that understanding is written into the code. I never lost my understanding of the business. What I was trading away, every time I let AI write the code, was knowing why each part of the code is the way it is and which business rule it carries.
 
 Kent Beck [makes a similar point about time](https://www.youtube.com/watch?v=F8fBgDCf2Y4&t=1005s): when delay is expensive, an ugly program that gives you feedback is the right thing, but when the software is going to live for twenty years, getting it right pays off. He loves programming with AI, and he does not argue for writing everything by hand.
 
