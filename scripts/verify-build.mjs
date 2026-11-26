@@ -25,7 +25,7 @@ const DIST = 'dist';
 // 224 -> 225: @astrojs/partytown 2.1.9 moved to the @qwik.dev/partytown 1.x core,
 // which emits ~partytown/partytown-sandbox-sw.html. A service-worker helper, not
 // a site page, and it does not appear in the sitemap.
-const EXPECTED_PAGES = 225;
+const EXPECTED_PAGES = 227;
 
 let failures = 0;
 let checks = 0;
