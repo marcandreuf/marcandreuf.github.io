@@ -1,0 +1,110 @@
+---
+title: Back to Core Java
+description: For a year I used AI to build SaaS products, websites and tools. However, for long lived enterprise systems, I prefer to be a craftsman developer.
+publishDate: 2026-11-26
+updatedDate: 2026-11-26
+heroImage: '@/content/post/_images/2026-11-26-back-to-core-java/laptop-coding.jpg'
+heroAlt: 'A laptop on a wooden desk showing source code in a dark editor, with a notebook and pen on the left and a coffee mug on the right.'
+noHero: false
+tags:
+  - JAVA
+  - Ai
+  - coding
+  - code quality
+  - software quality
+  - best practices
+category: Article
+toc: true
+draft: false
+---
+
+In August I wrote about [a year of shipping software while barely looking at the code](/blog/2026-08-13-no-code/). Four projects, two of them full SaaS products, all generated with AI, all covered by tests, all used by real people. I set it up as an experiment to see how far the tools could be pushed, and the honest answer is: very far, but not without a cost.
+
+I could create more, and faster, than at any point in my career, but I felt further away from what I was building.
+
+So I have spent the last two months updating my Java skills with the new features of modern Java. I used Claude Code to prepare a curriculum and exercises for me, and I write the solutions and the notes myself.
+
+I am not leaving AI behind. I want to use it for the right tasks. But I also want to go back to writing code, and I want to write it in Java. This post is about why.
+
+## More, Faster, and Further Away
+
+The experiment worked, but I did not expect how the work would feel once the novelty was gone.
+
+Everything I shipped looked right. The tests were green, the users were happy, the features arrived. But the whole thing felt alienated from me and from the solution. I knew _what_ the software did. I did not really know _how_ it did it, and so I did not know where it would bend and where it would break.
+
+That distance has a cost, and it shows up at the worst possible moment: when a user asks for something new. When I have written the code myself, a new requirement lands on a model I already carry in my head. I can see where it goes, what it touches, and what it will cost. When the code was generated, a new requirement is the start of an investigation. I am reading my own system like a stranger's.
+
+What I love about this job has always been solving problems, and spending time writing code that feels good, that solves the problem, and that I can quickly adapt or extend when the requirements move. A year of generating solutions gave me the pleasure of releasing faster, but also a hollowness that kept me from fully enjoying what I was doing.
+
+Maybe that is nostalgia. I have asked myself that more than once. But I do not think it is only that.
+
+## Use AI for the Right Tasks
+
+In the August post I argued that most of us work on information systems, not on safety-critical systems such as aerospace or medical devices, and that we should check the code as carefully as the damage a mistake could cause. I still believe that. For most software, most of the time, generated code, generated tests and real users validating it is the right trade.
+
+But I underweighted one part of that risk: **time**.
+
+The first version of a new idea, an internal tool, a campaign landing page, a short-lived integration: these can be generated and validated with real users, and nobody will miss the craft. An enterprise system is different. It lives for ten or twenty years. It outlives its team, its framework versions and usually its original requirements. The question for that kind of system is not "does it work today?" but "can it be safely maintained for the next fifteen years?"
+
+Maintaining it takes more than reading the code and the docs. It takes understanding the business, the organisation and the team behind it, and how that understanding is written into the code. I never lost my understanding of the business. What I was trading away, every time I let AI write the code, was knowing why each part of the code is the way it is and which business rule it carries.
+
+Kent Beck [makes a similar point about time](https://www.youtube.com/watch?v=F8fBgDCf2Y4&t=1005s): when delay is expensive, an ugly program that gives you feedback is the right thing, but when the software is going to live for twenty years, getting it right pays off. He loves programming with AI, and he does not argue for writing everything by hand.
+
+So this is not me taking back the August post, and it is not me walking away from AI. It is me drawing the line that post left vague, and using AI for the right task on each side of it:
+
+- **Fast prototyping of new solutions.** AI generated code is very useful here. By prototyping I mean putting a working solution in front of users and getting real feedback.
+- **High risk, long lived enterprise solutions.** AI can generate code here too, but an engineer uses their expertise to review it fully, line by line, and amends by hand whatever is necessary.
+
+**I want to be that engineer.** To review every line of a Java system, I need my Java skills to be up to date, and that is why I am going back to it.
+
+## Why Java, Why Now
+
+I started my career as a Java developer. For a long time I drifted away from it, through test automation, architecture, infrastructure and, more recently, a lot of TypeScript. Coming back is partly personal. But I also think Java is well positioned for what comes next.
+
+The first wave of AI was about generating things: text, images, code, prototypes. The second wave, as I see it, is about putting AI to work inside the systems businesses already run, as assistants and agents that augment people so they can achieve more, faster, and with better software. Many of those systems, in banks, insurers and public administrations, run on Java, which is easy to forget if you spend your time in startup land. In OpenLogic's [2026 State of Open Source report](https://www.openlogic.com/blog/java-ecosystem-trends), banking, insurance and financial services reported the highest Java usage, closely followed by government and public services, with the technology sector among the lowest. OpenLogic sells Java support, so read it with that in mind.
+
+Some of that conviction comes from what I have been watching lately. At JavaOne, Paul Sandoz, from Oracle's Java Platform Group, [called Java "absolutely excellent" for building agents](https://www.youtube.com/watch?v=rL3sWS_8b-g&t=845s), because they resemble systems we have built before. He was also open that inference is harder, and that he cannot yet quantify how well agents write Java. At Devoxx Belgium, Ana-Maria Mihalceanu, also from Oracle, [ran a local model from a single Java class](https://www.youtube.com/watch?v=8dgnng27kMo&t=1067s) through the Foreign Function and Memory API. And Barry Burd is [writing a language model in Java](https://www.youtube.com/watch?v=_yiDvbkUJb8&t=160s) to understand how one works.
+
+None of that is proof, but it leaves me more convinced. Java is a good fit for agents today, and it is becoming a better one for inference. I expect AI agents inside Java applications to become more and more common.
+
+And the language has been quietly getting ready:
+
+- **The type system is a verifier.** [Sealed types](https://openjdk.org/jeps/409) and [pattern matching for `switch`](https://openjdk.org/jeps/441) let the compiler check that every case is handled, as long as the `switch` has no `default`. Add a variant, and the compiler points at the switches to update. That is the safety net you want when an agent, or a colleague, changes code you did not write.
+- **[Virtual threads](https://openjdk.org/jeps/444)** make code that waits on I/O cheap to write in plain, blocking style. Agents spend much of their time waiting on remote calls, so I think they fit well.
+- **The ecosystem is there**, with [Spring AI](https://spring.io/projects/spring-ai) and [LangChain4j](https://docs.langchain4j.dev/) bringing models and agents to the frameworks enterprise teams already use.
+- **Backwards compatibility.** Java breaks it rarely and [carefully](https://www.youtube.com/watch?v=rL3sWS_8b-g&t=383s), which matters when a system has to survive a decade of upgrades.
+
+None of this makes Java the answer to everything. It makes it the right tool for the right problem, and the problem I care about most is software that has to last.
+
+## AI Wrote the Curriculum. I Write the Code.
+
+Here is the part I find most interesting. I did not go back to Java _instead of_ using AI. I used AI to find my way back.
+
+The repository is [java-katas](https://github.com/marcandreuf/java-katas), and it is public. It is practice code: it starts from exercises I wrote between 2014 and 2021, and I use it to update my skills with what has changed in Java since. It is not meant to be an example of clean Java, and I still have plenty to improve in it. The exercises are not about AI so far, either. First I want to do a full review of my Java skills, from Java 8 to the modern versions. I will add agentic exercises later.
+
+I asked Claude Code to analyse that code against the language as it is today, find my knowledge gaps, and build a custom curriculum around them, with theory and exercises that land on my own files. What came back is two tracks:
+
+- **A modernization track**, 35 documents with one concept each, covering the language from Java 8 to Java 26.
+- **A data structures and algorithms track**, twelve stages that focus on the contracts behind the code more than on the algorithms.
+
+The rules are strict, and I like them:
+
+1. **No test, no rewrite.** Before I change an exercise, it gets a test that says what it does today.
+2. **One concept per commit.** The diff is the deliverable.
+3. **Every document ends with "what got worse"**, and I have to answer it. I write my answers as comments in the code, next to the exercise. Knowing where a feature hurt is worth more than knowing its name.
+
+AI did the part it is genuinely brilliant at: reading a lot of material, mapping what I knew against what exists now, and structuring a path through it. I do the part that cannot be delegated if the goal is to actually know it: writing the solutions and the notes, breaking things, and deciding what I think.
+
+I am working through the track in order. Records, pattern matching, switch expressions and `var` are done, and I am in the middle of virtual threads. It is slow. It is also the most fun I have had with code in a long time.
+
+## The Engineer in the Loop
+
+I do not think the future is humans writing every line, and I do not think it is agents writing every line either. The second wave is about augmentation: people and AI working on the same system, each doing what they are good at.
+
+For that to work on software that matters, the human in the loop has to be good. Not good at prompting. Good at the language, the runtime, the contracts and the trade-offs, so they can tell when the generated code is right, when it only looks right, and how to change it when the users ask for something new.
+
+That is what I am rebuilding. One kata, one concept, one commit at a time.
+
+_If you are on a similar path, or think I have this the wrong way round, leave a comment below. The [java-katas repository](https://github.com/marcandreuf/java-katas) is public, so feel free to follow along or borrow the structure for your own gaps. You can also reach me on [LinkedIn](https://www.linkedin.com/in/marcandreuf) or through the [about page](/about)._
+
+_Cover photo: [Modern Workspace with Coding Laptop and Coffee](https://www.pexels.com/photo/modern-workspace-with-coding-laptop-and-coffee-34803979/) by [Daniil Komov](https://www.pexels.com/@dkomov/) on Pexels._
